@@ -1,0 +1,144 @@
+package com.lawzoom.companyservice.serviceImpl;
+
+import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
+import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
+import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
+import com.lawzoom.companyservice.model.teamModel.Team;
+import com.lawzoom.companyservice.repository.TeamMemberRepository;
+import com.lawzoom.companyservice.service.TeamMemberService;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class TeamMemberServiceImpl implements TeamMemberService {
+
+    @Autowired
+    private TeamMemberRepository teamMemberRepository;
+
+    @Override
+    public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest) {
+        TeamMember teamMember = new TeamMember();
+        teamMember.setMemberId(teamMemberRequest.getMemberId());
+        teamMember.setMemberRole(teamMemberRequest.getRole());
+        teamMember.setCreatedAt(teamMemberRequest.getCreatedAt());
+        teamMember.setUpdatedAt(teamMemberRequest.getUpdatedAt());
+        teamMember.setEnable(teamMemberRequest.isEnable());
+        System.out.println("kaushal");
+
+
+        teamMember = teamMemberRepository.save(teamMember);
+
+        TeamMemberResponse teamMemberResponse = new TeamMemberResponse();
+        teamMemberResponse.setId(teamMember.getId());
+        teamMemberResponse.setCreatedAt(teamMember.getCreatedAt());
+        teamMemberResponse.setUpdatedAt(teamMember.getUpdatedAt());
+        teamMemberResponse.setEnable(teamMember.isEnable());
+        System.out.println("kaushal");
+
+        return teamMemberResponse;
+    }
+
+    @Override
+    public TeamMemberResponse updateTeamMember(Long id, TeamMemberRequest teamMemberRequest) {
+        Optional<TeamMember> optionalTeamMember = teamMemberRepository.findById(id);
+
+        if (!optionalTeamMember.isPresent()) {
+
+            String errorMessage = "TeamMember with ID " + id + " not found";
+            throw new EntityNotFoundException(errorMessage);
+        }
+
+        TeamMember teamMember = optionalTeamMember.get();
+        teamMember.setMemberId(teamMemberRequest.getMemberId());
+        teamMember.setMemberRole(teamMemberRequest.getRole());
+        teamMember.setCreatedAt(teamMemberRequest.getCreatedAt());
+        teamMember.setUpdatedAt(teamMemberRequest.getUpdatedAt());
+        teamMember.setEnable(teamMemberRequest.isEnable());
+        System.out.println("kaushal");
+
+
+        teamMember = teamMemberRepository.save(teamMember);
+        System.out.println("kaushal");
+
+        TeamMemberResponse teamMemberResponse = new TeamMemberResponse();
+        teamMemberResponse.setId(teamMember.getId());
+        teamMemberResponse.setCreatedAt(teamMember.getCreatedAt());
+        teamMemberResponse.setUpdatedAt(teamMember.getUpdatedAt());
+        teamMemberResponse.setEnable(teamMember.isEnable());
+        System.out.println("kaushal");
+
+        return teamMemberResponse;
+    }
+
+
+    @Override
+    public List<TeamMemberResponse> getAllTeamMembers() {
+        List<TeamMember> teamMembers = teamMemberRepository.findAll();
+        List<TeamMemberResponse> teamMemberResponses = new ArrayList<>();
+        System.out.println("kaushal");
+
+
+        for (TeamMember teamMember : teamMembers) {
+            TeamMemberResponse teamMemberResponse = new TeamMemberResponse();
+            teamMemberResponse.setId(teamMember.getId());
+            System.out.println("kaushal");
+
+            teamMemberResponse.setCreatedAt(teamMember.getCreatedAt());
+            teamMemberResponse.setUpdatedAt(teamMember.getUpdatedAt());
+            teamMemberResponse.setEnable(teamMember.isEnable());
+
+
+            teamMemberResponses.add(teamMemberResponse);
+        }
+
+        return teamMemberResponses;
+    }
+
+    @Override
+    public TeamMemberResponse getTeamMemberById(Long id) {
+        Optional<TeamMember> optionalTeamMember = teamMemberRepository.findById(id);
+
+        if (!optionalTeamMember.isPresent()) {
+            System.out.println("kaushal");
+            throw new EntityNotFoundException("TeamMember with ID " + id + " not found");
+        }
+
+        TeamMember teamMember = optionalTeamMember.get();
+        TeamMemberResponse teamMemberResponse = new TeamMemberResponse();
+        teamMemberResponse.setId(teamMember.getId());
+
+        System.out.println("kaushal");
+        teamMemberResponse.setCreatedAt(teamMember.getCreatedAt());
+        teamMemberResponse.setUpdatedAt(teamMember.getUpdatedAt());
+        teamMemberResponse.setEnable(teamMember.isEnable());
+
+
+        return teamMemberResponse;
+    }
+
+    @Override
+    public void removeTeamMember(Long memberId) {
+
+        Optional<TeamMember> memberData= teamMemberRepository.findById(memberId);
+
+        if (memberData.isPresent())
+        {
+            TeamMember membertoDelete = memberData.get();
+
+            teamMemberRepository.delete(membertoDelete);
+
+        }
+
+        else {
+            throw new EntityNotFoundException("Member Not present in database");
+        }
+
+    }
+
+}
