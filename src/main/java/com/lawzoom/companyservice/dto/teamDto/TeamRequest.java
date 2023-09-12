@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import java.util.Date;
 
@@ -29,6 +30,16 @@ public class TeamRequest {
 	private Date updatedAt;
 
 	private boolean isEnable;
+
+	@NotNull
+	private String teamLeadName;
+
+	@NotNull
+	private String leadDesignation;
+
+	@NotNull
+	private String teamType;
+
 
 
 

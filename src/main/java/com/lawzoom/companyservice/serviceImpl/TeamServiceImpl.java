@@ -1,6 +1,5 @@
 package com.lawzoom.companyservice.serviceImpl;
 
-import com.lawzoom.companyservice.dto.companyDto.CompanyRequest;
 import com.lawzoom.companyservice.dto.teamDto.TeamRequest;
 import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
 import com.lawzoom.companyservice.model.companyModel.Company;
@@ -10,7 +9,6 @@ import com.lawzoom.companyservice.repository.TeamRepository;
 import com.lawzoom.companyservice.service.TeamService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public TeamResponse createTeam(TeamRequest teamRequest, Long companyId) {
 
-        Optional < Company > companyOptional = companyRepository.findById(companyId);
+        Optional <Company> companyOptional = companyRepository.findById(companyId);
         if (companyOptional.isPresent()) {
             Company company = companyOptional.get();
             try {
@@ -40,11 +38,20 @@ public class TeamServiceImpl implements TeamService {
 
                 team.setTeamName(teamRequest.getTeamName());
                 team.setCompany(company);
+                team.setTeamLeadName(teamRequest.getTeamLeadName());
+                team.setLeadDesignation(teamRequest.getLeadDesignation());
+                team.setTeamType(teamRequest.getTeamType());
+                team.setEnable(teamRequest.isEnable());
+                team.setCreatedAt(teamRequest.getCreatedAt());
+                team.setUpdatedAt(teamRequest.getUpdatedAt());
                 team = teamRepository.save(team);
 
                 TeamResponse teamResponse = new TeamResponse();
 
                 teamResponse.setTeamName(team.getTeamName());
+                teamResponse.setTeamType(team.getTeamType());
+                teamResponse.setTeamLeadName(team.getTeamLeadName());
+                teamResponse.setLeadDesignation(team.getLeadDesignation());
 
                 return teamResponse;
 
@@ -55,7 +62,9 @@ public class TeamServiceImpl implements TeamService {
             }
         }
 
-        return null;
+        else {
+            throw new IllegalArgumentException("Company not available with ID: " + companyId);
+        }
     }
 
     @Override

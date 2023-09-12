@@ -6,6 +6,7 @@ package com.lawzoom.companyservice.dto.teamDto;
 
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 
@@ -29,6 +30,15 @@ public class TeamResponse {
 	private Date updatedAt;
 
 	private boolean isEnable;
+
+	@NotNull
+	private String teamLeadName;
+
+	@NotNull
+	private String leadDesignation;
+
+	@NotNull
+	private String teamType;
 
 
 }
