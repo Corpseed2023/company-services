@@ -9,17 +9,33 @@ import com.lawzoom.companyservice.dto.userDto.UserResponse;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import java.util.Date;
 
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @Getter
 @Setter
 @Builder
 public class TeamMemberResponse {
 
-	private Long id;
+
+	@NonNull
+	@NotBlank
+	private String memberName;
+
+	private String accessType;
+
+	@NonNull
+	@NotBlank
+	private String memberMail;
+
+	@NonNull
+	@NotBlank
+	private String memberMobile;
+
+	private String typeOfResource;
 	
 	private TeamResponse teamResponse;
 	

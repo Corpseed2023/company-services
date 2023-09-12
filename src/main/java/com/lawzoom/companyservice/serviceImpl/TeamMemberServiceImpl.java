@@ -2,9 +2,11 @@ package com.lawzoom.companyservice.serviceImpl;
 
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
+import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.repository.TeamMemberRepository;
+import com.lawzoom.companyservice.repository.TeamRepository;
 import com.lawzoom.companyservice.service.TeamMemberService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,28 +23,58 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     @Autowired
     private TeamMemberRepository teamMemberRepository;
 
+    @Autowired
+    private TeamRepository teamRepository;
+
     @Override
-    public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest) {
-        TeamMember teamMember = new TeamMember();
-        teamMember.setMemberId(teamMemberRequest.getMemberId());
-        teamMember.setMemberRole(teamMemberRequest.getRole());
-        teamMember.setCreatedAt(teamMemberRequest.getCreatedAt());
-        teamMember.setUpdatedAt(teamMemberRequest.getUpdatedAt());
-        teamMember.setEnable(teamMemberRequest.isEnable());
-        System.out.println("kaushal");
+    public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest, Long teamId) {
+
+        Optional<Team> teamSavedData = teamRepository.findById(teamId);
+        if (teamSavedData.isPresent()) {
+            Team teamData = teamSavedData.get();
+
+            try {
+                if (teamMemberRequest == null) {
+                    throw new NullPointerException("Please Enter Team Member Data");
+                }
+                TeamMember teamMember = new TeamMember();
+//                teamMember.setMemberId(teamMemberRequest.getMemberId());
+//                teamMember.setMemberRole(teamMemberRequest.getRole());
+                teamMember.setMemberName(teamMemberRequest.getMemberName());
+                teamMember.setMemberMail(teamMemberRequest.getMemberMail());
+                teamMember.setMemberMobile(teamMemberRequest.getMemberMobile());
+                teamMember.setAccessType(teamMemberRequest.getAccessType());
+                teamMember.setTypeOfResource(teamMemberRequest.getTypeOfResource());
+                teamMember.setCreatedAt(teamMemberRequest.getCreatedAt());
+                teamMember.setUpdatedAt(teamMemberRequest.getUpdatedAt());
+                teamMember.setEnable(teamMemberRequest.isEnable());
+                teamMember.setTeam(teamData);
+                System.out.println("Got Hit");
 
 
-        teamMember = teamMemberRepository.save(teamMember);
+                teamMember = teamMemberRepository.save(teamMember);
 
-        TeamMemberResponse teamMemberResponse = new TeamMemberResponse();
-        teamMemberResponse.setId(teamMember.getId());
-        teamMemberResponse.setCreatedAt(teamMember.getCreatedAt());
-        teamMemberResponse.setUpdatedAt(teamMember.getUpdatedAt());
-        teamMemberResponse.setEnable(teamMember.isEnable());
-        System.out.println("kaushal");
+                TeamMemberResponse teamMemberResponse = new TeamMemberResponse();
+                teamMemberResponse.setMemberMail(teamMember.getMemberMail());
+                teamMemberResponse.setMemberName(teamMember.getMemberName());
+                teamMemberResponse.setCreatedAt(teamMember.getCreatedAt());
+                teamMemberResponse.setUpdatedAt(teamMember.getUpdatedAt());
+                teamMemberResponse.setEnable(teamMember.isEnable());
+                System.out.println("Got Hit");
 
-        return teamMemberResponse;
+                return teamMemberResponse;
+
+            } catch (Exception e) {
+                e.printStackTrace();
+
+                throw new RuntimeException("Failed to create team members");
+            }
+        }
+        else {
+            throw new IllegalArgumentException("Team not found with ID: " + teamId);
+        }
     }
+
 
     @Override
     public TeamMemberResponse updateTeamMember(Long id, TeamMemberRequest teamMemberRequest) {
@@ -55,8 +87,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         }
 
         TeamMember teamMember = optionalTeamMember.get();
-        teamMember.setMemberId(teamMemberRequest.getMemberId());
-        teamMember.setMemberRole(teamMemberRequest.getRole());
+//        teamMember.setMemberId(teamMemberRequest.getMemberId());
+//        teamMember.setMemberRole(teamMemberRequest.getRole());
+        teamMember.setMemberName(teamMemberRequest.getMemberName());
+        teamMember.setMemberMail(teamMemberRequest.getMemberMail());
+        teamMember.setMemberMobile(teamMemberRequest.getMemberMobile());
         teamMember.setCreatedAt(teamMemberRequest.getCreatedAt());
         teamMember.setUpdatedAt(teamMemberRequest.getUpdatedAt());
         teamMember.setEnable(teamMemberRequest.isEnable());
@@ -67,7 +102,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         System.out.println("kaushal");
 
         TeamMemberResponse teamMemberResponse = new TeamMemberResponse();
-        teamMemberResponse.setId(teamMember.getId());
+
         teamMemberResponse.setCreatedAt(teamMember.getCreatedAt());
         teamMemberResponse.setUpdatedAt(teamMember.getUpdatedAt());
         teamMemberResponse.setEnable(teamMember.isEnable());
@@ -86,7 +121,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
         for (TeamMember teamMember : teamMembers) {
             TeamMemberResponse teamMemberResponse = new TeamMemberResponse();
-            teamMemberResponse.setId(teamMember.getId());
             System.out.println("kaushal");
 
             teamMemberResponse.setCreatedAt(teamMember.getCreatedAt());
@@ -111,7 +145,10 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
         TeamMember teamMember = optionalTeamMember.get();
         TeamMemberResponse teamMemberResponse = new TeamMemberResponse();
-        teamMemberResponse.setId(teamMember.getId());
+
+        teamMemberResponse.setMemberName(teamMember.getMemberName());
+        teamMemberResponse.setMemberMobile(teamMember.getMemberMobile());
+        teamMemberResponse.setMemberMail(teamMember.getMemberMail());
 
         System.out.println("kaushal");
         teamMemberResponse.setCreatedAt(teamMember.getCreatedAt());

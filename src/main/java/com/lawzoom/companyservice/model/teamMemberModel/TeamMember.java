@@ -2,6 +2,7 @@ package com.lawzoom.companyservice.model.teamMemberModel;
 
 import com.lawzoom.companyservice.model.teamModel.Team;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.Comment;
 //import javax.persistence.Temporal;
@@ -23,16 +24,29 @@ public class TeamMember {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
-	
-	@ManyToOne(targetEntity = Team.class,fetch = FetchType.LAZY)
-	@JoinColumn(name = "team_id",nullable = false)
-	private Team team;
-	
-	@Column(name = "team_member_id",nullable = false)
-	private Long memberId;
 
-	@Column(name = "member_role",nullable = false)
-	private String memberRole;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "team_id")
+	private Team team;
+
+	@NonNull
+	@NotBlank
+	private String memberName;
+
+	private String accessType;
+
+	@NonNull
+	@NotBlank
+	private String memberMail;
+
+	@NonNull
+	@NotBlank
+	private String memberMobile;
+
+	private String typeOfResource;
+
+//	@Column(name = "member_role",nullable = false)
+//	private String memberRole;
 
 	@Column(name = "created_at")
 	@Temporal(TemporalType.TIMESTAMP)

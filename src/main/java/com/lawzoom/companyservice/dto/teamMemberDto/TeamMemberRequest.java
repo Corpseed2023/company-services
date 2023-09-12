@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 
@@ -21,12 +22,27 @@ import java.util.Date;
 @Builder
 public class TeamMemberRequest {
 
-	private Long id;
 
 	@NonNull
-	private String role;
+	@NotBlank
+	private String memberName;
 
-	private Long memberId;
+	private String accessType;
+
+	@NonNull
+	@NotBlank
+	private String memberMail;
+
+	@NonNull
+	@NotBlank
+	private String memberMobile;
+
+	private String typeOfResource;
+
+//	@NonNull
+//	private String role;
+//
+//	private Long memberId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")

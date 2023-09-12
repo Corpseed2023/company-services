@@ -7,12 +7,10 @@ import java.util.List;
 
 public interface TeamMemberService {
 
-    TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest);
+    TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest,Long teamId);
 
     TeamMemberResponse updateTeamMember(Long id, TeamMemberRequest teamMemberRequest);
-
     List<TeamMemberResponse> getAllTeamMembers();
     TeamMemberResponse getTeamMemberById(Long id);
-
     void removeTeamMember(Long memberId);
 }

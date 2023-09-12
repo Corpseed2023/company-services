@@ -17,16 +17,16 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/company/member")
+@RequestMapping("/company/team/teamMember")
 public class TeamMemberController {
 
     @Autowired
     private TeamMemberService teamMemberService;
 
 
-    @PostMapping("/create")
-    public ResponseEntity<TeamMemberResponse> createTeamMember(@RequestBody TeamMemberRequest teamMemberRequest) {
-        TeamMemberResponse createdTeamMember = teamMemberService.createTeamMember(teamMemberRequest);
+    @PostMapping
+    public ResponseEntity<TeamMemberResponse> createTeamMember(@RequestBody TeamMemberRequest teamMemberRequest, @RequestParam Long teamId) {
+        TeamMemberResponse createdTeamMember = teamMemberService.createTeamMember(teamMemberRequest,teamId);
         return new ResponseEntity<>(createdTeamMember, HttpStatus.CREATED);
     }
 

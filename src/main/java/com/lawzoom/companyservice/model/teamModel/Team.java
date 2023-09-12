@@ -33,6 +33,15 @@
 		@Column(name = "team_name")
 		private String teamName;
 
+		@NotNull
+		private String teamLeadName;
+
+		@NotNull
+		private String leadDesignation;
+
+		@NotNull
+		private String teamType;
+
 		@Column(name = "created_at")
 		@Temporal(TemporalType.TIMESTAMP)
 		private Date createdAt;
@@ -45,7 +54,10 @@
 		@Comment(value = "1 : Active, 0 : Inactive")
 		private boolean isEnable;
 
-		@OneToMany(mappedBy = "team",cascade = CascadeType.ALL,orphanRemoval = true)
-		private List<TeamMember> teamMembers=new ArrayList<>();
+//		@OneToMany(mappedBy = "team",cascade = CascadeType.ALL,orphanRemoval = true)
+//		private List<TeamMember> teamMembers=new ArrayList<>();
+
+		@OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+		private List<TeamMember> teamMembers = new ArrayList<>();
 
 	}
