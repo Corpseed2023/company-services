@@ -1,12 +1,9 @@
 package com.lawzoom.companyservice.controller.teamMemberController;
 
 
-import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
-import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.service.TeamMemberService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

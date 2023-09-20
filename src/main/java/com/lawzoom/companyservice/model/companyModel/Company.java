@@ -54,8 +54,8 @@ public class Company {
 	@Column(name = "company_type")
 	private String companyType;
 	
-	@Column(name = "name")
-	private String name;
+	@Column(name = "companyName")
+	private String companyName;
 		
 	@Column(name = "state")
 	private String state;
@@ -131,7 +131,7 @@ public class Company {
 				", businessActivityEmail='" + businessActivityEmail + '\'' +
 				", designation='" + designation + '\'' +
 				", companyType='" + companyType + '\'' +
-				", name='" + name + '\'' +
+				", companyName='" + companyName + '\'' +
 				", state='" + state + '\'' +
 				", city='" + city + '\'' +
 				", registrationNumber='" + registrationNumber + '\'' +
