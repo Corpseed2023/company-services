@@ -72,7 +72,7 @@ public class CompanyResponse {
 
 //    private List<GstResponse> gstResponseList;
 
-    private int businessUnits;
+//    private int businessUnits;
 
     private String gstNumber;
 

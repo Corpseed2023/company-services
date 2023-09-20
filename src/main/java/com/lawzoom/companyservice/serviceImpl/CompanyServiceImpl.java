@@ -27,6 +27,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyResponse createCompany(CompanyRequest companyRequest) {
+
         Company company = new Company();
 
         company.setFirstName(companyRequest.getFirstName());
@@ -47,17 +48,52 @@ public class CompanyServiceImpl implements CompanyService {
         company.setLocatedAt(companyRequest.getLocatedAt());
         company.setState(companyRequest.getCompanyState());
         company.setPinCode(companyRequest.getCompanyPinCode());
+        company.setPermanentEmployee(companyRequest.getPermanentEmployee());
+        company.setRegistrationNumber(companyRequest.getCompanyRegistrationNumber());
+        company.setRegistrationDate(companyRequest.getCompanyRegistrationDate());
+        company.setCinNumber(companyRequest.getCompanyCINNumber());
+        company.setRemarks(companyRequest.getCompanyRemarks());
+        company.setUpdatedAt(companyRequest.getUpdatedAt());
+        company.setOperationUnitAddress(companyRequest.getOperationUnitAddress());
+        company.setTurnover(companyRequest.getCompanyTurnover());
 
         company = companyRepository.save(company);
 
         CompanyResponse companyResponse = new CompanyResponse();
+        companyResponse.setCompanyId(company.getId());
         companyResponse.setFirstName(company.getFirstName());
         companyResponse.setLastName(company.getLastName());
-        companyResponse.setCompanyName(company.getCompanyName());
+        companyResponse.setCompanyType(company.getCompanyType());
         companyResponse.setCompanyCINNumber(company.getCinNumber());
+        companyResponse.setCompanyRegistrationNumber(company.getRegistrationNumber());
+        companyResponse.setCompanyRegistrationDate(company.getRegistrationDate());
+        companyResponse.setCompanyRemarks(company.getRemarks());
+        companyResponse.setCompanyPinCode(company.getPinCode());
+        companyResponse.setCompanyAddress(company.getAddress());
+        companyResponse.setLocatedAt(company.getLocatedAt());
+        companyResponse.setCreatedAt(company.getCreatedAt());
+        companyResponse.setUpdatedAt(company.getUpdatedAt());
+        companyResponse.setEnable(company.isEnable());
+        companyResponse.setBusinessActivity(company.getBusinessActivity());
+        companyResponse.setPermanentEmployee(company.getPermanentEmployee());
+        companyResponse.setContractEmployee(company.getContractEmployee());
+        companyResponse.setGstNumber(company.getGstNumber());
+        companyResponse.setCompanyName(company.getCompanyName());
+        companyResponse.setBusinessActivityEmail(company.getBusinessActivityEmail());
+        companyResponse.setDesignation(company.getDesignation());
+        companyResponse.setCompanyState(company.getState());
+        companyResponse.setCompanyCity(company.getCity());
+        companyResponse.setCompanyRegistrationNumber(company.getRegistrationNumber());
+        companyResponse.setCompanyRegistrationDate(company.getRegistrationDate());
+        companyResponse.setCompanyCINNumber(company.getCinNumber());
+        companyResponse.setCompanyRemarks(company.getRemarks());
+        companyResponse.setUpdatedAt(company.getUpdatedAt());
+        companyResponse.setOperationUnitAddress(company.getOperationUnitAddress());
+        companyResponse.setCompanyTurnover(company.getTurnover());
 
         return companyResponse;
     }
+
 
     @Override
     public List<CompanyResponse> getAllCompanies() {
@@ -107,14 +143,35 @@ public class CompanyServiceImpl implements CompanyService {
 
         CompanyResponse companyResponse = new CompanyResponse();
 
+        companyResponse.setCompanyId(company.getId());
+        companyResponse.setCompanyType(company.getCompanyType());
         companyResponse.setCompanyName(company.getCompanyName());
-        companyResponse.setCompanyCINNumber(company.getCinNumber());
         companyResponse.setFirstName(company.getFirstName());
         companyResponse.setLastName(company.getLastName());
         companyResponse.setBusinessActivityEmail(company.getBusinessActivityEmail());
+        companyResponse.setDesignation(company.getDesignation());
+        companyResponse.setCompanyState(company.getState());
+        companyResponse.setCompanyCity(company.getCity());
+        companyResponse.setCompanyRegistrationNumber(company.getRegistrationNumber());
+        companyResponse.setCompanyRegistrationDate(company.getRegistrationDate());
+        companyResponse.setCompanyCINNumber(company.getCinNumber());
+        companyResponse.setCompanyRemarks(company.getRemarks());
+        companyResponse.setCompanyPinCode(company.getPinCode());
+        companyResponse.setCompanyAddress(company.getAddress());
+        companyResponse.setCompanyTurnover(company.getTurnover());
+        companyResponse.setLocatedAt(company.getLocatedAt());
+        companyResponse.setCreatedAt(company.getCreatedAt());
+        companyResponse.setUpdatedAt(company.getUpdatedAt());
+        companyResponse.setEnable(company.isEnable());
+        companyResponse.setBusinessActivity(company.getBusinessActivity());
+        companyResponse.setPermanentEmployee(company.getPermanentEmployee());
+        companyResponse.setContractEmployee(company.getContractEmployee());
+        companyResponse.setGstNumber(company.getGstNumber());
+        companyResponse.setOperationUnitAddress(company.getOperationUnitAddress());
 
         return companyResponse;
     }
+
 
     @Override
     public CompanyResponse updateCompany(CompanyRequest companyRequest) {
