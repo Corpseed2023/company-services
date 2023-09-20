@@ -33,13 +33,27 @@ public class CompanyServiceImpl implements CompanyService {
         company.setLastName(companyRequest.getLastName());
         company.setCompanyType(companyRequest.getCompanyType());
         company.setCinNumber(companyRequest.getCompanyCINNumber());
+        company.setBusinessActivityEmail(companyRequest.getBusinessActivityEmail());
+        company.setCompanyName(companyRequest.getCompanyName());
+        company.setCity(companyRequest.getCompanyCity());
+        company.setAddress(companyRequest.getCompanyAddress());
+        company.setDesignation(companyRequest.getDesignation());
+        company.setContractEmployee(companyRequest.getContractEmployee());
+        company.setCreatedAt(companyRequest.getCreatedAt());
+        company.setTurnover(companyRequest.getCompanyTurnover());
+        company.setGstNumber(companyRequest.getGstNumber());
+        company.setBusinessActivity(companyRequest.getBusinessActivity());
+        company.setEnable(companyRequest.isEnable());
+        company.setLocatedAt(companyRequest.getLocatedAt());
+        company.setState(companyRequest.getCompanyState());
+        company.setPinCode(companyRequest.getCompanyPinCode());
 
         company = companyRepository.save(company);
 
         CompanyResponse companyResponse = new CompanyResponse();
         companyResponse.setFirstName(company.getFirstName());
         companyResponse.setLastName(company.getLastName());
-        companyResponse.setCompanyName(company.getName());
+        companyResponse.setCompanyName(company.getCompanyName());
         companyResponse.setCompanyCINNumber(company.getCinNumber());
 
         return companyResponse;
@@ -54,7 +68,7 @@ public class CompanyServiceImpl implements CompanyService {
             CompanyResponse response = new CompanyResponse();
             response.setCompanyId(company.getId());
             response.setCompanyType(company.getCompanyType());
-            response.setCompanyName(company.getName());
+            response.setCompanyName(company.getCompanyName());
             response.setFirstName(company.getFirstName());
             response.setLastName(company.getLastName());
             response.setBusinessActivityEmail(company.getBusinessActivityEmail());
@@ -93,7 +107,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         CompanyResponse companyResponse = new CompanyResponse();
 
-        companyResponse.setCompanyName(company.getName());
+        companyResponse.setCompanyName(company.getCompanyName());
         companyResponse.setCompanyCINNumber(company.getCinNumber());
         companyResponse.setFirstName(company.getFirstName());
         companyResponse.setLastName(company.getLastName());
@@ -110,7 +124,7 @@ public class CompanyServiceImpl implements CompanyService {
         if (company != null) {
             Company companyData = company.get();
 
-            companyData.setName(companyRequest.getCompanyName());
+            companyData.setCompanyName(companyRequest.getCompanyName());
             companyData.setAddress(companyRequest.getCompanyAddress());
             companyData.setCompanyType(companyRequest.getCompanyType());
             companyData.setBusinessActivityEmail(companyRequest.getBusinessActivityEmail());
