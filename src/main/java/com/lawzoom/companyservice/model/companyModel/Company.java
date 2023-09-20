@@ -100,7 +100,6 @@ public class Company {
 	@Column(name="gst_no")
 	private String gstNumber;
 
-	@Column(name = "operation_unit_address")
 	private String operationUnitAddress;
 
 	@Temporal(TemporalType.TIMESTAMP)
