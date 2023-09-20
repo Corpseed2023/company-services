@@ -47,17 +47,35 @@ public class CompanyServiceImpl implements CompanyService {
         company.setLocatedAt(companyRequest.getLocatedAt());
         company.setState(companyRequest.getCompanyState());
         company.setPinCode(companyRequest.getCompanyPinCode());
+        company.setPermanentEmployee(companyRequest.getPermanentEmployee());
 
         company = companyRepository.save(company);
 
         CompanyResponse companyResponse = new CompanyResponse();
+        companyResponse.setCompanyId(company.getId());
         companyResponse.setFirstName(company.getFirstName());
         companyResponse.setLastName(company.getLastName());
-        companyResponse.setCompanyName(company.getCompanyName());
+        companyResponse.setCompanyType(company.getCompanyType());
         companyResponse.setCompanyCINNumber(company.getCinNumber());
+        companyResponse.setCompanyRegistrationNumber(company.getRegistrationNumber());
+        companyResponse.setCompanyRegistrationDate(company.getRegistrationDate());
+        companyResponse.setCompanyRemarks(company.getRemarks());
+        companyResponse.setCompanyPinCode(company.getPinCode());
+        companyResponse.setCompanyAddress(company.getAddress());
+        companyResponse.setLocatedAt(company.getLocatedAt());
+        companyResponse.setCreatedAt(company.getCreatedAt());
+        companyResponse.setUpdatedAt(company.getUpdatedAt());
+        companyResponse.setEnable(company.isEnable());
+        companyResponse.setBusinessActivity(company.getBusinessActivity());
+        companyResponse.setPermanentEmployee(company.getPermanentEmployee());
+        companyResponse.setContractEmployee(company.getContractEmployee());
+        companyResponse.setGstNumber(company.getGstNumber());
+        companyResponse.setOperationUnitAddress(company.getOperationUnitAddress());
+
 
         return companyResponse;
     }
+
 
     @Override
     public List<CompanyResponse> getAllCompanies() {
