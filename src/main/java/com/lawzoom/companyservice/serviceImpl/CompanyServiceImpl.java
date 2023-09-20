@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,7 +41,8 @@ public class CompanyServiceImpl implements CompanyService {
         company.setAddress(companyRequest.getCompanyAddress());
         company.setDesignation(companyRequest.getDesignation());
         company.setContractEmployee(companyRequest.getContractEmployee());
-        company.setCreatedAt(companyRequest.getCreatedAt());
+        company.setCreatedAt (new Date());
+        company.setUpdatedAt (new Date());
         company.setTurnover(companyRequest.getCompanyTurnover());
         company.setGstNumber(companyRequest.getGstNumber());
         company.setBusinessActivity(companyRequest.getBusinessActivity());
@@ -53,7 +55,6 @@ public class CompanyServiceImpl implements CompanyService {
         company.setRegistrationDate(companyRequest.getCompanyRegistrationDate());
         company.setCinNumber(companyRequest.getCompanyCINNumber());
         company.setRemarks(companyRequest.getCompanyRemarks());
-        company.setUpdatedAt(companyRequest.getUpdatedAt());
         company.setOperationUnitAddress(companyRequest.getOperationUnitAddress());
         company.setTurnover(companyRequest.getCompanyTurnover());
 
@@ -119,8 +120,8 @@ public class CompanyServiceImpl implements CompanyService {
             response.setCompanyAddress(company.getAddress());
             response.setCompanyTurnover(company.getTurnover());
             response.setLocatedAt(company.getLocatedAt());
-            response.setCreatedAt(company.getCreatedAt());
-            response.setUpdatedAt(company.getUpdatedAt());
+            company.setCreatedAt (new Date());
+            company.setUpdatedAt (new Date());
             response.setEnable(company.isEnable());
             response.setBusinessActivity(company.getBusinessActivity());
             response.setPermanentEmployee(company.getPermanentEmployee());
@@ -160,8 +161,8 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setCompanyAddress(company.getAddress());
         companyResponse.setCompanyTurnover(company.getTurnover());
         companyResponse.setLocatedAt(company.getLocatedAt());
-        companyResponse.setCreatedAt(company.getCreatedAt());
-        companyResponse.setUpdatedAt(company.getUpdatedAt());
+        company.setCreatedAt (new Date());
+        company.setUpdatedAt (new Date());
         companyResponse.setEnable(company.isEnable());
         companyResponse.setBusinessActivity(company.getBusinessActivity());
         companyResponse.setPermanentEmployee(company.getPermanentEmployee());
@@ -175,30 +176,70 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyResponse updateCompany(CompanyRequest companyRequest) {
+        Optional<Company> companyOptional = companyRepository.findById(companyRequest.getCompanyId());
 
-        Optional<Company> company = companyRepository.findById(companyRequest.getCompanyId());
-
-        if (company != null) {
-            Company companyData = company.get();
+        if (companyOptional.isPresent()) {
+            Company companyData = companyOptional.get();
 
             companyData.setCompanyName(companyRequest.getCompanyName());
             companyData.setAddress(companyRequest.getCompanyAddress());
             companyData.setCompanyType(companyRequest.getCompanyType());
             companyData.setBusinessActivityEmail(companyRequest.getBusinessActivityEmail());
+            companyData.setFirstName(companyRequest.getFirstName());
+            companyData.setLastName(companyRequest.getLastName());
+            companyData.setState(companyRequest.getCompanyState());
+            companyData.setCity(companyRequest.getCompanyCity());
+            companyData.setRegistrationNumber(companyRequest.getCompanyRegistrationNumber());
+            companyData.setRegistrationDate(companyRequest.getCompanyRegistrationDate());
+            companyData.setCinNumber(companyRequest.getCompanyCINNumber());
+            companyData.setRemarks(companyRequest.getCompanyRemarks());
+            companyData.setPinCode(companyRequest.getCompanyPinCode());
+            companyData.setTurnover(companyRequest.getCompanyTurnover());
+            companyData.setLocatedAt(companyRequest.getLocatedAt());
+            companyData.setCreatedAt(companyRequest.getCreatedAt());
+            companyData.setUpdatedAt(companyRequest.getUpdatedAt());
+            companyData.setEnable(companyRequest.isEnable());
+            companyData.setBusinessActivity(companyRequest.getBusinessActivity());
+            companyData.setPermanentEmployee(companyRequest.getPermanentEmployee());
+            companyData.setContractEmployee(companyRequest.getContractEmployee());
+            companyData.setGstNumber(companyRequest.getGstNumber());
+            companyData.setOperationUnitAddress(companyRequest.getOperationUnitAddress());
 
-            Company savedData= this.companyRepository.save(companyData);
+            Company savedData = companyRepository.save(companyData);
 
             CompanyResponse companyResponse = new CompanyResponse();
+            companyResponse.setCompanyId(savedData.getId());
+            companyResponse.setCompanyName(savedData.getCompanyName());
+            companyResponse.setCompanyAddress(savedData.getAddress());
+            companyResponse.setCompanyType(savedData.getCompanyType());
+            companyResponse.setBusinessActivityEmail(savedData.getBusinessActivityEmail());
+            companyResponse.setFirstName(savedData.getFirstName());
+            companyResponse.setLastName(savedData.getLastName());
+            companyResponse.setCompanyState(savedData.getState());
+            companyResponse.setCompanyCity(savedData.getCity());
+            companyResponse.setCompanyRegistrationNumber(savedData.getRegistrationNumber());
+            companyResponse.setCompanyRegistrationDate(savedData.getRegistrationDate());
+            companyResponse.setCompanyCINNumber(savedData.getCinNumber());
+            companyResponse.setCompanyRemarks(savedData.getRemarks());
+            companyResponse.setCompanyPinCode(savedData.getPinCode());
+            companyResponse.setCompanyTurnover(savedData.getTurnover());
+            companyResponse.setLocatedAt(savedData.getLocatedAt());
+            companyResponse.setCreatedAt(savedData.getCreatedAt());
+            companyResponse.setUpdatedAt(savedData.getUpdatedAt());
+            companyResponse.setEnable(savedData.isEnable());
+            companyResponse.setBusinessActivity(savedData.getBusinessActivity());
+            companyResponse.setPermanentEmployee(savedData.getPermanentEmployee());
+            companyResponse.setContractEmployee(savedData.getContractEmployee());
+            companyResponse.setGstNumber(savedData.getGstNumber());
+            companyResponse.setOperationUnitAddress(savedData.getOperationUnitAddress());
 
-            companyResponse.setCompanyAddress(companyData.getAddress());
-            companyResponse.setCompanyAddress(companyData.getAddress());
-            companyResponse.setCompanyType(companyData.getCompanyType());
 
             return companyResponse;
-
         }
+
         return null;
     }
+
 
     @Override
     public void deleteCompany(Long id) throws CompanyNotFoundException {
