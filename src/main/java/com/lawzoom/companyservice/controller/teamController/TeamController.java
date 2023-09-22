@@ -28,13 +28,13 @@ public class TeamController {
         return new ResponseEntity<>(teamResponse, HttpStatus.CREATED);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/allTeams")
     public ResponseEntity<List<TeamResponse>> getAllTeams(@RequestParam Long companyId) {
         List<TeamResponse> teams = teamService.getAllTeams(companyId);
         return new ResponseEntity<>(teams, HttpStatus.OK);
     }
 
-    @GetMapping("/fetchTeam")
+    @GetMapping("/team")
     public ResponseEntity<TeamResponse> getTeamById(@RequestParam Long teamId) {
         TeamResponse teamResponse = teamService.getTeamById(teamId);
         return new ResponseEntity<>(teamResponse, HttpStatus.OK);

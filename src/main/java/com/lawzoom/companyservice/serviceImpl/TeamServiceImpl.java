@@ -80,7 +80,10 @@ public class TeamServiceImpl implements TeamService {
             teamResponse.setCreatedAt(team.getCreatedAt());
             teamResponse.setUpdatedAt(team.getUpdatedAt());
             teamResponse.setEnable(team.isEnable());
-
+            teamResponse.setTeamName(team.getTeamName());
+            teamResponse.setTeamType(team.getTeamType());
+            teamResponse.setTeamLeadName(team.getTeamLeadName());
+            teamResponse.setLeadDesignation(team.getLeadDesignation());
             teamResponses.add(teamResponse);
         }
 
@@ -89,6 +92,7 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public TeamResponse getTeamById(Long teamId) {
+
         Optional<Team> optionalTeam = teamRepository.findById(teamId);
         if (optionalTeam.isPresent()) {
             Team team = optionalTeam.get();
