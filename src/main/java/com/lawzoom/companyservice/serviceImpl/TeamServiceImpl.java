@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,8 +43,8 @@ public class TeamServiceImpl implements TeamService {
                 team.setLeadDesignation(teamRequest.getLeadDesignation());
                 team.setTeamType(teamRequest.getTeamType());
                 team.setEnable(teamRequest.isEnable());
-                team.setCreatedAt(teamRequest.getCreatedAt());
-                team.setUpdatedAt(teamRequest.getUpdatedAt());
+                team.setCreatedAt(new Date());
+                team.setUpdatedAt(new Date());
                 team = teamRepository.save(team);
 
                 TeamResponse teamResponse = new TeamResponse();
@@ -52,6 +53,8 @@ public class TeamServiceImpl implements TeamService {
                 teamResponse.setTeamType(team.getTeamType());
                 teamResponse.setTeamLeadName(team.getTeamLeadName());
                 teamResponse.setLeadDesignation(team.getLeadDesignation());
+                teamResponse.setCreatedAt(team.getCreatedAt());
+                teamResponse.setUpdatedAt(team.getUpdatedAt());
 
                 return teamResponse;
 
@@ -67,9 +70,8 @@ public class TeamServiceImpl implements TeamService {
         }
     }
 
-    @Override
-    public List<TeamResponse> getAllTeams() {
-        List<Team> teams = teamRepository.findAll();
+    public List<TeamResponse> getAllTeams(Long companyId) {
+        List<Team> teams = teamRepository.findAllByCompanyId(companyId);
         List<TeamResponse> teamResponses = new ArrayList<>();
 
         for (Team team : teams) {

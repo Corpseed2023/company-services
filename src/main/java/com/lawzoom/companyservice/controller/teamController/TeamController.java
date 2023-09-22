@@ -29,26 +29,26 @@ public class TeamController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<TeamResponse>> getAllTeams() {
-        List<TeamResponse> teams = teamService.getAllTeams();
+    public ResponseEntity<List<TeamResponse>> getAllTeams(@RequestParam Long companyId) {
+        List<TeamResponse> teams = teamService.getAllTeams(companyId);
         return new ResponseEntity<>(teams, HttpStatus.OK);
     }
 
     @GetMapping("/fetchTeam")
-    public ResponseEntity<TeamResponse> getTeamById(@PathVariable Long teamId) {
+    public ResponseEntity<TeamResponse> getTeamById(@RequestParam Long teamId) {
         TeamResponse teamResponse = teamService.getTeamById(teamId);
         return new ResponseEntity<>(teamResponse, HttpStatus.OK);
     }
 
     @PutMapping("/updateTeam")
-    public ResponseEntity<TeamResponse> updateTeam( @PathVariable Long teamId,
+    public ResponseEntity<TeamResponse> updateTeam( @RequestParam Long teamId,
                                                     @RequestBody TeamRequest teamRequest
     ) {
         TeamResponse updatedTeam = teamService.updateTeam(teamId, teamRequest);
         return new ResponseEntity<>(updatedTeam, HttpStatus.OK);
     }
 
-    @DeleteMapping("removeCompany")
+    @DeleteMapping("/deleteTeam")
     public ResponseEntity<Void> deleteTeamById(@RequestParam Long teamId) {
         teamService.deleteTeamById(teamId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
