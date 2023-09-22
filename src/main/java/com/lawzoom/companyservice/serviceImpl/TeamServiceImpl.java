@@ -55,6 +55,7 @@ public class TeamServiceImpl implements TeamService {
                 teamResponse.setLeadDesignation(team.getLeadDesignation());
                 teamResponse.setCreatedAt(team.getCreatedAt());
                 teamResponse.setUpdatedAt(team.getUpdatedAt());
+                teamResponse.setId(team.getId());
 
                 return teamResponse;
 
@@ -84,6 +85,8 @@ public class TeamServiceImpl implements TeamService {
             teamResponse.setTeamType(team.getTeamType());
             teamResponse.setTeamLeadName(team.getTeamLeadName());
             teamResponse.setLeadDesignation(team.getLeadDesignation());
+            teamResponse.setId(team.getId());
+
             teamResponses.add(teamResponse);
         }
 

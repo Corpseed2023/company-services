@@ -15,13 +15,13 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/company")
-public class 	CompanyController {
+@RequestMapping("api/v1/company")
+public class CompanyController {
 
     @Autowired
-   private CompanyService companyService;
+    private CompanyService companyService;
 
-    @PostMapping
+    @PostMapping("/addCompany")
     public ResponseEntity<CompanyResponse> createCompany(@RequestBody CompanyRequest companyRequest) {
         CompanyResponse companyResponse = companyService.createCompany(companyRequest);
         return new ResponseEntity<>(companyResponse, HttpStatus.CREATED);

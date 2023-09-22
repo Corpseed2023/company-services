@@ -21,6 +21,8 @@ import java.util.Date;
 public class TeamResponse {
 
 
+	private Long id;
+
 	private String teamName;
 
 	@Temporal(TemporalType.TIMESTAMP)

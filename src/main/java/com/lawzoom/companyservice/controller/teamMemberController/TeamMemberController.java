@@ -14,20 +14,22 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/company/team/teamMember")
+//@RequestMapping("/company/team/teamMember")
+@RequestMapping("api/v1/company/team/teamMember")
+
 public class TeamMemberController {
 
     @Autowired
     private TeamMemberService teamMemberService;
 
 
-    @PostMapping
+    @PostMapping("/addTeamMember")
     public ResponseEntity<TeamMemberResponse> createTeamMember(@RequestBody TeamMemberRequest teamMemberRequest, @RequestParam Long teamId) {
         TeamMemberResponse createdTeamMember = teamMemberService.createTeamMember(teamMemberRequest,teamId);
         return new ResponseEntity<>(createdTeamMember, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/updateTeamMember")
     public ResponseEntity<TeamMemberResponse> updateTeamMember(
             @RequestParam Long id,
             @RequestBody TeamMemberRequest teamMemberRequest) {

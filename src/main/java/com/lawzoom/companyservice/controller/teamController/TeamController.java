@@ -15,14 +15,16 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/company/team")
+//@RequestMapping("/company/team")
+@RequestMapping("/api/v1/company/team")
+
 public class TeamController {
 
     @Autowired
     private TeamService teamService;
 
-    @PostMapping("/save")
-    public ResponseEntity saveTeam(@Valid @RequestBody TeamRequest teamRequest, @RequestParam Long companyId){
+    @PostMapping("/addTeam")
+    public ResponseEntity createTeam(@Valid @RequestBody TeamRequest teamRequest, @RequestParam Long companyId){
 
         TeamResponse teamResponse = teamService.createTeam(teamRequest,companyId);
         return new ResponseEntity<>(teamResponse, HttpStatus.CREATED);
