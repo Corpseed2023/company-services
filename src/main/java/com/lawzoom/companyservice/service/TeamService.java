@@ -13,7 +13,7 @@ public interface TeamService {
 
     TeamResponse updateTeam(Long teamId, TeamRequest teamRequest);
 
-    List<TeamResponse> getAllTeams();
+    List<TeamResponse> getAllTeams(Long companyId);
 
     TeamResponse getTeamById(Long teamId);
 
