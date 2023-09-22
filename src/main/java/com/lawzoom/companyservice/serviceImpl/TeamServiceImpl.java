@@ -77,8 +77,8 @@ public class TeamServiceImpl implements TeamService {
         for (Team team : teams) {
             TeamResponse teamResponse = new TeamResponse();
             teamResponse.setTeamName(team.getTeamName());
-            teamResponse.setCreatedAt(team.getCreatedAt());
-            teamResponse.setUpdatedAt(team.getUpdatedAt());
+            teamResponse.setCreatedAt(new Date());
+            teamResponse.setUpdatedAt(new Date());
             teamResponse.setEnable(team.isEnable());
             teamResponse.setTeamName(team.getTeamName());
             teamResponse.setTeamType(team.getTeamType());
@@ -94,6 +94,7 @@ public class TeamServiceImpl implements TeamService {
     public TeamResponse getTeamById(Long teamId) {
 
         Optional<Team> optionalTeam = teamRepository.findById(teamId);
+
         if (optionalTeam.isPresent()) {
             Team team = optionalTeam.get();
             TeamResponse teamResponse = new TeamResponse();
