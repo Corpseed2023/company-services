@@ -22,7 +22,6 @@ public class TeamMemberController {
     @Autowired
     private TeamMemberService teamMemberService;
 
-
     @PostMapping("/addTeamMember")
     public ResponseEntity<TeamMemberResponse> createTeamMember(@RequestBody TeamMemberRequest teamMemberRequest, @RequestParam Long teamId) {
         TeamMemberResponse createdTeamMember = teamMemberService.createTeamMember(teamMemberRequest,teamId);
@@ -39,8 +38,8 @@ public class TeamMemberController {
 
 
     @GetMapping("/getAllTeamMembers")
-    public ResponseEntity<List<TeamMemberResponse>> getAllTeamMembers() {
-        List<TeamMemberResponse> allTeamMembers = teamMemberService.getAllTeamMembers();
+    public ResponseEntity<List<TeamMemberResponse>> getAllTeamMembers(Long teamId) {
+        List<TeamMemberResponse> allTeamMembers = teamMemberService.getAllTeamMembers(teamId);
         return new ResponseEntity<>(allTeamMembers, HttpStatus.OK);
     }
 
