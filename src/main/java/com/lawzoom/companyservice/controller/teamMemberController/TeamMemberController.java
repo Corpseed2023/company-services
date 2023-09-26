@@ -15,7 +15,9 @@ import java.util.List;
 @CrossOrigin
 @RestController
 //@RequestMapping("/company/team/teamMember")
-@RequestMapping("api/v1/company/team/teamMember")
+//@RequestMapping("api/v1/company/team/teamMember")
+@RequestMapping("/companyServices/company/team/members")
+
 
 public class TeamMemberController {
 
