@@ -14,20 +14,23 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/company/team/teamMember")
+//@RequestMapping("/company/team/teamMember")
+//@RequestMapping("api/v1/company/team/teamMember")
+@RequestMapping("/companyServices/company/team/members")
+
+
 public class TeamMemberController {
 
     @Autowired
     private TeamMemberService teamMemberService;
 
-
-    @PostMapping
+    @PostMapping("/addTeamMember")
     public ResponseEntity<TeamMemberResponse> createTeamMember(@RequestBody TeamMemberRequest teamMemberRequest, @RequestParam Long teamId) {
         TeamMemberResponse createdTeamMember = teamMemberService.createTeamMember(teamMemberRequest,teamId);
         return new ResponseEntity<>(createdTeamMember, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/updateTeamMember")
     public ResponseEntity<TeamMemberResponse> updateTeamMember(
             @RequestParam Long id,
             @RequestBody TeamMemberRequest teamMemberRequest) {
@@ -37,8 +40,8 @@ public class TeamMemberController {
 
 
     @GetMapping("/getAllTeamMembers")
-    public ResponseEntity<List<TeamMemberResponse>> getAllTeamMembers() {
-        List<TeamMemberResponse> allTeamMembers = teamMemberService.getAllTeamMembers();
+    public ResponseEntity<List<TeamMemberResponse>> getAllTeamMembers(Long teamId) {
+        List<TeamMemberResponse> allTeamMembers = teamMemberService.getAllTeamMembers(teamId);
         return new ResponseEntity<>(allTeamMembers, HttpStatus.OK);
     }
 

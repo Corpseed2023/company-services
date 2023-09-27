@@ -19,7 +19,9 @@ import java.util.Date;
 @Builder
 public class CompanyRequest {
 
-    private Long companyId;
+//    private Long companyId;
+
+//    private Long userId;
 
     private String companyType;
 

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,8 +46,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMember.setMemberMobile(teamMemberRequest.getMemberMobile());
                 teamMember.setAccessType(teamMemberRequest.getAccessType());
                 teamMember.setTypeOfResource(teamMemberRequest.getTypeOfResource());
-                teamMember.setCreatedAt(teamMemberRequest.getCreatedAt());
-                teamMember.setUpdatedAt(teamMemberRequest.getUpdatedAt());
+                teamMember.setCreatedAt(new Date());
+                teamMember.setUpdatedAt(new Date());
                 teamMember.setEnable(teamMemberRequest.isEnable());
                 teamMember.setTeam(teamData);
                 System.out.println("Got Hit");
@@ -60,6 +61,10 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMemberResponse.setCreatedAt(teamMember.getCreatedAt());
                 teamMemberResponse.setUpdatedAt(teamMember.getUpdatedAt());
                 teamMemberResponse.setEnable(teamMember.isEnable());
+                teamMemberResponse.setAccessType(teamMember.getAccessType());
+                teamMemberResponse.setMemberMobile(teamMember.getMemberMobile());
+                teamMemberResponse.setTypeOfResource(teamMember.getTypeOfResource());
+
                 System.out.println("Got Hit");
 
                 return teamMemberResponse;
@@ -92,20 +97,28 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         teamMember.setMemberName(teamMemberRequest.getMemberName());
         teamMember.setMemberMail(teamMemberRequest.getMemberMail());
         teamMember.setMemberMobile(teamMemberRequest.getMemberMobile());
-        teamMember.setCreatedAt(teamMemberRequest.getCreatedAt());
-        teamMember.setUpdatedAt(teamMemberRequest.getUpdatedAt());
+        teamMember.setCreatedAt(new Date());
+        teamMember.setUpdatedAt(new Date());
+        teamMember.setAccessType(teamMemberRequest.getAccessType());
         teamMember.setEnable(teamMemberRequest.isEnable());
-        System.out.println("kaushal");
+        teamMember.setTypeOfResource(teamMemberRequest.getTypeOfResource());
 
 
         teamMember = teamMemberRepository.save(teamMember);
-        System.out.println("kaushal");
+//        System.out.println("kaushal");
 
         TeamMemberResponse teamMemberResponse = new TeamMemberResponse();
 
         teamMemberResponse.setCreatedAt(teamMember.getCreatedAt());
         teamMemberResponse.setUpdatedAt(teamMember.getUpdatedAt());
         teamMemberResponse.setEnable(teamMember.isEnable());
+        teamMemberResponse.setMemberMail(teamMember.getMemberMail());
+        teamMemberResponse.setMemberMobile(teamMember.getMemberMobile());
+        teamMemberResponse.setAccessType(teamMember.getAccessType());
+        teamMemberResponse.setMemberName(teamMember.getMemberName());
+
+
+
         System.out.println("kaushal");
 
         return teamMemberResponse;
@@ -113,8 +126,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
 
     @Override
-    public List<TeamMemberResponse> getAllTeamMembers() {
-        List<TeamMember> teamMembers = teamMemberRepository.findAll();
+    public List<TeamMemberResponse> getAllTeamMembers(Long teamId) {
+        List<TeamMember> teamMembers = teamMemberRepository.findAllByTeamId(teamId);
         List<TeamMemberResponse> teamMemberResponses = new ArrayList<>();
         System.out.println("kaushal");
 
@@ -126,7 +139,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             teamMemberResponse.setCreatedAt(teamMember.getCreatedAt());
             teamMemberResponse.setUpdatedAt(teamMember.getUpdatedAt());
             teamMemberResponse.setEnable(teamMember.isEnable());
-
+            teamMemberResponse.setMemberName(teamMember.getMemberName());
+            teamMemberResponse.setMemberMobile(teamMember.getMemberMobile());
+            teamMemberResponse.setMemberMail(teamMember.getMemberMail());
+            teamMemberResponse.setEnable(teamMember.isEnable());
+            teamMemberResponse.setAccessType(teamMember.getAccessType());
 
             teamMemberResponses.add(teamMemberResponse);
         }

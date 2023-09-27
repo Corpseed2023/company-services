@@ -15,26 +15,30 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/company/team")
+//@RequestMapping("/company/team")
+//@RequestMapping("/api/v1/company/team")
+@RequestMapping("/companyServices/company/team")
+
+
 public class TeamController {
 
     @Autowired
     private TeamService teamService;
 
-    @PostMapping("/save")
-    public ResponseEntity saveTeam(@Valid @RequestBody TeamRequest teamRequest, @RequestParam Long companyId){
+    @PostMapping("/addTeam")
+    public ResponseEntity createTeam(@Valid @RequestBody TeamRequest teamRequest, @RequestParam Long companyId){
 
         TeamResponse teamResponse = teamService.createTeam(teamRequest,companyId);
         return new ResponseEntity<>(teamResponse, HttpStatus.CREATED);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/allTeams")
     public ResponseEntity<List<TeamResponse>> getAllTeams(@RequestParam Long companyId) {
         List<TeamResponse> teams = teamService.getAllTeams(companyId);
         return new ResponseEntity<>(teams, HttpStatus.OK);
     }
 
-    @GetMapping("/fetchTeam")
+    @GetMapping("/team")
     public ResponseEntity<TeamResponse> getTeamById(@RequestParam Long teamId) {
         TeamResponse teamResponse = teamService.getTeamById(teamId);
         return new ResponseEntity<>(teamResponse, HttpStatus.OK);

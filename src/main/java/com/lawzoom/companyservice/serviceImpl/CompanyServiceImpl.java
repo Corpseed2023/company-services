@@ -10,6 +10,7 @@ import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,7 +28,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public CompanyResponse createCompany(CompanyRequest companyRequest) {
+    public CompanyResponse createCompany(CompanyRequest companyRequest , Long userId) {
 
         Company company = new Company();
 
@@ -57,11 +58,11 @@ public class CompanyServiceImpl implements CompanyService {
         company.setRemarks(companyRequest.getCompanyRemarks());
         company.setOperationUnitAddress(companyRequest.getOperationUnitAddress());
         company.setTurnover(companyRequest.getCompanyTurnover());
+        company.setUserId(userId);
 
         company = companyRepository.save(company);
 
         CompanyResponse companyResponse = new CompanyResponse();
-        companyResponse.setCompanyId(company.getId());
         companyResponse.setFirstName(company.getFirstName());
         companyResponse.setLastName(company.getLastName());
         companyResponse.setCompanyType(company.getCompanyType());
@@ -103,7 +104,6 @@ public class CompanyServiceImpl implements CompanyService {
 
         for (Company company : companies) {
             CompanyResponse response = new CompanyResponse();
-            response.setCompanyId(company.getId());
             response.setCompanyType(company.getCompanyType());
             response.setCompanyName(company.getCompanyName());
             response.setFirstName(company.getFirstName());
@@ -144,7 +144,6 @@ public class CompanyServiceImpl implements CompanyService {
 
         CompanyResponse companyResponse = new CompanyResponse();
 
-        companyResponse.setCompanyId(company.getId());
         companyResponse.setCompanyType(company.getCompanyType());
         companyResponse.setCompanyName(company.getCompanyName());
         companyResponse.setFirstName(company.getFirstName());
@@ -175,8 +174,9 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public CompanyResponse updateCompany(CompanyRequest companyRequest) {
-        Optional<Company> companyOptional = companyRepository.findById(companyRequest.getCompanyId());
+    public CompanyResponse updateCompany(CompanyRequest companyRequest, Long companyId)
+    {
+        Optional<Company> companyOptional = companyRepository.findById(companyId);
 
         if (companyOptional.isPresent()) {
             Company companyData = companyOptional.get();
@@ -208,7 +208,6 @@ public class CompanyServiceImpl implements CompanyService {
             Company savedData = companyRepository.save(companyData);
 
             CompanyResponse companyResponse = new CompanyResponse();
-            companyResponse.setCompanyId(savedData.getId());
             companyResponse.setCompanyName(savedData.getCompanyName());
             companyResponse.setCompanyAddress(savedData.getAddress());
             companyResponse.setCompanyType(savedData.getCompanyType());
