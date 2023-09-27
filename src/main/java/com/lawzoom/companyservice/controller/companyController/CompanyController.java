@@ -29,6 +29,7 @@ public class CompanyController {
         return new ResponseEntity<>(companyResponse, HttpStatus.CREATED);
     }
 
+
     @GetMapping("/allCompany")
     public ResponseEntity<List<CompanyResponse>> getAllCompanies() {
         List<CompanyResponse> companies = companyService.getAllCompanies();
