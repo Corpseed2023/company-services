@@ -24,8 +24,8 @@ public class CompanyController {
     private CompanyService companyService;
 
     @PostMapping("/addCompany")
-    public ResponseEntity<CompanyResponse> createCompany(@RequestBody CompanyRequest companyRequest) {
-        CompanyResponse companyResponse = companyService.createCompany(companyRequest);
+    public ResponseEntity<CompanyResponse> createCompany(@RequestBody CompanyRequest companyRequest , @RequestParam Long userId) {
+        CompanyResponse companyResponse = companyService.createCompany(companyRequest,userId);
         return new ResponseEntity<>(companyResponse, HttpStatus.CREATED);
     }
 
@@ -40,8 +40,8 @@ public class CompanyController {
     }
 
      @PutMapping("/updateCompany")
-    public CompanyResponse updateCompany(@RequestBody CompanyRequest companyRequest) {
-        return companyService.updateCompany(companyRequest);
+    public CompanyResponse updateCompany(@RequestBody CompanyRequest companyRequest,@RequestParam Long companyId) {
+        return companyService.updateCompany(companyRequest,companyId);
     }
 
     @DeleteMapping("/removeCompany")

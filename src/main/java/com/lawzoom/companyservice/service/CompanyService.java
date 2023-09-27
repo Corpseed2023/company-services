@@ -9,14 +9,14 @@ import java.util.List;
 
 public interface CompanyService {
 
-    CompanyResponse createCompany(CompanyRequest companyRequest);
+    CompanyResponse createCompany(CompanyRequest companyRequest ,Long userId);
 
 
     List<CompanyResponse> getAllCompanies();
 
     CompanyResponse getCompanyById(Long id, Long userId);
 
-    CompanyResponse updateCompany(CompanyRequest companyRequest);
+    CompanyResponse updateCompany(CompanyRequest companyRequest,Long companyId);
 
     void deleteCompany(Long id);
 
