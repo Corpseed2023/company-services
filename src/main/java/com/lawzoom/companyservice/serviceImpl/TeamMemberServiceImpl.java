@@ -11,12 +11,12 @@ import com.lawzoom.companyservice.service.TeamMemberService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Value;
+//import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TeamMemberServiceImpl implements TeamMemberService {
@@ -26,6 +26,12 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Autowired
     private TeamRepository teamRepository;
+//
+//    @Autowired
+//    private JavaMailSender javaMailSender;
+
+//    @Value("${spring.mail.username}")
+//    private String fromEmail;
 
     @Override
     public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest, Long teamId) {
@@ -38,6 +44,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 if (teamMemberRequest == null) {
                     throw new NullPointerException("Please Enter Team Member Data");
                 }
+
+//                String randomPassword = generateRandomPassword();
+
                 TeamMember teamMember = new TeamMember();
 //                teamMember.setMemberId(teamMemberRequest.getMemberId());
 //                teamMember.setMemberRole(teamMemberRequest.getRole());
@@ -50,6 +59,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMember.setUpdatedAt(new Date());
                 teamMember.setEnable(teamMemberRequest.isEnable());
                 teamMember.setTeam(teamData);
+//                teamMember.setPassword(randomPassword);
+
                 System.out.println("Got Hit");
 
 
@@ -194,5 +205,29 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         }
 
     }
+
+//    private String generateRandomPassword() {
+//
+//        String charKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+//        Random rand = new Random();
+//        StringBuilder password = new StringBuilder();
+//
+//        for (int i = 0; i < 6; i++) {
+//            password.append(charKey.charAt(rand.nextInt(charKey.length())));
+//        }
+//
+//        return password.toString();
+//    }
+//
+//    private void sendPasswordEmail(String toEmail, String password) {
+//
+//        SimpleMailMessage mailMessage = new SimpleMailMessage();
+//        mailMessage.setFrom(fromEmail);
+//        mailMessage.setTo(toEmail);
+//        mailMessage.setSubject("Your Temporary Password");
+//        mailMessage.setText("Your temporary password is: " + password);
+//
+//        javaMailSender.send(mailMessage);
+//    }
 
 }

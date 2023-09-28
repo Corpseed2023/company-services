@@ -63,6 +63,7 @@ public class CompanyServiceImpl implements CompanyService {
         company = companyRepository.save(company);
 
         CompanyResponse companyResponse = new CompanyResponse();
+        companyResponse.setCompanyId(company.getId());
         companyResponse.setFirstName(company.getFirstName());
         companyResponse.setLastName(company.getLastName());
         companyResponse.setCompanyType(company.getCompanyType());
@@ -104,6 +105,9 @@ public class CompanyServiceImpl implements CompanyService {
 
         for (Company company : companies) {
             CompanyResponse response = new CompanyResponse();
+
+            response.setCompanyId(company.getId());
+
             response.setCompanyType(company.getCompanyType());
             response.setCompanyName(company.getCompanyName());
             response.setFirstName(company.getFirstName());
@@ -144,6 +148,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         CompanyResponse companyResponse = new CompanyResponse();
 
+        companyResponse.setCompanyId(company.getId());
         companyResponse.setCompanyType(company.getCompanyType());
         companyResponse.setCompanyName(company.getCompanyName());
         companyResponse.setFirstName(company.getFirstName());
@@ -208,6 +213,8 @@ public class CompanyServiceImpl implements CompanyService {
             Company savedData = companyRepository.save(companyData);
 
             CompanyResponse companyResponse = new CompanyResponse();
+
+            companyResponse.setCompanyId(savedData.getId());
             companyResponse.setCompanyName(savedData.getCompanyName());
             companyResponse.setCompanyAddress(savedData.getAddress());
             companyResponse.setCompanyType(savedData.getCompanyType());

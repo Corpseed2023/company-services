@@ -9,12 +9,12 @@ import com.lawzoom.companyservice.repository.TeamRepository;
 import com.lawzoom.companyservice.service.TeamService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Value;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 @Service
 public class TeamServiceImpl implements TeamService {
@@ -24,6 +24,8 @@ public class TeamServiceImpl implements TeamService {
 
     @Autowired
     private CompanyRepository companyRepository;
+
+
 
     @Override
     public TeamResponse createTeam(TeamRequest teamRequest, Long companyId) {
@@ -35,6 +37,8 @@ public class TeamServiceImpl implements TeamService {
                 if (teamRequest == null) {
                     throw new IllegalArgumentException("Invalid TeamRequest");
                 }
+
+
                 Team team = new Team();
 
                 team.setTeamName(teamRequest.getTeamName());
@@ -149,6 +153,8 @@ public class TeamServiceImpl implements TeamService {
             throw new EntityNotFoundException("Team not found ");
         }
     }
+
+
 }
 
 
