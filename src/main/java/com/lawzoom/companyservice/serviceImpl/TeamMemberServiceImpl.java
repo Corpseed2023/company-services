@@ -12,7 +12,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Value;
-//import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -27,11 +27,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     @Autowired
     private TeamRepository teamRepository;
 //
-//    @Autowired
-//    private JavaMailSender javaMailSender;
+    @Autowired
+    private JavaMailSender javaMailSender;
 
-//    @Value("${spring.mail.username}")
-//    private String fromEmail;
+    @Value("${spring.mail.username}")
+    private String fromEmail;
 
     @Override
     public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest, Long teamId) {
@@ -206,28 +206,28 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     }
 
-//    private String generateRandomPassword() {
-//
-//        String charKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-//        Random rand = new Random();
-//        StringBuilder password = new StringBuilder();
-//
-//        for (int i = 0; i < 6; i++) {
-//            password.append(charKey.charAt(rand.nextInt(charKey.length())));
-//        }
-//
-//        return password.toString();
-//    }
-//
-//    private void sendPasswordEmail(String toEmail, String password) {
-//
-//        SimpleMailMessage mailMessage = new SimpleMailMessage();
-//        mailMessage.setFrom(fromEmail);
-//        mailMessage.setTo(toEmail);
-//        mailMessage.setSubject("Your Temporary Password");
-//        mailMessage.setText("Your temporary password is: " + password);
-//
-//        javaMailSender.send(mailMessage);
-//    }
+    private String generateRandomPassword() {
+
+        String charKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random rand = new Random();
+        StringBuilder password = new StringBuilder();
+
+        for (int i = 0; i < 6; i++) {
+            password.append(charKey.charAt(rand.nextInt(charKey.length())));
+        }
+
+        return password.toString();
+    }
+
+    private void sendPasswordEmail(String toEmail, String password) {
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setFrom(fromEmail);
+        mailMessage.setTo(toEmail);
+        mailMessage.setSubject("Your Temporary Password");
+        mailMessage.setText("Your temporary password is: " + password);
+
+        javaMailSender.send(mailMessage);
+    }
 
 }
