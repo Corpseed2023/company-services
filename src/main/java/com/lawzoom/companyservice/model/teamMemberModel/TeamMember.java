@@ -60,4 +60,6 @@ public class TeamMember {
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;
 
+	private String password;
+
 }
