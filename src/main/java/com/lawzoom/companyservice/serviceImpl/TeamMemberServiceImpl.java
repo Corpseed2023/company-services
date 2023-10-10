@@ -1,7 +1,11 @@
 package com.lawzoom.companyservice.serviceImpl;
 
+import com.lawzoom.companyservice.config.EmailService;
+import com.lawzoom.companyservice.controller.PasswordController;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
+import com.lawzoom.companyservice.dto.userDto.UserRequest;
+import com.lawzoom.companyservice.feignClient.AuthenticationFeignClient;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import com.lawzoom.companyservice.model.teamModel.Team;
@@ -27,13 +31,22 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Autowired
     private TeamRepository teamRepository;
+
+    @Autowired
+    private PasswordController passwordController;
+
+    @Autowired
+    private EmailService emailService;
+
+    @Autowired
+    private AuthenticationFeignClient authenticationFeignClient;
 //
 //    @Autowired
 //    private JavaMailSender javaMailSender;
 //
 //    @Value("${spring.mail.username}")
 //    private String fromEmail;
-=======
+
 
 
     @Override
@@ -48,11 +61,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                     throw new NullPointerException("Please Enter Team Member Data");
                 }
 
-//                String randomPassword = generateRandomPassword();
+                String randomPassword = passwordController.generateRandomPassword();
 
                 TeamMember teamMember = new TeamMember();
 //                teamMember.setMemberId(teamMemberRequest.getMemberId());
-//                teamMember.setMemberRole(teamMemberRequest.getRole());
+                teamMember.setMemberRole(teamMemberRequest.getRole());
                 teamMember.setMemberName(teamMemberRequest.getMemberName());
                 teamMember.setMemberMail(teamMemberRequest.getMemberMail());
                 teamMember.setMemberMobile(teamMemberRequest.getMemberMobile());
@@ -78,6 +91,18 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMemberResponse.setAccessType(teamMember.getAccessType());
                 teamMemberResponse.setMemberMobile(teamMember.getMemberMobile());
                 teamMemberResponse.setTypeOfResource(teamMember.getTypeOfResource());
+
+                UserRequest userRequest = new UserRequest();
+                userRequest.setFirstName(teamMemberResponse.getMemberName());
+                userRequest.setEmail(teamMemberResponse.getMemberMail());
+                userRequest.setPassword(randomPassword);
+//                userRequest.setDesignation(teamMemberResponse.get);
+                userRequest.setResourceType(teamMemberResponse.getTypeOfResource());
+//                userRequest.setRoles(teamMemberResponse.getAccessType());
+
+                authenticationFeignClient.createTeamMemberUsers(userRequest);
+                sendInvitationEmail(teamMemberRequest);
+
 
                 System.out.println("Got Hit");
 
@@ -232,6 +257,18 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //
 //        javaMailSender.send(mailMessage);
 //    }
+
+    private void sendInvitationEmail(TeamMemberRequest teamMemberRequest) {
+        // Construct email content
+        String subject = "Invitation to Join Law Zoom Team as ";
+        String body = "Dear Team ,\n\n"  + teamMemberRequest.getMemberName() + "\n\n"
+                + "You have been added to our team. Your username is your email address"
+                + "Please click on the following link to set up your account and change your password:\n"
+                + "https://www.corpseed.com" + teamMemberRequest.getMemberMail();
+
+        // Send email
+        emailService.sendEmail(teamMemberRequest.getMemberMail(), subject, body);
+    }
 
 
 }
