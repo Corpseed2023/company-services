@@ -12,7 +12,7 @@ import java.util.Date;
 //import javax.persistence.*;
 
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @Getter
 @Setter
 @Builder
@@ -45,8 +45,8 @@ public class TeamMember {
 
 	private String typeOfResource;
 
-//	@Column(name = "member_role",nullable = false)
-//	private String memberRole;
+	@Column(name = "member_role",nullable = false)
+	private String memberRole;
 
 	@Column(name = "created_at")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -61,5 +61,7 @@ public class TeamMember {
 	private boolean isEnable;
 
 	private String password;
+
+	private String role;
 
 }

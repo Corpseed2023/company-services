@@ -40,7 +40,7 @@ public class TeamMemberRequest {
 	private String typeOfResource;
 
 //	@NonNull
-//	private String role;
+	private String role;
 //
 //	private Long memberId;
 
