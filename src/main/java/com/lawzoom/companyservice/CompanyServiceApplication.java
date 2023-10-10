@@ -12,3 +12,4 @@ public class CompanyServiceApplication {
 	}
 
 }
+//(scanBasePackages = "com.your.package")

@@ -47,6 +47,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //    @Value("${spring.mail.username}")
 //    private String fromEmail;
 
+
+
     @Override
     public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest, Long teamId) {
 
@@ -267,4 +269,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         // Send email
         emailService.sendEmail(teamMemberRequest.getMemberMail(), subject, body);
     }
+
+
 }
