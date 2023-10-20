@@ -1,5 +1,6 @@
 package com.lawzoom.companyservice.controller;
 
+import com.lawzoom.companyservice.model.companyModel.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -14,20 +15,23 @@ import java.util.Random;
 @RestController
 public class PasswordController {
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+//    @Autowired
+//    private JavaMailSender javaMailSender;
 
-    @Value("${spring.mail.username}")
-    private String fromEmail;
+//    @Value("${spring.mail.username}")
+//    private String fromEmail;
+//
+//    @Autowired
+//    private Company company;
 
-    @PostMapping("/generateAndSendPassword")
-    public String generateAndSendPassword(@RequestParam String toEmail) {
-        String password = generateRandomPassword();
-        sendPasswordEmail(toEmail, password);
-        return "Password generated and sent successfully!";
-    }
+//    @PostMapping("/generateAndSendPassword")
+//    public String generateAndSendPassword(@RequestParam String toEmail) {
+//        String password = generateRandomPassword();
+//        sendPasswordEmail(toEmail, password);
+//        return "Password generated and sent successfully!";
+//    }
 
-    private String generateRandomPassword() {
+    public String generateRandomPassword() {
         String charKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         Random rand = new Random();
         StringBuilder password = new StringBuilder();
@@ -39,13 +43,15 @@ public class PasswordController {
         return password.toString();
     }
 
-    private void sendPasswordEmail(String toEmail, String password) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom(fromEmail);
-        mailMessage.setTo(toEmail);
-        mailMessage.setSubject("Your Temporary Password");
-        mailMessage.setText("Your temporary password is: " + password);
+//    private void sendPasswordEmail(String toEmail, String password) {
+//
+//        SimpleMailMessage mailMessage = new SimpleMailMessage();
+//        mailMessage.setFrom(fromEmail);
+//        mailMessage.setTo(toEmail);
+//        mailMessage.setSubject( "Kaushal singh wants you to join" +"Corpeed ERP");
+//        mailMessage.setText("Your temporary password is: " + password);
+//
+//        javaMailSender.send(mailMessage);
+//    }
 
-        javaMailSender.send(mailMessage);
-    }
 }
