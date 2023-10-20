@@ -12,6 +12,7 @@ import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.repository.TeamMemberRepository;
 import com.lawzoom.companyservice.repository.TeamRepository;
 import com.lawzoom.companyservice.service.TeamMemberService;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -37,6 +39,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Autowired
     private EmailService emailService;
+
+    private JavaMailSender javaMailSender;
+
 
     @Autowired
     private AuthenticationFeignClient authenticationFeignClient;
@@ -99,7 +104,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //                userRequest.setRoles(teamMemberResponse.getAccessType());
 
                 authenticationFeignClient.createTeamMemberUsers(userRequest);
-                sendInvitationEmail(teamMemberRequest);
+//                sendInvitationEmail(teamMemberRequest);
 
 
                 System.out.println("Got Hit");
@@ -116,6 +121,42 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             throw new IllegalArgumentException("Team not found with ID: " + teamId);
         }
     }
+//    private void sendInvitationEmail(TeamMemberRequest teamMemberRequest) {
+//
+//
+//        // Construct email content
+//        String subject = "Invitation to Join Law Zoom Team as ";
+//        String body = "Dear Team ,\n\n"  + teamMemberRequest.getMemberName() + "\n\n"
+//                + "You have been added to our team. Your username is your email address"
+//                + "Please click on the following link to set up your account and change your password:\n"
+//                + "hyperlink" + teamMemberRequest.getMemberMail();
+//
+//        // Send email
+//        emailService.sendEmail(teamMemberRequest.getMemberMail(), subject, body);
+//    }
+//    public void sendInvitationEmail(String toEmail, String otp, String name) {
+//        MimeMessage message = javaMailSender.createMimeMessage();
+//        MimeMessageHelper helper = new MimeMessageHelper(message);
+//
+//        try {
+//            helper.setFrom(fromEmail);
+//            helper.setTo(toEmail);
+//            helper.setSubject("Law Zoom - OTP Verification");
+//
+//            Context context = new Context();
+//            context.setVariable("otp", otp);
+//            context.setVariable("name", name);
+//
+//            String emailContent = templateEngine.process("otp-email-template", context);
+//
+//            helper.setText(emailContent, true);
+//
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//        }
+//
+//        javaMailSender.send(message);
+//    }
 
 
     @Override
@@ -256,15 +297,5 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //        javaMailSender.send(mailMessage);
 //    }
 
-    private void sendInvitationEmail(TeamMemberRequest teamMemberRequest) {
-        // Construct email content
-        String subject = "Invitation to Join Law Zoom Team as ";
-        String body = "Dear Team ,\n\n"  + teamMemberRequest.getMemberName() + "\n\n"
-                + "You have been added to our team. Your username is your email address"
-                + "Please click on the following link to set up your account and change your password:\n"
-                + "https://www.corpseed.com" + teamMemberRequest.getMemberMail();
 
-        // Send email
-        emailService.sendEmail(teamMemberRequest.getMemberMail(), subject, body);
-    }
 }
