@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface GstService {
 
-    GstResponse createGst(GstRequest gstRequest);
+    GstResponse createGst(GstRequest gstRequest, Long companyId);
 
 
     GstResponse updateGst(Long companyId, Long gstId, GstRequest gstRequest);

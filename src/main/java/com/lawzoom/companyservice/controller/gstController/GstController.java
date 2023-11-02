@@ -3,7 +3,6 @@ package com.lawzoom.companyservice.controller.gstController;
 
 import com.lawzoom.companyservice.dto.gstDto.GstRequest;
 import com.lawzoom.companyservice.dto.gstDto.GstResponse;
-import com.lawzoom.companyservice.model.gstModel.Gst;
 import com.lawzoom.companyservice.service.GstService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +14,9 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/company/gst/{companyId}")
+//@RequestMapping("/company/gst/{companyId}")
+@RequestMapping("/company/gst")
+
 public class GstController {
 
 
@@ -23,14 +24,14 @@ public class GstController {
     private GstService gstService;
 
 
-    @PostMapping("/save")
-    public ResponseEntity<GstResponse> createGst(@RequestBody GstRequest gstRequest) {
-        GstResponse createdGst = gstService.createGst(gstRequest);
+    @PostMapping("/createGst")
+    public ResponseEntity<GstResponse> createGst(@RequestBody GstRequest gstRequest ,@RequestParam Long companyId) {
+        GstResponse createdGst = gstService.createGst(gstRequest,companyId);
         return new ResponseEntity<>(createdGst, HttpStatus.CREATED);
     }
 
 
-    @PutMapping("/update/{gstId}")
+    @PutMapping("/editGst")
     public ResponseEntity<GstResponse> updateGst(
             @RequestParam("companyId") Long companyId,
             @RequestParam("gstId") Long gstId,
@@ -39,7 +40,7 @@ public class GstController {
         return new ResponseEntity<>(updatedGst, HttpStatus.OK);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("/getAllGst")
     public ResponseEntity<List<GstResponse>> getAllGst(@RequestParam("companyId") Long companyId) {
         List<GstResponse> allGst = gstService.getAllGst(companyId);
         return new ResponseEntity<>(allGst, HttpStatus.OK);
