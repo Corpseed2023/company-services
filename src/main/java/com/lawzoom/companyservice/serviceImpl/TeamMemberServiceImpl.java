@@ -1,6 +1,5 @@
 package com.lawzoom.companyservice.serviceImpl;
 
-import com.lawzoom.companyservice.config.EmailService;
 import com.lawzoom.companyservice.controller.PasswordController;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
@@ -15,12 +14,7 @@ import com.lawzoom.companyservice.service.TeamMemberService;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.beans.factory.annotation.Value;
-
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -304,4 +298,5 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         // Send email
 //        emailService.sendEmail(teamMemberRequest.getMemberMail(), subject, body);
     }
+
 

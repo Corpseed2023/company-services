@@ -33,21 +33,36 @@ public class GstServiceImpl implements GstService {
 
 
     @Override
-    public GstResponse createGst(GstRequest gstRequest) {
+    public GstResponse createGst(GstRequest gstRequest, Long companyId) {
+        // Check if the company with the given companyId exists
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new CompanyNotFoundException("Company not found for ID: " + companyId));
+
         Gst gst = new Gst();
         gst.setGstNumber(gstRequest.getGstNumber());
         gst.setStateJurisdiction(gstRequest.getStateJurisdiction());
-        // Set other properties manually...
+        gst.setRegistrationDate(gstRequest.getRegistrationDate()); // Set the registration date
+        gst.setCreatedAt(gstRequest.getCreatedAt()); // Set the created date
+        gst.setUpdatedAt(gstRequest.getUpdatedAt()); // Set the updated date
+        gst.setEnable(gstRequest.isEnable()); // Set isEnable field
 
-        // Save to the repository
+        // Associate the company with the GST entry
+        gst.setCompany(company);
+
+        // Save the Gst entity
         Gst savedGst = gstRepository.save(gst);
 
-        // Map the saved entity to DTO for response
         GstResponse response = new GstResponse();
         response.setId(savedGst.getId());
         response.setGstNumber(savedGst.getGstNumber());
         response.setStateJurisdiction(savedGst.getStateJurisdiction());
-        // Map other properties manually...
+        response.setRegistrationDate(savedGst.getRegistrationDate());
+        response.setCreatedAt(savedGst.getCreatedAt());
+        response.setUpdatedAt(savedGst.getUpdatedAt());
+        response.setEnable(savedGst.isEnable());
+//
+//        response.setCompanyId(companyId); // Set the companyId
+//        response.setCompanyName(company.getName()); // Set the company name
 
         return response;
     }
