@@ -40,12 +40,13 @@ public class TeamMemberController {
 
 
     @GetMapping("/getAllTeamMembers")
-    public ResponseEntity<List<TeamMemberResponse>> getAllTeamMembers(Long teamId) {
+    public ResponseEntity<List<TeamMemberResponse>> getAllTeamMembers(@RequestParam Long teamId) {
         List<TeamMemberResponse> allTeamMembers = teamMemberService.getAllTeamMembers(teamId);
         return new ResponseEntity<>(allTeamMembers, HttpStatus.OK);
     }
 
-    @GetMapping("/getTeamMember}")
+
+    @GetMapping("/getTeamMember")
     public ResponseEntity<TeamMemberResponse> getTeamMemberById(@RequestParam Long id) {
         TeamMemberResponse teamMember = teamMemberService.getTeamMemberById(id);
         return new ResponseEntity<>(teamMember, HttpStatus.OK);
@@ -57,5 +58,12 @@ public class TeamMemberController {
     {
         teamMemberService.removeTeamMember(memberId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @GetMapping("/getTeamWithTeamMember")
+    public ResponseEntity<List<TeamMemberResponse>> getTeamWithTeamMember() {
+        List<TeamMemberResponse> allTeamMembers = teamMemberService.getTeamWithAllTeamMember();
+        return new ResponseEntity<>(allTeamMembers, HttpStatus.OK);
     }
 }

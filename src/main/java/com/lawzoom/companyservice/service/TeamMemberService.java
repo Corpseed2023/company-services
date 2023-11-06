@@ -13,4 +13,6 @@ public interface TeamMemberService {
     List<TeamMemberResponse> getAllTeamMembers(Long teamId);
     TeamMemberResponse getTeamMemberById(Long id);
     void removeTeamMember(Long memberId);
+
+    List<TeamMemberResponse> getTeamWithAllTeamMember();
 }

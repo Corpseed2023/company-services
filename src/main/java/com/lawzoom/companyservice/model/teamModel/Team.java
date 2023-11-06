@@ -16,7 +16,6 @@
 	@Setter
 	@Builder
 	@Entity
-	@ToString
 	@Table(name = "team")
 	public class Team {
 
@@ -55,12 +54,11 @@
 		private boolean isEnable;
 
 
-
-
 //		@OneToMany(mappedBy = "team",cascade = CascadeType.ALL,orphanRemoval = true)
 //		private List<TeamMember> teamMembers=new ArrayList<>();
 
 		@OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 		private List<TeamMember> teamMembers = new ArrayList<>();
+
 
 	}
