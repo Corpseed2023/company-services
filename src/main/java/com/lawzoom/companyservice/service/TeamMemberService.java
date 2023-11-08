@@ -2,8 +2,11 @@ package com.lawzoom.companyservice.service;
 
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
+import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
+import com.lawzoom.companyservice.model.teamModel.Team;
 
 import java.util.List;
+import java.util.Map;
 
 public interface TeamMemberService {
 
@@ -13,4 +16,8 @@ public interface TeamMemberService {
     List<TeamMemberResponse> getAllTeamMembers(Long teamId);
     TeamMemberResponse getTeamMemberById(Long id);
     void removeTeamMember(Long memberId);
+
+    List<Team> getTeamWithAllTeamMember();
+
+    List<Team> getAllTeam();
 }

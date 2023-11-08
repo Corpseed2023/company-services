@@ -18,6 +18,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TeamMemberServiceImpl implements TeamMemberService {
@@ -45,7 +46,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //
 //    @Value("${spring.mail.username}")
 //    private String fromEmail;
-
 
 
     @Override
@@ -112,8 +112,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
                 throw new RuntimeException("Failed to create team members");
             }
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Team not found with ID: " + teamId);
         }
     }
@@ -153,7 +152,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //
 //        javaMailSender.send(message);
 //    }
-
+//write logic for fetch all team and member data should come team1 so there all team memeber for your reference i send repsonse accordingly this write code i provicde controller ,repo now write serviceipmpl
 
     @Override
     public TeamMemberResponse updateTeamMember(Long id, TeamMemberRequest teamMemberRequest) {
@@ -191,7 +190,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         teamMemberResponse.setAccessType(teamMember.getAccessType());
         teamMemberResponse.setMemberName(teamMember.getMemberName());
 
-
+// i want getAllTeamwithTeammber API using spring boot where where all team will store as key and value as list of teammembers so data will fetch as team and list of team memeber and then second then there team memebrs
 
         System.out.println("kaushal");
 
@@ -253,21 +252,86 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     @Override
     public void removeTeamMember(Long memberId) {
 
-        Optional<TeamMember> memberData= teamMemberRepository.findById(memberId);
+        Optional<TeamMember> memberData = teamMemberRepository.findById(memberId);
 
-        if (memberData.isPresent())
-        {
+        if (memberData.isPresent()) {
             TeamMember membertoDelete = memberData.get();
 
             teamMemberRepository.delete(membertoDelete);
 
-        }
-
-        else {
+        } else {
             throw new EntityNotFoundException("Member Not present in database");
         }
 
     }
+
+    @Override
+    public List<Team> getTeamWithAllTeamMember() {
+        List<Team> teamData = teamRepository.findAll();
+
+        for (Team team : teamData) {
+
+            List<TeamMember> teamMembersData = teamMemberRepository.findAllByTeamId(team.getId());
+//            team.setTeamMembers(teamMembersData);
+            team.getTeamMembers();
+
+
+//            for (TeamMember tm : teamMembersData) {
+//                Map<String,Object> map = new HashMap<>();
+//
+//                map.put("id", tm.getId());
+//                map.put("name", tm.getMemberName());
+//                map.put("role", tm.getMemberRole());
+//                map.put("number", tm.getMemberMobile());
+//                map.put("accessType", tm.getAccessType());
+//                map.put("resource", tm.getTypeOfResource());
+//                tmList.add(map);
+//            }
+
+//            map.put("id",)
+//            map.put("id",)
+//            map.put("id",)
+//            map.put("id",)
+//            map.put("id",)
+//            teamdatamap.put("id", team.getId());
+//            teamdatamap.put("name", team.getTeamName());
+//            teamdatamap.put("teamType", team.getTeamType());
+//            teamdatamap.put("leadName", team.getTeamLeadName());
+//            teamdatamap.put("company", team.getCompany());
+//
+//            teamdatamap.put(team.getTeamName(), tmList);
+
+        }
+            return teamData;
+        }
+
+
+    @Override
+    public List<Team> getAllTeam() {
+        return null;
+    }
+}
+//        System.out.println(teams+"print Team");
+//        List<TeamMemberResponse> teamResponses = new ArrayList<>();
+//
+//        for (Team team : teams) {
+//            TeamMemberResponse teamWithMembersResponse = new TeamMemberResponse();
+////            teamWithMembersResponse.setTeamName(team.getTeamName());
+//
+//            List<TeamMember> teamMembers = teamMemberRepository.findAllByTeamId(team.getId());
+//            List<TeamMemberResponse> teamMemberResponses = new ArrayList<>();
+//
+//            for (TeamMember teamMember : teamMembers) {
+//                TeamMemberResponse teamMemberResponse = new TeamMemberResponse();
+//                teamMemberResponses.add(teamMemberResponse);
+//            }
+//
+////            teamWithMembersResponse.setTeamMembers(teamMemberResponses);
+//            teamResponses.add(teamWithMembersResponse);
+//        }
+//
+//        return teamResponses;
+
 //
 //    private String generateRandomPassword() {
 //
@@ -295,8 +359,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
 
 
-        // Send email
-//        emailService.sendEmail(teamMemberRequest.getMemberMail(), subject, body);
-    }
+
+
 
 

@@ -1,8 +1,12 @@
 package com.lawzoom.companyservice.controller.teamMemberController;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
+import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
+import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin
@@ -40,12 +45,13 @@ public class TeamMemberController {
 
 
     @GetMapping("/getAllTeamMembers")
-    public ResponseEntity<List<TeamMemberResponse>> getAllTeamMembers(Long teamId) {
+    public ResponseEntity<List<TeamMemberResponse>> getAllTeamMembers(@RequestParam Long teamId) {
         List<TeamMemberResponse> allTeamMembers = teamMemberService.getAllTeamMembers(teamId);
         return new ResponseEntity<>(allTeamMembers, HttpStatus.OK);
     }
 
-    @GetMapping("/getTeamMember}")
+
+    @GetMapping("/getTeamMember")
     public ResponseEntity<TeamMemberResponse> getTeamMemberById(@RequestParam Long id) {
         TeamMemberResponse teamMember = teamMemberService.getTeamMemberById(id);
         return new ResponseEntity<>(teamMember, HttpStatus.OK);
@@ -58,4 +64,45 @@ public class TeamMemberController {
         teamMemberService.removeTeamMember(memberId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
+//    @GetMapping("/getTeamWithTeamMember")
+//    public Map<String, List<TeamMember>> getTeamWithTeamMember() {
+//        Map<String, List<TeamMember>> allTeamMembers = teamMemberService.getTeamWithAllTeamMember();
+//        System.out.println(" allTeamMembers "+allTeamMembers);
+//        return new ResponseEntity<>(allTeamMembers, HttpStatus.CREATED);
+//    }
+
+
+
+    @GetMapping("/getTeamWithTeamMember")
+    public String getTeamWithTeamMember() {
+
+        List<Team> allTeamMembers = teamMemberService.getTeamWithAllTeamMember();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = objectMapper.writeValueAsString(allTeamMembers);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("allTeamMembers " + json);
+        return json;
+    }
+
+//    @GetMapping("/getTeamWithTeamMember")
+//    public ResponseEntity<Map<String, List<TeamMember>> getTeamWithTeamMember() {
+//        Map<String, List<TeamMember>> allTeamMembers = teamMemberService.getTeamWithAllTeamMember();
+//        return ResponseEntity.ok(allTeamMembers);
+//    }
+//@GetMapping("/getAllTeam")
+//public List<Team> getAllTeam() {
+//    List<Team> allTeamMembers = teamMemberService.getAllTeam();
+//    System.out.println("allTeamMembers " + allTeamMembers);
+//    return allTeamMembers
+//}
+
+
+
 }
