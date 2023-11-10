@@ -16,7 +16,7 @@ import java.util.Date;
 @Setter
 public class GstRequest {
 
-	private Long id;
+//	private Long id;
 	
 	private String gstNumber;
 	

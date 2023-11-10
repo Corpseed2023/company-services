@@ -1,21 +1,17 @@
 package com.lawzoom.companyservice.model.teamMemberModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lawzoom.companyservice.model.teamModel.Team;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.Comment;
-//import javax.persistence.Temporal;
-//import javax.persistence.TemporalType;
-
 import java.util.Date;
-//import javax.persistence.*;
 
 @AllArgsConstructor
-@NoArgsConstructor(force = true)
 @Getter
 @Setter
-@Builder
+@Data
 @Entity
 @Table(name = "team_member")
 public class TeamMember {
@@ -25,9 +21,11 @@ public class TeamMember {
 	@Column(name = "id")
 	private Long id;
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "team_id")
 	private Team team;
+
 
 	@NonNull
 	@NotBlank
@@ -64,4 +62,25 @@ public class TeamMember {
 
 	private String role;
 
+	public TeamMember(){
+
+	}
+
+	@Override
+	public String toString() {
+		return "TeamMember{" +
+				"id=" + id +
+				", memberName='" + memberName + '\'' +
+				", accessType='" + accessType + '\'' +
+				", memberMail='" + memberMail + '\'' +
+				", memberMobile='" + memberMobile + '\'' +
+				", typeOfResource='" + typeOfResource + '\'' +
+				", memberRole='" + memberRole + '\'' +
+				", createdAt=" + createdAt +
+				", updatedAt=" + updatedAt +
+				", isEnable=" + isEnable +
+				", password='" + password + '\'' +
+				", role='" + role + '\'' +
+				'}';
+	}
 }

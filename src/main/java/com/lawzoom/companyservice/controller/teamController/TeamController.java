@@ -18,8 +18,6 @@ import java.util.List;
 //@RequestMapping("/company/team")
 //@RequestMapping("/api/v1/company/team")
 @RequestMapping("/companyServices/company/team")
-
-
 public class TeamController {
 
     @Autowired
