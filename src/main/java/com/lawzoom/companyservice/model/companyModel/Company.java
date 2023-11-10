@@ -1,5 +1,6 @@
 package com.lawzoom.companyservice.model.companyModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lawzoom.companyservice.model.gstModel.Gst;
 import com.lawzoom.companyservice.model.teamModel.Team;
 
@@ -19,7 +20,7 @@ import java.util.*;
 @NoArgsConstructor
 @Setter
 @Getter
-@Builder
+@Data
 @Table(name = "company")
 public class Company {
 
@@ -53,47 +54,47 @@ public class Company {
 
 	@Column(name = "company_type")
 	private String companyType;
-	
+
 	@Column(name = "companyName")
 	private String companyName;
-		
+
 	@Column(name = "state")
 	private String state;
-	
+
 	@Column(name = "city")
 	private String city;
-	
+
 	@Column(name = "registration_number")
 	private String registrationNumber;
-	
+
 	@Column(name = "registration_date")
 	@Temporal(TemporalType.DATE)
 	private Date registrationDate;
-	
+
 	@Column(name = "cin_number")
 	private String cinNumber;
 
-	@Column(columnDefinition = "TEXT",name="remarks")	
+	@Column(columnDefinition = "TEXT",name="remarks")
 	private String remarks;
-	
+
 	@Column(name = "pin_code")
 	private String pinCode;
-	
+
 	@Column(name="address",columnDefinition = "TINYTEXT")
 	private String address;
-	
+
 	@Column(name = "turnover")
 	private long turnover;
-	
+
 	@Column(name = "located_at")
 	private String locatedAt;
-	
+
 	@Column(name = "business_activity")
 	private String businessActivity;
-	
+
 	@Column(name = "permanent_employee")
 	private int permanentEmployee;
-	
+
 	@Column(name = "contract_employee")
 	private int contractEmployee;
 
@@ -114,43 +115,43 @@ public class Company {
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;
 
-	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
 	private List<Team> teams;
 
-	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
 	private List<Gst> gstList;
 
-	@Override
-	public String toString() {
-		return "Company{" +
-				"id=" + id +
-				", userId=" + userId +
-				", firstName='" + firstName + '\'' +
-				", lastName='" + lastName + '\'' +
-				", businessActivityEmail='" + businessActivityEmail + '\'' +
-				", designation='" + designation + '\'' +
-				", companyType='" + companyType + '\'' +
-				", companyName='" + companyName + '\'' +
-				", state='" + state + '\'' +
-				", city='" + city + '\'' +
-				", registrationNumber='" + registrationNumber + '\'' +
-				", registrationDate=" + registrationDate +
-				", cinNumber='" + cinNumber + '\'' +
-				", remarks='" + remarks + '\'' +
-				", pinCode='" + pinCode + '\'' +
-				", address='" + address + '\'' +
-				", turnover=" + turnover +
-				", locatedAt='" + locatedAt + '\'' +
-				", businessActivity='" + businessActivity + '\'' +
-				", permanentEmployee=" + permanentEmployee +
-				", contractEmployee=" + contractEmployee +
-				", gstNumber='" + gstNumber + '\'' +
-				", operationUnitAddress='" + operationUnitAddress + '\'' +
-				", createdAt=" + createdAt +
-				", updatedAt=" + updatedAt +
-				", isEnable=" + isEnable +
-				", teams=" + teams +
-				", gstList=" + gstList +
-				'}';
-	}
+//	@Override
+//	public String toString() {
+//		return "Company{" +
+//				"id=" + id +
+//				", userId=" + userId +
+//				", firstName='" + firstName + '\'' +
+//				", lastName='" + lastName + '\'' +
+//				", businessActivityEmail='" + businessActivityEmail + '\'' +
+//				", designation='" + designation + '\'' +
+//				", companyType='" + companyType + '\'' +
+//				", companyName='" + companyName + '\'' +
+//				", state='" + state + '\'' +
+//				", city='" + city + '\'' +
+//				", registrationNumber='" + registrationNumber + '\'' +
+//				", registrationDate=" + registrationDate +
+//				", cinNumber='" + cinNumber + '\'' +
+//				", remarks='" + remarks + '\'' +
+//				", pinCode='" + pinCode + '\'' +
+//				", address='" + address + '\'' +
+//				", turnover=" + turnover +
+//				", locatedAt='" + locatedAt + '\'' +
+//				", businessActivity='" + businessActivity + '\'' +
+//				", permanentEmployee=" + permanentEmployee +
+//				", contractEmployee=" + contractEmployee +
+//				", gstNumber='" + gstNumber + '\'' +
+//				", operationUnitAddress='" + operationUnitAddress + '\'' +
+//				", createdAt=" + createdAt +
+//				", updatedAt=" + updatedAt +
+//				", isEnable=" + isEnable +
+//				", teams=" + teams +
+//				", gstList=" + gstList +
+//				'}';
+//	}
 }

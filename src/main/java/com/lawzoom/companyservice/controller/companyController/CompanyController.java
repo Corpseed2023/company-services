@@ -2,6 +2,7 @@ package com.lawzoom.companyservice.controller.companyController;
 
 import com.lawzoom.companyservice.dto.companyDto.CompanyResponse;
 import com.lawzoom.companyservice.exception.CompanyNotFoundException;
+import com.lawzoom.companyservice.model.LeadTest;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,13 @@ public class CompanyController {
         CompanyResponse companyResponse = companyService.createCompany(companyRequest,userId);
         return new ResponseEntity<>(companyResponse, HttpStatus.CREATED);
     }
+
+    @GetMapping("/leadTest")
+    public String createLead() {
+        System.out.println("Lead generated successfully");
+        return "generated";
+    }
+
 
 
     @GetMapping("/allCompany")

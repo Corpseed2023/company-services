@@ -1,6 +1,5 @@
 package com.lawzoom.companyservice.serviceImpl;
 
-import com.lawzoom.companyservice.config.EmailService;
 import com.lawzoom.companyservice.controller.PasswordController;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
@@ -9,19 +8,18 @@ import com.lawzoom.companyservice.feignClient.AuthenticationFeignClient;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import com.lawzoom.companyservice.model.teamModel.Team;
+import com.lawzoom.companyservice.repository.CompanyRepository;
 import com.lawzoom.companyservice.repository.TeamMemberRepository;
 import com.lawzoom.companyservice.repository.TeamRepository;
 import com.lawzoom.companyservice.service.TeamMemberService;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.beans.factory.annotation.Value;
-
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TeamMemberServiceImpl implements TeamMemberService {
@@ -36,7 +34,13 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     private PasswordController passwordController;
 
     @Autowired
+    private CompanyRepository companyRepository;
+
+    @Autowired
     private EmailService emailService;
+
+    private JavaMailSender javaMailSender;
+
 
     @Autowired
     private AuthenticationFeignClient authenticationFeignClient;
@@ -46,7 +50,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //
 //    @Value("${spring.mail.username}")
 //    private String fromEmail;
-
 
 
     @Override
@@ -101,7 +104,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //                userRequest.setRoles(teamMemberResponse.getAccessType());
 
                 authenticationFeignClient.createTeamMemberUsers(userRequest);
-                sendInvitationEmail(teamMemberRequest);
+//                sendInvitationEmail(teamMemberRequest);
 
 
                 System.out.println("Got Hit");
@@ -113,12 +116,47 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
                 throw new RuntimeException("Failed to create team members");
             }
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Team not found with ID: " + teamId);
         }
     }
-
+//    private void sendInvitationEmail(TeamMemberRequest teamMemberRequest) {
+//
+//
+//        // Construct email content
+//        String subject = "Invitation to Join Law Zoom Team as ";
+//        String body = "Dear Team ,\n\n"  + teamMemberRequest.getMemberName() + "\n\n"
+//                + "You have been added to our team. Your username is your email address"
+//                + "Please click on the following link to set up your account and change your password:\n"
+//                + "hyperlink" + teamMemberRequest.getMemberMail();
+//
+//        // Send email
+//        emailService.sendEmail(teamMemberRequest.getMemberMail(), subject, body);
+//    }
+//    public void sendInvitationEmail(String toEmail, String otp, String name) {
+//        MimeMessage message = javaMailSender.createMimeMessage();
+//        MimeMessageHelper helper = new MimeMessageHelper(message);
+//
+//        try {
+//            helper.setFrom(fromEmail);
+//            helper.setTo(toEmail);
+//            helper.setSubject("Law Zoom - OTP Verification");
+//
+//            Context context = new Context();
+//            context.setVariable("otp", otp);
+//            context.setVariable("name", name);
+//
+//            String emailContent = templateEngine.process("otp-email-template", context);
+//
+//            helper.setText(emailContent, true);
+//
+//        } catch (MessagingException e) {
+//            e.printStackTrace();
+//        }
+//
+//        javaMailSender.send(message);
+//    }
+//write logic for fetch all team and member data should come team1 so there all team memeber for your reference i send repsonse accordingly this write code i provicde controller ,repo now write serviceipmpl
 
     @Override
     public TeamMemberResponse updateTeamMember(Long id, TeamMemberRequest teamMemberRequest) {
@@ -156,7 +194,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         teamMemberResponse.setAccessType(teamMember.getAccessType());
         teamMemberResponse.setMemberName(teamMember.getMemberName());
 
-
+// i want getAllTeamwithTeammber API using spring boot where where all team will store as key and value as list of teammembers so data will fetch as team and list of team memeber and then second then there team memebrs
 
         System.out.println("kaushal");
 
@@ -218,21 +256,58 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     @Override
     public void removeTeamMember(Long memberId) {
 
-        Optional<TeamMember> memberData= teamMemberRepository.findById(memberId);
+        Optional<TeamMember> memberData = teamMemberRepository.findById(memberId);
 
-        if (memberData.isPresent())
-        {
+        if (memberData.isPresent()) {
             TeamMember membertoDelete = memberData.get();
 
             teamMemberRepository.delete(membertoDelete);
 
-        }
-
-        else {
+        } else {
             throw new EntityNotFoundException("Member Not present in database");
         }
 
     }
+
+    @Override
+    public List<Company> getTeamWithAllTeamMember() {
+        List<Company> companyList = companyRepository.findAll();
+
+//        for (Team team : teamData) {
+//
+//            List<TeamMember> teamMembersData = teamMemberRepository.findAllByTeamId(team.getId());
+//            team.getTeamMembers();
+//        }
+            return companyList;
+        }
+
+
+    @Override
+    public List<Team> getAllTeam() {
+        return null;
+    }
+}
+//        System.out.println(teams+"print Team");
+//        List<TeamMemberResponse> teamResponses = new ArrayList<>();
+//
+//        for (Team team : teams) {
+//            TeamMemberResponse teamWithMembersResponse = new TeamMemberResponse();
+////            teamWithMembersResponse.setTeamName(team.getTeamName());
+//
+//            List<TeamMember> teamMembers = teamMemberRepository.findAllByTeamId(team.getId());
+//            List<TeamMemberResponse> teamMemberResponses = new ArrayList<>();
+//
+//            for (TeamMember teamMember : teamMembers) {
+//                TeamMemberResponse teamMemberResponse = new TeamMemberResponse();
+//                teamMemberResponses.add(teamMemberResponse);
+//            }
+//
+////            teamWithMembersResponse.setTeamMembers(teamMemberResponses);
+//            teamResponses.add(teamWithMembersResponse);
+//        }
+//
+//        return teamResponses;
+
 //
 //    private String generateRandomPassword() {
 //
@@ -258,17 +333,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //        javaMailSender.send(mailMessage);
 //    }
 
-    private void sendInvitationEmail(TeamMemberRequest teamMemberRequest) {
-        // Construct email content
-        String subject = "Invitation to Join Law Zoom Team as ";
-        String body = "Dear Team ,\n\n"  + teamMemberRequest.getMemberName() + "\n\n"
-                + "You have been added to our team. Your username is your email address"
-                + "Please click on the following link to set up your account and change your password:\n"
-                + "https://www.corpseed.com" + teamMemberRequest.getMemberMail();
-
-        // Send email
-        emailService.sendEmail(teamMemberRequest.getMemberMail(), subject, body);
-    }
 
 
-}
+
+
+
+

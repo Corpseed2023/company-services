@@ -17,7 +17,7 @@ import java.util.Date;
 @Builder
 public class BusinessUnitRequest {
 
-	private Long id;
+//	private Long id;
 	
 	private String businessActivity;
 	

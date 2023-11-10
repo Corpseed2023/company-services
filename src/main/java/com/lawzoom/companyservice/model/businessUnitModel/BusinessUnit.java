@@ -50,7 +50,6 @@ public class BusinessUnit {
 	private int contractEmployee;
 	
 	@NotNull
-
 	@Column(name = "address",columnDefinition = "TINYTEXT")
 	private String address;
 

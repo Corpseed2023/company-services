@@ -27,7 +27,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("Company API")
                 .description("Spring Rest Api Reference")
-                .licenseUrl("ajay.kumar@corpseed.com")
+                .licenseUrl("kaushlendra.pratap@corpseed.com")
                 .version("1.0")
                 .build();
     }
