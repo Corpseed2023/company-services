@@ -8,6 +8,7 @@ import com.lawzoom.companyservice.feignClient.AuthenticationFeignClient;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import com.lawzoom.companyservice.model.teamModel.Team;
+import com.lawzoom.companyservice.repository.CompanyRepository;
 import com.lawzoom.companyservice.repository.TeamMemberRepository;
 import com.lawzoom.companyservice.repository.TeamRepository;
 import com.lawzoom.companyservice.service.TeamMemberService;
@@ -28,6 +29,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Autowired
     private TeamRepository teamRepository;
+
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @Autowired
     private PasswordController passwordController;
@@ -266,44 +270,21 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     }
 
     @Override
-    public List<Team> getTeamWithAllTeamMember() {
-        List<Team> teamData = teamRepository.findAll();
+    public List<Company> getCompaniesWithTeamsAndTeamMembers() {
+        List<Company> companies = companyRepository.findAll();
 
-        for (Team team : teamData) {
+        for (Company company : companies) {
+            List<Team> teams = teamRepository.findAllByCompanyId(company.getId());
+            company.setTeams(teams);
 
-            List<TeamMember> teamMembersData = teamMemberRepository.findAllByTeamId(team.getId());
-//            team.setTeamMembers(teamMembersData);
-            team.getTeamMembers();
-
-
-//            for (TeamMember tm : teamMembersData) {
-//                Map<String,Object> map = new HashMap<>();
-//
-//                map.put("id", tm.getId());
-//                map.put("name", tm.getMemberName());
-//                map.put("role", tm.getMemberRole());
-//                map.put("number", tm.getMemberMobile());
-//                map.put("accessType", tm.getAccessType());
-//                map.put("resource", tm.getTypeOfResource());
-//                tmList.add(map);
-//            }
-
-//            map.put("id",)
-//            map.put("id",)
-//            map.put("id",)
-//            map.put("id",)
-//            map.put("id",)
-//            teamdatamap.put("id", team.getId());
-//            teamdatamap.put("name", team.getTeamName());
-//            teamdatamap.put("teamType", team.getTeamType());
-//            teamdatamap.put("leadName", team.getTeamLeadName());
-//            teamdatamap.put("company", team.getCompany());
-//
-//            teamdatamap.put(team.getTeamName(), tmList);
-
+            for (Team team : teams) {
+                List<TeamMember> teamMembers = teamMemberRepository.findAllByTeamId(team.getId());
+                team.setTeamMembers(teamMembers);
+            }
         }
-            return teamData;
-        }
+
+        return companies;
+    }
 
 
     @Override

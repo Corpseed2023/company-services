@@ -2,6 +2,7 @@ package com.lawzoom.companyservice.service;
 
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
+import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import com.lawzoom.companyservice.model.teamModel.Team;
 
@@ -17,7 +18,9 @@ public interface TeamMemberService {
     TeamMemberResponse getTeamMemberById(Long id);
     void removeTeamMember(Long memberId);
 
-    List<Team> getTeamWithAllTeamMember();
+//    List<Team> getTeamWithAllTeamMember();
+    List<Company> getCompaniesWithTeamsAndTeamMembers();
+
 
     List<Team> getAllTeam();
 }

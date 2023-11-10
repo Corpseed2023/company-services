@@ -25,8 +25,10 @@
 		@Column(name = "id")
 		private Long id;
 
-		@ManyToOne(fetch = FetchType.LAZY)
-		@JoinColumn(name = "company_id",nullable = false)
+//		@ManyToOne(fetch = FetchType.LAZY)
+//		@JoinColumn(name = "company_id",nullable = false)
+//        @JsonIgnore
+        @ManyToOne(fetch = FetchType.LAZY)
 		@JsonIgnore
 		private Company company;
 
