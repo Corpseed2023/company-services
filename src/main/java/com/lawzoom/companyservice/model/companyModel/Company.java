@@ -121,6 +121,7 @@ public class Company {
 	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
 	private List<Gst> gstList;
 
+
 //	@Override
 //	public String toString() {
 //		return "Company{" +
