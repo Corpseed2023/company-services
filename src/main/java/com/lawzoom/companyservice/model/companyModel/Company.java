@@ -115,11 +115,10 @@ public class Company {
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;
 
-	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL,orphanRemoval = true)
-	@JsonIgnore
+	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
 	private List<Team> teams;
 
-	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL,orphanRemoval = true)
+	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
 	private List<Gst> gstList;
 
 //	@Override

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
+import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.service.TeamMemberService;
@@ -78,12 +79,12 @@ public class TeamMemberController {
     @GetMapping("/getTeamWithTeamMember")
     public String getTeamWithTeamMember() {
 
-        List<Team> allTeamMembers = teamMemberService.getTeamWithAllTeamMember();
+        List<Company> allCompanyTeamTeamMembers = teamMemberService.getTeamWithAllTeamMember();
 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
         try {
-            json = objectMapper.writeValueAsString(allTeamMembers);
+            json = objectMapper.writeValueAsString(allCompanyTeamTeamMembers);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
