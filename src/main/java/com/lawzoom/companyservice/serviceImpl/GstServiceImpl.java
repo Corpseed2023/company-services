@@ -31,12 +31,12 @@ public class GstServiceImpl implements GstService {
     @Autowired
     private BusinessUnitRepository businessUnitRepository;
 
-
     @Override
-    public GstResponse createGst(GstRequest gstRequest, Long companyId) {
+    public GstResponse createGst(GstRequest gstRequest, Long businessUnitId) {
+
         // Check if the company with the given companyId exists
-        Company company = companyRepository.findById(companyId)
-                .orElseThrow(() -> new CompanyNotFoundException("Company not found for ID: " + companyId));
+        BusinessUnit businessUnit = businessUnitRepository.findById(businessUnitId)
+                .orElseThrow(() -> new CompanyNotFoundException("Business Unit not found for ID: " + businessUnitId));
 
         Gst gst = new Gst();
         gst.setGstNumber(gstRequest.getGstNumber());
@@ -45,9 +45,6 @@ public class GstServiceImpl implements GstService {
         gst.setCreatedAt(gstRequest.getCreatedAt()); // Set the created date
         gst.setUpdatedAt(gstRequest.getUpdatedAt()); // Set the updated date
         gst.setEnable(gstRequest.isEnable()); // Set isEnable field
-
-        // Associate the company with the GST entry
-        gst.setCompany(company);
 
         // Save the Gst entity
         Gst savedGst = gstRepository.save(gst);
@@ -60,9 +57,7 @@ public class GstServiceImpl implements GstService {
         response.setCreatedAt(savedGst.getCreatedAt());
         response.setUpdatedAt(savedGst.getUpdatedAt());
         response.setEnable(savedGst.isEnable());
-//
-//        response.setCompanyId(companyId); // Set the companyId
-//        response.setCompanyName(company.getName()); // Set the company name
+
 
         return response;
     }
@@ -180,28 +175,28 @@ public class GstServiceImpl implements GstService {
     @Override
     public GstResponse removeGstdata(Long gstId) {
 
-        Optional<Gst> gstOptional = gstRepository.findById(gstId);
-
-        if (gstOptional.isPresent()) {
-
-            Gst gst = gstOptional.get();
-            // Delete associated business units
-            List<BusinessUnit> businessUnits = gst.getBusinessUnits();
-            businessUnitRepository.deleteAll(businessUnits);
-
-
-            // Delete the GST record
-            gstRepository.delete(gst);
-
-
-            // Create and return a GstResponse object based on the deleted GST data
-            GstResponse removedGstResponse = new GstResponse();
-            removedGstResponse.setId(gst.getId());
-            removedGstResponse.setGstNumber(gst.getGstNumber());
-            removedGstResponse.setStateJurisdiction(gst.getStateJurisdiction());
-            // Set other fields as needed
-            return removedGstResponse;
-        }
+//        Optional<Gst> gstOptional = gstRepository.findById(gstId);
+//
+//        if (gstOptional.isPresent()) {
+//
+//            Gst gst = gstOptional.get();
+//            // Delete associated business units
+//            List<BusinessUnit> businessUnits = gst.getBusinessUnits();
+//            businessUnitRepository.deleteAll(businessUnits);
+//
+//
+//            // Delete the GST record
+//            gstRepository.delete(gst);
+//
+//
+//            // Create and return a GstResponse object based on the deleted GST data
+//            GstResponse removedGstResponse = new GstResponse();
+//            removedGstResponse.setId(gst.getId());
+//            removedGstResponse.setGstNumber(gst.getGstNumber());
+//            removedGstResponse.setStateJurisdiction(gst.getStateJurisdiction());
+//            // Set other fields as needed
+//            return removedGstResponse;
+//        }
 
         return null;
     }

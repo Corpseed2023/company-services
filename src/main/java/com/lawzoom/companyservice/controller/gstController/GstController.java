@@ -25,8 +25,8 @@ public class GstController {
 
 
     @PostMapping("/createGst")
-    public ResponseEntity<GstResponse> createGst(@RequestBody GstRequest gstRequest ,@RequestParam Long companyId) {
-        GstResponse createdGst = gstService.createGst(gstRequest,companyId);
+    public ResponseEntity<GstResponse> createGst(@RequestBody GstRequest gstRequest ,@RequestParam Long businessUnitId) {
+        GstResponse createdGst = gstService.createGst(gstRequest,businessUnitId);
         return new ResponseEntity<>(createdGst, HttpStatus.CREATED);
     }
 
