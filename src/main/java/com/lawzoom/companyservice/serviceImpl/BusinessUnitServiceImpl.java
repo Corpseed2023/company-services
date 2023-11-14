@@ -4,9 +4,9 @@ package com.lawzoom.companyservice.serviceImpl;
 import com.lawzoom.companyservice.dto.businessUnitDto.BusinessUnitRequest;
 import com.lawzoom.companyservice.dto.businessUnitDto.BusinessUnitResponse;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
-import com.lawzoom.companyservice.model.gstModel.Gst;
+import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.repository.BusinessUnitRepository;
-import com.lawzoom.companyservice.repository.GstRepository;
+import com.lawzoom.companyservice.repository.CompanyRepository;
 import com.lawzoom.companyservice.service.BusinessUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,14 +25,14 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
     private BusinessUnitRepository businessUnitRepository;
 
     @Autowired
-    private
+    private CompanyRepository companyRepository;
 
     @Override
     public BusinessUnitResponse createBusinessUnit(BusinessUnitRequest businessUnitRequest, Long companyId) {
-        // Check if the GST data exists
-        Optional<Gst> gstData = gstRepository.findById(companyId);
 
-        if (companyId.isPresent()) {
+        Optional<Company> gstData = companyRepository.findById(companyId);
+
+        if (gstData.isPresent()) {
             // Check if a business unit with the same address already exists
             BusinessUnit existingBusinessUnit = businessUnitRepository.findByAddress(businessUnitRequest.getAddress());
 
@@ -51,8 +51,6 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                 newBusinessUnit.setUpdatedAt(businessUnitRequest.getUpdatedAt());
                 newBusinessUnit.setEnable(businessUnitRequest.isEnable());
 
-                // Set the GST relationship
-                newBusinessUnit.setGst(gstData.get());
 
                 // Save the new BusinessUnit
                 BusinessUnit savedBusinessUnit = businessUnitRepository.save(newBusinessUnit);
@@ -69,8 +67,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                 response.setCreatedAt(savedBusinessUnit.getCreatedAt());
                 response.setUpdatedAt(savedBusinessUnit.getUpdatedAt());
                 response.setEnable(savedBusinessUnit.isEnable());
-                response.setGstId(savedBusinessUnit.getGst().getId());
-                response.setGstNumber(savedBusinessUnit.getGst().getGstNumber());
+
 //                response.setGstState(savedBusinessUnit.getGst().getGstState());
 
                 return response;
@@ -84,11 +81,11 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
     @Override
     public BusinessUnitResponse updateBusinessUnit(Long gstId, Long businessUnitId, BusinessUnitRequest businessUnitRequest) {
         // Check if the GST data exists
-        Optional<Gst> gstData = gstRepository.findById(gstId);
+        Optional<Company> companyData = companyRepository.findById(gstId);
 
         // Check if the business unit exists
         Optional<BusinessUnit> businessUnit = businessUnitRepository.findById(businessUnitId);
-        if (!gstData.isPresent() || !businessUnit.isPresent()) {
+        if (!companyData.isPresent() || !businessUnit.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "GST or Business Unit not found");
         }
         // Update the business unit data
@@ -115,9 +112,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
         response.setCreatedAt(savedBusinessUnit.getCreatedAt());
         response.setUpdatedAt(savedBusinessUnit.getUpdatedAt());
         response.setEnable(savedBusinessUnit.isEnable());
-        response.setGstId(savedBusinessUnit.getGst().getId());
-        response.setGstNumber(savedBusinessUnit.getGst().getGstNumber());
-//        response.setGstState(savedBusinessUnit.getGst().getState());
+
 
         return response;
     }
@@ -126,11 +121,11 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
     @Override
     public BusinessUnitResponse getBusinessUnit(Long gstId, Long businessUnitId) {
         // Check if the GST data exists
-        Optional<Gst> gstData = gstRepository.findById(gstId);
+        Optional<Company> companyData = companyRepository.findById(gstId);
 
         // Check if the business unit exists
         Optional<BusinessUnit> businessUnit = businessUnitRepository.findById(businessUnitId);
-        if (!gstData.isPresent() || !businessUnit.isPresent()) {
+        if (!companyData.isPresent() || !businessUnit.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "GST or Business Unit not found");
         }
 
@@ -147,9 +142,9 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
         response.setCreatedAt(savedBusinessUnit.getCreatedAt());
         response.setUpdatedAt(savedBusinessUnit.getUpdatedAt());
         response.setEnable(savedBusinessUnit.isEnable());
-        response.setGstId(savedBusinessUnit.getGst().getId());
-        response.setGstNumber(savedBusinessUnit.getGst().getGstNumber());
-//        response.setGstState(savedBusinessUnit.getGst().getState());
+//        response.setGstId(savedBusinessUnit.getGst().getId());
+//        response.setGstNumber(savedBusinessUnit.getGst().getGstNumber());
+////        response.setGstState(savedBusinessUnit.getGst().getState());
 
         return response;
     }
@@ -158,9 +153,9 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
     @Override
     public List<BusinessUnitResponse> getAllBusinessUnits(Long gstId) {
         // Check if the GST data exists
-        Optional<Gst> gstData = gstRepository.findById(gstId);
+        Optional<Company> companyData = companyRepository.findById(gstId);
 
-        if (!gstData.isPresent()) {
+        if (!companyData.isPresent()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "GST not found");
         }
 
@@ -181,9 +176,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                     response.setCreatedAt(businessUnit.getCreatedAt());
                     response.setUpdatedAt(businessUnit.getUpdatedAt());
                     response.setEnable(businessUnit.isEnable());
-                    response.setGstId(businessUnit.getGst().getId());
-                    response.setGstNumber(businessUnit.getGst().getGstNumber());
-//                    response.setGstState(businessUnit.getGst().getState());
+
                     return response;
                 })
                 .collect(Collectors.toList());
@@ -195,7 +188,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
     @Override
     public void deleteBusinessUnit(Long gstId, Long businessUnitId) {
         // Check if the GST data exists
-        if (!gstRepository.existsById(gstId)) {
+        if (!companyRepository.existsById(gstId)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "GST not found");
         }
 
