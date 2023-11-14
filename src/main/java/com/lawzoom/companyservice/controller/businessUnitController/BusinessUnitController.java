@@ -25,7 +25,7 @@ public class BusinessUnitController {
     private BusinessUnitService businessUnitService;
 
     @PostMapping("/saveBusinessUnit")
-    public ResponseEntity<BusinessUnitResponse> createBusinessUnit(@RequestBody BusinessUnitRequest businessUnitRequest,Long gstId)
+    public ResponseEntity<BusinessUnitResponse> createBusinessUnit(@RequestBody BusinessUnitRequest businessUnitRequest,@RequestParam (required = false) Long gstId)
 
     {
         try{
