@@ -70,9 +70,10 @@ public class CompanyController {
         }
     }
 
-//    @GetMapping("/user}")
-//    public ResponseEntity<List<CompanyResponse>> getAllCompaniesByUserId(@RequestParam Long userId) {
-//        List<CompanyResponse> companies = companyService.getAllCompaniesByUserId(userId);
-//        return ResponseEntity.ok(companies);
-//    }
+    @GetMapping("/getAllCompaniesByUserId")
+    public ResponseEntity<List<CompanyResponse>> getAllCompaniesByUserId(@RequestParam Long userId) {
+        List<CompanyResponse> companies = companyService.getAllCompaniesByUserId(userId);
+        return ResponseEntity.ok(companies);
+    }
+
 }

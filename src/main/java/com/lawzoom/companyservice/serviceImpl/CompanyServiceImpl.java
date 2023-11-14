@@ -259,17 +259,43 @@ public class CompanyServiceImpl implements CompanyService {
         }
     }
 
-//    @Override
-//    public List<CompanyResponse> getAllCompaniesByUserId(Long userId) {
-//
-//        List<Company> allCompanies = companyRepository.findAllByUserId(userId);
-//
-//        CompanyResponse companyResponse = new CompanyResponse();
-//
-//
-//
-//        return allCompanies;
-//    }
+    @Override
+    public List<CompanyResponse> getAllCompaniesByUserId(Long userId) {
+        List<Company> companies = companyRepository.findAllByUserId(userId);
+        return companies.stream()
+                .map(company -> {
+                    CompanyResponse response = new CompanyResponse();
+                    response.setCompanyId(company.getId());
+                    response.setCompanyType(company.getCompanyType());
+                    response.setCompanyName(company.getCompanyName());
+                    response.setFirstName(company.getFirstName());
+                    response.setLastName(company.getLastName());
+                    response.setBusinessActivityEmail(company.getBusinessActivityEmail());
+                    response.setDesignation(company.getDesignation());
+                    response.setCompanyState(company.getState());
+                    response.setCompanyCity(company.getCity());
+                    response.setCompanyRegistrationNumber(company.getRegistrationNumber());
+                    response.setCompanyRegistrationDate(company.getRegistrationDate());
+                    response.setCompanyCINNumber(company.getCinNumber());
+                    response.setCompanyRemarks(company.getRemarks());
+                    response.setCompanyPinCode(company.getPinCode());
+                    response.setCompanyAddress(company.getAddress());
+                    response.setCompanyTurnover(company.getTurnover());
+                    response.setLocatedAt(company.getLocatedAt());
+                    response.setCreatedAt(company.getCreatedAt());
+                    response.setUpdatedAt(company.getUpdatedAt());
+                    response.setEnable(company.isEnable());
+                    response.setBusinessActivity(company.getBusinessActivity());
+                    response.setPermanentEmployee(company.getPermanentEmployee());
+                    response.setContractEmployee(company.getContractEmployee());
+                    response.setGstNumber(company.getGstNumber());
+                    response.setOperationUnitAddress(company.getOperationUnitAddress());
+                    return response;
+
+                })
+                .collect(Collectors.toList());
+    }
+
 }
 
 
