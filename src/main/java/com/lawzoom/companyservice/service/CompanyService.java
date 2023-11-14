@@ -21,4 +21,5 @@ public interface CompanyService {
     void deleteCompany(Long id);
 
 
+//    List<CompanyResponse> getAllCompaniesByUserId(Long userId);
 }

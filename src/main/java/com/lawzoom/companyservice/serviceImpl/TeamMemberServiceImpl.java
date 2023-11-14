@@ -270,15 +270,10 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     }
 
     @Override
-    public List<Company> getTeamWithAllTeamMember() {
-        List<Company> companyList = companyRepository.findAll();
+    public List<Team> getTeamWithAllTeamMember(Long companyId) {
+        List<Team> teamList = teamRepository.findAllByCompanyId(companyId);
 
-//        for (Team team : teamData) {
-//
-//            List<TeamMember> teamMembersData = teamMemberRepository.findAllByTeamId(team.getId());
-//            team.getTeamMembers();
-//        }
-            return companyList;
+            return teamList;
         }
 
 

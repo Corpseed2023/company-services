@@ -9,7 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<Company,Long> {
+
     Company findByIdAndUserId(Long companyId, Long userId);
 
 
+    Optional<Company> findAllByUserId(Long userId);
 }

@@ -77,14 +77,14 @@ public class TeamMemberController {
 
 
     @GetMapping("/getTeamWithTeamMember")
-    public String getTeamWithTeamMember() {
+    public String getTeamWithAllTeamMember(@RequestParam Long companyId) {
 
-        List<Company> allCompanyTeamTeamMembers = teamMemberService.getTeamWithAllTeamMember();
+        List<Team> allTeamWithAllTeamMembers = teamMemberService.getTeamWithAllTeamMember(companyId);
 
         ObjectMapper objectMapper = new ObjectMapper();
         String json = null;
         try {
-            json = objectMapper.writeValueAsString(allCompanyTeamTeamMembers);
+            json = objectMapper.writeValueAsString(allTeamWithAllTeamMembers);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

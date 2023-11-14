@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
@@ -257,8 +258,19 @@ public class CompanyServiceImpl implements CompanyService {
             throw new CompanyNotFoundException("Company with ID " + id + " not found");
         }
     }
-}
 
+//    @Override
+//    public List<CompanyResponse> getAllCompaniesByUserId(Long userId) {
+//
+//        List<Company> allCompanies = companyRepository.findAllByUserId(userId);
+//
+//        CompanyResponse companyResponse = new CompanyResponse();
+//
+//
+//
+//        return allCompanies;
+//    }
+}
 
 
 

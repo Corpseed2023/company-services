@@ -69,4 +69,10 @@ public class CompanyController {
                     .body("Error while deleting company with ID " + id);
         }
     }
+
+//    @GetMapping("/user}")
+//    public ResponseEntity<List<CompanyResponse>> getAllCompaniesByUserId(@RequestParam Long userId) {
+//        List<CompanyResponse> companies = companyService.getAllCompaniesByUserId(userId);
+//        return ResponseEntity.ok(companies);
+//    }
 }
