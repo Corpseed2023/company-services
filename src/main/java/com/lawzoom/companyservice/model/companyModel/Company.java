@@ -1,11 +1,8 @@
 package com.lawzoom.companyservice.model.companyModel;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
 import com.lawzoom.companyservice.model.gstModel.Gst;
 import com.lawzoom.companyservice.model.teamModel.Team;
-
-//import javax.persistence.*;
-//import javax.validation.constraints.NotNull;
 
 import jakarta.persistence.*;
 
@@ -120,6 +117,9 @@ public class Company {
 
 	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
 	private List<Gst> gstList;
+
+	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
+	private List<BusinessUnit> businessUnits;
 
 
 //	@Override

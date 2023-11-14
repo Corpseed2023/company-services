@@ -6,14 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Comment;
-
-//import javax.persistence.*;
-//import javax.validation.constraints.NotNull;
-
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,8 +22,8 @@ public class Gst {
 	private Long id;
 
 	@ManyToOne(targetEntity = Company.class,fetch = FetchType.LAZY)
-	@JoinColumn(name = "company_id",nullable = false)
-	private Company company;
+	@JoinColumn(name = "businessUnit_id",nullable = false)
+	private BusinessUnit businessUnit;
 	
 	@NotNull
 	@Column(name = "gst_number",unique = true)
@@ -56,7 +49,7 @@ public class Gst {
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;
 
-	@OneToMany(mappedBy = "gst",cascade = CascadeType.ALL,orphanRemoval = true)
-	private List<BusinessUnit> businessUnits=new ArrayList<>();
+//	@OneToMany(mappedBy = "gst",cascade = CascadeType.ALL,orphanRemoval = true)
+//	private List<BusinessUnit> businessUnits=new ArrayList<>();
 
 }

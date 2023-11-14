@@ -1,5 +1,7 @@
 package com.lawzoom.companyservice.model.businessUnitModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.gstModel.Gst;
 
 //import javax.persistence.*;
@@ -14,6 +16,7 @@ import org.hibernate.annotations.Comment;
 
 
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,9 +32,9 @@ public class BusinessUnit {
 	@Column(name = "id")
 	private Long id;
 
-	@ManyToOne(targetEntity = Gst.class,fetch = FetchType.LAZY)
-	@JoinColumn(name = "gst_id",nullable = false)
-	private Gst gst;
+//	@ManyToOne(targetEntity = Gst.class,fetch = FetchType.LAZY)
+//	@JoinColumn(name = "gst_id",nullable = false)
+//	private Gst gst;
 	
 	@NotNull
 	@Column(name = "business_activity")
@@ -64,4 +67,13 @@ public class BusinessUnit {
 	@Column(length = 1,name="is_enable",columnDefinition = "tinyint(1) default 1")
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;
+
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "company_id")
+	private Company company;
+
+	@OneToMany(mappedBy = "businessUnit", cascade = CascadeType.ALL)
+	private List<Gst> gstList ;
+
 }

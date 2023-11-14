@@ -25,11 +25,11 @@ public class BusinessUnitController {
     private BusinessUnitService businessUnitService;
 
     @PostMapping("/saveBusinessUnit")
-    public ResponseEntity<BusinessUnitResponse> createBusinessUnit(@RequestBody BusinessUnitRequest businessUnitRequest,@RequestParam (required = false) Long gstId)
+    public ResponseEntity<BusinessUnitResponse> createBusinessUnit(@RequestBody BusinessUnitRequest businessUnitRequest, @RequestParam Long companyId)
 
     {
         try{
-            BusinessUnitResponse savedBusinessData= businessUnitService.createBusinessUnit(businessUnitRequest,gstId);
+            BusinessUnitResponse savedBusinessData= businessUnitService.createBusinessUnit(businessUnitRequest,companyId);
             return new ResponseEntity<>(savedBusinessData, HttpStatus.CREATED);
 
         } catch (Exception e)  {
@@ -37,8 +37,6 @@ public class BusinessUnitController {
         }
 
     }
-
-
 
 //    @PutMapping("/updateBusinessUnit/{id}")
     @PutMapping("/updateBusinessUnit")

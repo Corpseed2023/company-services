@@ -20,18 +20,19 @@ import java.util.stream.Collectors;
 @Service
 public class BusinessUnitServiceImpl implements BusinessUnitService {
 
-    @Autowired
-    private GstRepository gstRepository;
 
     @Autowired
     private BusinessUnitRepository businessUnitRepository;
 
-    @Override
-    public BusinessUnitResponse createBusinessUnit(BusinessUnitRequest businessUnitRequest, Long gstId) {
-        // Check if the GST data exists
-        Optional<Gst> gstData = gstRepository.findById(gstId);
+    @Autowired
+    private
 
-        if (gstData.isPresent()) {
+    @Override
+    public BusinessUnitResponse createBusinessUnit(BusinessUnitRequest businessUnitRequest, Long companyId) {
+        // Check if the GST data exists
+        Optional<Gst> gstData = gstRepository.findById(companyId);
+
+        if (companyId.isPresent()) {
             // Check if a business unit with the same address already exists
             BusinessUnit existingBusinessUnit = businessUnitRepository.findByAddress(businessUnitRequest.getAddress());
 
