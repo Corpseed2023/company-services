@@ -32,7 +32,7 @@ public class BusinessUnitController {
             BusinessUnitResponse savedBusinessData= businessUnitService.createBusinessUnit(businessUnitRequest,gstId);
             return new ResponseEntity<>(savedBusinessData, HttpStatus.CREATED);
 
-        } catch (Exception e) {
+        } catch (Exception e)  {
             throw new RuntimeException(e);
         }
 
