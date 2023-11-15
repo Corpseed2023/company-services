@@ -21,8 +21,8 @@ public class Gst {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(targetEntity = Company.class,fetch = FetchType.LAZY)
-	@JoinColumn(name = "businessUnit_id",nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "business_unit_id")
 	private BusinessUnit businessUnit;
 	
 	@NotNull
@@ -49,7 +49,6 @@ public class Gst {
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;
 
-//	@OneToMany(mappedBy = "gst",cascade = CascadeType.ALL,orphanRemoval = true)
-//	private List<BusinessUnit> businessUnits=new ArrayList<>();
+
 
 }

@@ -32,10 +32,6 @@ public class BusinessUnit {
 	@Column(name = "id")
 	private Long id;
 
-//	@ManyToOne(targetEntity = Gst.class,fetch = FetchType.LAZY)
-//	@JoinColumn(name = "gst_id",nullable = false)
-//	private Gst gst;
-
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_id")
@@ -73,7 +69,12 @@ public class BusinessUnit {
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;
 
+//	@OneToMany(mappedBy = "businessUnit", cascade = CascadeType.ALL)
+//	private List<Gst> gstList;
+
 	@OneToMany(mappedBy = "businessUnit", cascade = CascadeType.ALL)
-	private List<Gst> gstList ;
+	private List<Gst> gstList;
+
+
 
 }

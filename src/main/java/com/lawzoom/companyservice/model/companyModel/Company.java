@@ -1,7 +1,6 @@
 package com.lawzoom.companyservice.model.companyModel;
 
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
-import com.lawzoom.companyservice.model.gstModel.Gst;
 import com.lawzoom.companyservice.model.teamModel.Team;
 
 import jakarta.persistence.*;
@@ -29,8 +28,6 @@ public class Company {
 	@Column(name = "user_id")
 	private Long userId;
 
-//	First Page of Figma entries
-
 	@Column(name = "first_name")
 	private String firstName;
 
@@ -44,11 +41,7 @@ public class Company {
 	@Column(name = "designation")
 	@NotNull
 	private String designation;
-
-//	End of Figma first page Entries
-
-//	Start of second page entries
-
+	
 	@Column(name = "company_type")
 	private String companyType;
 
@@ -115,44 +108,8 @@ public class Company {
 	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
 	private List<Team> teams;
 
-//	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
-//	private List<Gst> gstList;
-
 	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
 	private List<BusinessUnit> businessUnits;
 
 
-//	@Override
-//	public String toString() {
-//		return "Company{" +
-//				"id=" + id +
-//				", userId=" + userId +
-//				", firstName='" + firstName + '\'' +
-//				", lastName='" + lastName + '\'' +
-//				", businessActivityEmail='" + businessActivityEmail + '\'' +
-//				", designation='" + designation + '\'' +
-//				", companyType='" + companyType + '\'' +
-//				", companyName='" + companyName + '\'' +
-//				", state='" + state + '\'' +
-//				", city='" + city + '\'' +
-//				", registrationNumber='" + registrationNumber + '\'' +
-//				", registrationDate=" + registrationDate +
-//				", cinNumber='" + cinNumber + '\'' +
-//				", remarks='" + remarks + '\'' +
-//				", pinCode='" + pinCode + '\'' +
-//				", address='" + address + '\'' +
-//				", turnover=" + turnover +
-//				", locatedAt='" + locatedAt + '\'' +
-//				", businessActivity='" + businessActivity + '\'' +
-//				", permanentEmployee=" + permanentEmployee +
-//				", contractEmployee=" + contractEmployee +
-//				", gstNumber='" + gstNumber + '\'' +
-//				", operationUnitAddress='" + operationUnitAddress + '\'' +
-//				", createdAt=" + createdAt +
-//				", updatedAt=" + updatedAt +
-//				", isEnable=" + isEnable +
-//				", teams=" + teams +
-//				", gstList=" + gstList +
-//				'}';
-//	}
 }
