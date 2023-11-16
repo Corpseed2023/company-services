@@ -2,7 +2,6 @@ package com.lawzoom.companyservice.serviceImpl;
 
 import com.lawzoom.companyservice.dto.companyDto.CompanyRequest;
 import com.lawzoom.companyservice.dto.companyDto.CompanyResponse;
-import com.lawzoom.companyservice.exception.CompanyNotFoundException;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.repository.CompanyRepository;
 import com.lawzoom.companyservice.service.CompanyService;
@@ -249,13 +248,13 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public void deleteCompany(Long id) throws CompanyNotFoundException {
+    public void deleteCompany(Long id) throws NotFoundException {
         Optional<Company> companyOptional = companyRepository.findById(id);
         if (companyOptional.isPresent()) {
             Company company = companyOptional.get();
             companyRepository.delete(company);
         } else {
-            throw new CompanyNotFoundException("Company with ID " + id + " not found");
+            throw new NotFoundException("Company with ID " + id + " not found");
         }
     }
 

@@ -12,7 +12,7 @@ public interface BusinessUnitService {
 //
 //    BusinessUnitResponse getBusinessUnit(Long gstId, Long businessUnitId);
 //
-//    List<BusinessUnitResponse> getAllBusinessUnits(Long gstId);
+    List<BusinessUnitResponse> getAllBusinessUnits(Long companyId);
 //
 //    void deleteBusinessUnit(Long gstId, Long businessUnitId);
 

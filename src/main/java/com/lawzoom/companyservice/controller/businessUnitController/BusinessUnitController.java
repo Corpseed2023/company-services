@@ -67,11 +67,11 @@ public class BusinessUnitController {
 //    }
 //
 //    // Add an endpoint to retrieve all business units
-//    @GetMapping("/getAllBusinessUnits")
-//    public ResponseEntity<List<BusinessUnitResponse>> getAllBusinessUnits(@RequestParam Long gstId) {
-//        List<BusinessUnitResponse> businessUnits = businessUnitService.getAllBusinessUnits(gstId);
-//        return ResponseEntity.ok(businessUnits);
-//    }
+    @GetMapping("/getAllBusinessUnits")
+    public ResponseEntity<List<BusinessUnitResponse>> getAllBusinessUnits(@RequestParam Long companyId) {
+        List<BusinessUnitResponse> businessUnits = businessUnitService.getAllBusinessUnits(companyId);
+        return ResponseEntity.ok(businessUnits);
+    }
 //
 //    @DeleteMapping("/deleteBusinessUnit")
 ////    @DeleteMapping("/deleteBusinessUnit/{businessUnitId}")

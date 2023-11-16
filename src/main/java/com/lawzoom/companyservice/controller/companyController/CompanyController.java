@@ -1,10 +1,8 @@
 package com.lawzoom.companyservice.controller.companyController;
 
 import com.lawzoom.companyservice.dto.companyDto.CompanyResponse;
-import com.lawzoom.companyservice.exception.CompanyNotFoundException;
-import com.lawzoom.companyservice.model.LeadTest;
-import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.service.CompanyService;
+import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +58,7 @@ public class CompanyController {
 
             return ResponseEntity.ok("Company with ID  deleted successfully");
 
-        } catch (CompanyNotFoundException e) {
+        } catch (NotFoundException e) {
 
             return ResponseEntity.notFound().build();
 
