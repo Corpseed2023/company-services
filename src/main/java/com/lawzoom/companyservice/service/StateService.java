@@ -7,11 +7,13 @@ import java.util.List;
 public interface StateService {
     List<States> getAllStates();
 
-    States getStateById(Long id);
+//    States getStateById(Long id);
 
-    States createOrUpdateState(States states);
+//    States createOrUpdateState(States states);
 
     void deleteState(Long id);
 
-    List<States> createOrUpdateStates(List<String> stateNames);
+//    List<States> createOrUpdateStates(List<String> stateNames);
+    Object createOrUpdateStates(List<String> stateNames);
+
 }
