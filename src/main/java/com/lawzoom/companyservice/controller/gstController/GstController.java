@@ -31,18 +31,18 @@ public class GstController {
     }
 
 
-//    @PutMapping("/editGst")
-//    public ResponseEntity<GstResponse> updateGst(
-//            @RequestParam("companyId") Long companyId,
-//            @RequestParam("gstId") Long gstId,
-//            @RequestBody GstRequest gstRequest) {
-//        GstResponse updatedGst = gstService.updateGst(companyId, gstId, gstRequest);
-//        return new ResponseEntity<>(updatedGst, HttpStatus.OK);
-//    }
+    @PutMapping("/editGst")
+    public ResponseEntity<GstResponse> updateGst(
+            @RequestParam("companyId") Long businessUnitId,
+            @RequestParam("gstId") Long gstId,
+            @RequestBody GstRequest gstRequest) {
+        GstResponse updatedGst = gstService.updateGst(businessUnitId, gstId, gstRequest);
+        return new ResponseEntity<>(updatedGst, HttpStatus.OK);
+    }
 
     @GetMapping("/getAllGst")
-    public ResponseEntity<List<GstResponse>> getAllGst(@RequestParam("companyId") Long companyId) {
-        List<GstResponse> allGst = gstService.getAllGst(companyId);
+    public ResponseEntity<List<GstResponse>> getAllGst(@RequestParam("businessUnitId") Long businessUnitId) {
+        List<GstResponse> allGst = gstService.getAllGst(businessUnitId);
         return new ResponseEntity<>(allGst, HttpStatus.OK);
     }
 

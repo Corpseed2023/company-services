@@ -17,7 +17,8 @@ import java.util.List;
 //@RequestMapping("/companyServices/company")
 @RequestMapping("/companyServices/company")
 
-public class CompanyController {
+public class
+CompanyController {
 
     @Autowired
     private CompanyService companyService;
@@ -27,14 +28,6 @@ public class CompanyController {
         CompanyResponse companyResponse = companyService.createCompany(companyRequest,userId);
         return new ResponseEntity<>(companyResponse, HttpStatus.CREATED);
     }
-
-    @GetMapping("/leadTest")
-    public String createLead() {
-        System.out.println("Lead generated successfully");
-        return "generated";
-    }
-
-
 
     @GetMapping("/allCompany")
     public ResponseEntity<List<CompanyResponse>> getAllCompanies() {
@@ -68,10 +61,11 @@ public class CompanyController {
         }
     }
 
-    @GetMapping("/getAllCompaniesByUserId")
-    public ResponseEntity<List<CompanyResponse>> getAllCompaniesByUserId(@RequestParam Long userId) {
-        List<CompanyResponse> companies = companyService.getAllCompaniesByUserId(userId);
-        return ResponseEntity.ok(companies);
+    @GetMapping("/getAllCompanyNames")
+    public ResponseEntity<List<String>> getAllCompanyNames() {
+        List<String> companyNames = companyService.getAllCompanyNames();
+        return ResponseEntity.ok(companyNames);
     }
+
 
 }

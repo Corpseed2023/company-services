@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,44 +62,52 @@ public class GstServiceImpl implements GstService {
     }
 
 
-//    @Override
-//    public GstResponse updateGst(Long companyId, Long gstId, GstRequest gstRequest) {
-//        // Fetch the existing Gst entity from the database
-//        Gst existingGst = gstRepository.findById(gstId)
-//                .orElseThrow(() -> new RuntimeException("GST not found with id: " + gstId));
-//
-//        // Update the existing Gst entity with the new values
-//        existingGst.setGstNumber(gstRequest.getGstNumber());
-//        existingGst.setStateJurisdiction(gstRequest.getStateJurisdiction());
-//        // Update other properties as needed...
-//
-//        // Set the updatedAt property to the current date and time
-//        existingGst.setUpdatedAt(new Date());
-//
-//        // Save the updated entity back to the repository
-//        Gst updatedGst = gstRepository.save(existingGst);
-//
-//        // Map the updated entity to DTO for response
-//        GstResponse response = new GstResponse();
-//        response.setId(updatedGst.getId());
-//        response.setGstNumber(updatedGst.getGstNumber());
-//        response.setStateJurisdiction(updatedGst.getStateJurisdiction());
-//        response.setRegistrationDate(updatedGst.getRegistrationDate());
-//        response.setCreatedAt(updatedGst.getCreatedAt());
-//        response.setUpdatedAt(updatedGst.getUpdatedAt());
-//        response.setEnable(updatedGst.isEnable());
-//
-//        return response;
-//    }
+    @Override
+    public GstResponse updateGst(Long businessUnitId, Long gstId, GstRequest gstRequest) {
+
+        BusinessUnit businessUnitData = businessUnitRepository.findById(businessUnitId)
+                .orElseThrow(() -> new
+                        NotFoundException("Business Unit not found for ID: " + businessUnitId));
+
+        // Fetch the existing Gst entity from the database
+        Gst existingGst = gstRepository.findById(gstId)
+                .orElseThrow(() -> new RuntimeException("GST not found with id: " + gstId));
+
+        // Update the existing Gst entity with the new values
+        existingGst.setGstNumber(gstRequest.getGstNumber());
+        existingGst.setStateJurisdiction(gstRequest.getStateJurisdiction());
+        existingGst.setUpdatedAt(gstRequest.getUpdatedAt());
+        existingGst.setCreatedAt(gstRequest.getCreatedAt());
+        existingGst.setRegistrationDate(gstRequest.getRegistrationDate());
+        // Update other properties as needed...
+
+        // Set the updatedAt property to the current date and time
+        existingGst.setUpdatedAt(new Date());
+
+        // Save the updated entity back to the repository
+        Gst updatedGst = gstRepository.save(existingGst);
+
+        // Map the updated entity to DTO for response
+        GstResponse response = new GstResponse();
+        response.setId(updatedGst.getId());
+        response.setGstNumber(updatedGst.getGstNumber());
+        response.setStateJurisdiction(updatedGst.getStateJurisdiction());
+        response.setRegistrationDate(updatedGst.getRegistrationDate());
+        response.setCreatedAt(updatedGst.getCreatedAt());
+        response.setUpdatedAt(updatedGst.getUpdatedAt());
+        response.setEnable(updatedGst.isEnable());
+
+        return response;
+    }
 
     @Override
-    public List<GstResponse> getAllGst(Long companyId) {
+    public List<GstResponse> getAllGst(Long businessUnitId) {
 
-        Optional<BusinessUnit> businessUnitData = businessUnitRepository.findById(companyId);
+        Optional<BusinessUnit> businessUnitData = businessUnitRepository.findById(businessUnitId);
 
         if (businessUnitData.isPresent()) {
 
-            List<Gst> gstList = gstRepository.findByCompanyId(companyId);
+            List<Gst> gstList = gstRepository.findByBusinessUnitId(businessUnitId);
 
             List<GstResponse> gstResponseList = new ArrayList<>();
 
@@ -119,7 +128,7 @@ public class GstServiceImpl implements GstService {
             // Return the list of GstResponse objects
             return gstResponseList;
         } else {
-            // Company data does not exist, return a specific message
+            // Business data does not exist, return a specific message
             throw new NotFoundException("Business Unit is not present or enter a valid company ID");
         }
     }

@@ -39,21 +39,21 @@ public class BusinessUnitController {
     }
 
 //    @PutMapping("/updateBusinessUnit/{id}")
-//    @PutMapping("/updateBusinessUnit")
-//
-//    public ResponseEntity<BusinessUnitResponse> updateBusinessUnit(
-//            @RequestParam Long gstId,
-//            @RequestParam Long businessUnitId,
-//            @RequestBody BusinessUnitRequest businessUnitRequest)
-//
-//    {
-//        try {
-//            BusinessUnitResponse updatedBusinessData = businessUnitService.updateBusinessUnit(gstId, businessUnitId, businessUnitRequest);
-//            return new ResponseEntity<>(updatedBusinessData, HttpStatus.OK);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    @PutMapping("/updateBusinessUnit")
+
+    public ResponseEntity<BusinessUnitResponse> updateBusinessUnit(
+            @RequestParam Long companyId,
+            @RequestParam Long businessUnitId,
+            @RequestBody BusinessUnitRequest businessUnitRequest)
+
+    {
+        try {
+            BusinessUnitResponse updatedBusinessData = businessUnitService.updateBusinessUnit(companyId, businessUnitId, businessUnitRequest);
+            return new ResponseEntity<>(updatedBusinessData, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 //
 //    // Add an endpoint to retrieve a single business unit by its ID
 ////    @GetMapping("/getBusinessUnit/{businessUnitId}")

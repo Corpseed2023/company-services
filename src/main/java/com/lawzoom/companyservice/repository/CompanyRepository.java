@@ -3,6 +3,7 @@ package com.lawzoom.companyservice.repository;
 
 import com.lawzoom.companyservice.model.companyModel.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,4 +16,7 @@ public interface CompanyRepository extends JpaRepository<Company,Long> {
 
 
     List<Company> findAllByUserId(Long userId);
+
+    @Query("SELECT c.companyName FROM Company c")
+    List<String> findAllCompanyNames();
 }

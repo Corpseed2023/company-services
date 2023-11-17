@@ -10,13 +10,10 @@ public interface GstService {
     GstResponse createGst(GstRequest gstRequest, Long businessUnitId);
 
 
-//    GstResponse updateGst(Long companyId, Long gstId, GstRequest gstRequest);
+    GstResponse updateGst(Long businessUnitId, Long gstId, GstRequest gstRequest);
 
 
-    List<GstResponse> getAllGst(Long companyId);
-
-//    GstResponse getGstData(Long gstId, Long companyId);
+    List<GstResponse> getAllGst(Long businessUnitId);
 
 
-//    GstResponse removeGstdata(Long gstId);
 }

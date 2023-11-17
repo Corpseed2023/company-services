@@ -33,6 +33,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
 
         Optional<Company> companyData = companyRepository.findById(companyId);
 
+
         if (companyData.isPresent()) {
             // Check if a business unit with the same address already exists
             BusinessUnit existingBusinessUnit = businessUnitRepository.findByAddress(businessUnitRequest.getAddress());
@@ -80,45 +81,49 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
 
 
 
-//    @Override
-//    public BusinessUnitResponse updateBusinessUnit(Long gstId, Long businessUnitId, BusinessUnitRequest businessUnitRequest) {
-//        // Check if the GST data exists
-//        Optional<Company> companyData = companyRepository.findById(gstId);
-//
-//        // Check if the business unit exists
-//        Optional<BusinessUnit> businessUnit = businessUnitRepository.findById(businessUnitId);
-//        if (!companyData.isPresent() || !businessUnit.isPresent()) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "GST or Business Unit not found");
-//        }
-//        // Update the business unit data
-//        BusinessUnit updatedBusinessUnit = businessUnit.get();
-//        updatedBusinessUnit.setBusinessActivity(businessUnitRequest.getBusinessActivity());
-//        updatedBusinessUnit.setCity(businessUnitRequest.getCity());
-//        updatedBusinessUnit.setLocatedAt(businessUnitRequest.getLocatedAt());
-//        updatedBusinessUnit.setPermanentEmployee(businessUnitRequest.getPermanentEmployee());
-//        updatedBusinessUnit.setContractEmployee(businessUnitRequest.getContractEmployee());
-//        updatedBusinessUnit.setAddress(businessUnitRequest.getAddress());
-//
-//        // Save the updated business unit
-//        BusinessUnit savedBusinessUnit = businessUnitRepository.save(updatedBusinessUnit);
-//
-//        // Create a response manually
-//        BusinessUnitResponse response = new BusinessUnitResponse();
-//        response.setId(savedBusinessUnit.getId());
-//        response.setBusinessActivity(savedBusinessUnit.getBusinessActivity());
-//        response.setCity(savedBusinessUnit.getCity());
-//        response.setLocatedAt(savedBusinessUnit.getLocatedAt());
-//        response.setPermanentEmployee(savedBusinessUnit.getPermanentEmployee());
-//        response.setContractEmployee(savedBusinessUnit.getContractEmployee());
-//        response.setAddress(savedBusinessUnit.getAddress());
-//        response.setCreatedAt(savedBusinessUnit.getCreatedAt());
-//        response.setUpdatedAt(savedBusinessUnit.getUpdatedAt());
-//        response.setEnable(savedBusinessUnit.isEnable());
-//
-//
-//        return response;
-//    }
-//
+    @Override
+    public BusinessUnitResponse updateBusinessUnit(Long companyId, Long businessUnitId, BusinessUnitRequest businessUnitRequest) {
+        // Check if the GST data exists
+        Optional<Company> companyData = companyRepository.findById(companyId);
+
+        if (!companyData.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Company not found with ID: " + companyId);
+        }
+
+        // Check if the business unit exists
+        Optional<BusinessUnit> businessUnit = businessUnitRepository.findById(businessUnitId);
+        if (!companyData.isPresent() || !businessUnit.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "GST or Business Unit not found");
+        }
+        // Update the business unit data
+        BusinessUnit updatedBusinessUnit = businessUnit.get();
+        updatedBusinessUnit.setBusinessActivity(businessUnitRequest.getBusinessActivity());
+        updatedBusinessUnit.setCity(businessUnitRequest.getCity());
+        updatedBusinessUnit.setLocatedAt(businessUnitRequest.getLocatedAt());
+        updatedBusinessUnit.setPermanentEmployee(businessUnitRequest.getPermanentEmployee());
+        updatedBusinessUnit.setContractEmployee(businessUnitRequest.getContractEmployee());
+        updatedBusinessUnit.setAddress(businessUnitRequest.getAddress());
+
+        // Save the updated business unit
+        BusinessUnit savedBusinessUnit = businessUnitRepository.save(updatedBusinessUnit);
+
+        // Create a response manually
+        BusinessUnitResponse response = new BusinessUnitResponse();
+        response.setId(savedBusinessUnit.getId());
+        response.setBusinessActivity(savedBusinessUnit.getBusinessActivity());
+        response.setCity(savedBusinessUnit.getCity());
+        response.setLocatedAt(savedBusinessUnit.getLocatedAt());
+        response.setPermanentEmployee(savedBusinessUnit.getPermanentEmployee());
+        response.setContractEmployee(savedBusinessUnit.getContractEmployee());
+        response.setAddress(savedBusinessUnit.getAddress());
+        response.setCreatedAt(savedBusinessUnit.getCreatedAt());
+        response.setUpdatedAt(savedBusinessUnit.getUpdatedAt());
+        response.setEnable(savedBusinessUnit.isEnable());
+
+
+        return response;
+    }
+
 //
 //    @Override
 //    public BusinessUnitResponse getBusinessUnit(Long gstId, Long businessUnitId) {

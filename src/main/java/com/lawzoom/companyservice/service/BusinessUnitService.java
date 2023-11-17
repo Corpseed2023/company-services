@@ -8,7 +8,7 @@ import java.util.List;
 public interface BusinessUnitService {
     BusinessUnitResponse createBusinessUnit(BusinessUnitRequest businessUnitRequest ,Long companyId);
 
-//    BusinessUnitResponse updateBusinessUnit(Long gstId, Long businessUnitId, BusinessUnitRequest businessUnitRequest);
+    BusinessUnitResponse updateBusinessUnit(Long companyId, Long businessUnitId, BusinessUnitRequest businessUnitRequest);
 //
 //    BusinessUnitResponse getBusinessUnit(Long gstId, Long businessUnitId);
 //
