@@ -2,6 +2,7 @@ package com.lawzoom.companyservice.dto.businessUnitDto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.*;
@@ -40,5 +41,9 @@ public class BusinessUnitRequest {
 	private Date updatedAt;
 
 	private boolean isEnable;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "date_registration")
+	private Date dateRegistration;
 
 }

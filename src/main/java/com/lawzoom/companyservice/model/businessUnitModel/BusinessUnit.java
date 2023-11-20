@@ -65,6 +65,10 @@ public class BusinessUnit {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "date_registration")
+	private Date dateRegistration;
+
 	@Column(length = 1,name="is_enable",columnDefinition = "tinyint(1) default 1")
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;

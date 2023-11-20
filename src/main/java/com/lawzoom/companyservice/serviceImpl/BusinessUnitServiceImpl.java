@@ -53,6 +53,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                 newBusinessUnit.setCreatedAt(businessUnitRequest.getCreatedAt());
                 newBusinessUnit.setUpdatedAt(businessUnitRequest.getUpdatedAt());
                 newBusinessUnit.setEnable(businessUnitRequest.isEnable());
+                newBusinessUnit.setDateRegistration(businessUnitRequest.getDateRegistration());
 
                 // Save the new BusinessUnit
                 BusinessUnit savedBusinessUnit = businessUnitRepository.save(newBusinessUnit);
@@ -69,6 +70,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                 response.setCreatedAt(savedBusinessUnit.getCreatedAt());
                 response.setUpdatedAt(savedBusinessUnit.getUpdatedAt());
                 response.setEnable(savedBusinessUnit.isEnable());
+                response.setDateRegistration(savedBusinessUnit.getDateRegistration());
 
                 return response;
             } else {

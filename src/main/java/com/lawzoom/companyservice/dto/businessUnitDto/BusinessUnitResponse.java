@@ -1,5 +1,6 @@
 package com.lawzoom.companyservice.dto.businessUnitDto;
 
+import jakarta.persistence.Column;
 import lombok.*;
 
 
@@ -35,6 +36,10 @@ public class BusinessUnitResponse {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date updatedAt;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "date_registration")
+	private Date dateRegistration;
 
 	private boolean isEnable;
 
