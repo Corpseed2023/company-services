@@ -109,6 +109,8 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
         updatedBusinessUnit.setPermanentEmployee(businessUnitRequest.getPermanentEmployee());
         updatedBusinessUnit.setContractEmployee(businessUnitRequest.getContractEmployee());
         updatedBusinessUnit.setAddress(businessUnitRequest.getAddress());
+        updatedBusinessUnit.setGstNumber(businessUnitRequest.getGstNumber());
+        updatedBusinessUnit.setDateRegistration(businessUnitRequest.getDateRegistration());
 
         // Save the updated business unit
         BusinessUnit savedBusinessUnit = businessUnitRepository.save(updatedBusinessUnit);
@@ -125,6 +127,8 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
         response.setCreatedAt(savedBusinessUnit.getCreatedAt());
         response.setUpdatedAt(savedBusinessUnit.getUpdatedAt());
         response.setEnable(savedBusinessUnit.isEnable());
+        response.setGstNumber(savedBusinessUnit.getGstNumber());
+        response.setDateRegistration(savedBusinessUnit.getDateRegistration());
 
 
         return response;
@@ -181,6 +185,10 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
             response.setCreatedAt(businessUnit.getCreatedAt());
             response.setUpdatedAt(businessUnit.getUpdatedAt());
             response.setEnable(businessUnit.isEnable());
+            response.setGstNumber(businessUnit.getGstNumber());
+            response.setDateRegistration(businessUnit.getDateRegistration());
+            response.setStates(businessUnit.getStates());
+
 
             businessUnitResponses.add(response);
         }
