@@ -2,6 +2,8 @@ package com.lawzoom.companyservice.dto.businessUnitDto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import com.lawzoom.companyservice.model.region.City;
+import com.lawzoom.companyservice.model.region.States;
 import jakarta.persistence.Column;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -9,6 +11,7 @@ import lombok.*;
 
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -45,5 +48,10 @@ public class BusinessUnitRequest {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "date_registration")
 	private Date dateRegistration;
+
+	private String gstNumber;
+
+	private String states;
+
 
 }

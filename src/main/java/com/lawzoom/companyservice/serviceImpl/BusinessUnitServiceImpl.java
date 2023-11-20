@@ -16,7 +16,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class BusinessUnitServiceImpl implements BusinessUnitService {
@@ -54,6 +53,9 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                 newBusinessUnit.setUpdatedAt(businessUnitRequest.getUpdatedAt());
                 newBusinessUnit.setEnable(businessUnitRequest.isEnable());
                 newBusinessUnit.setDateRegistration(businessUnitRequest.getDateRegistration());
+                newBusinessUnit.setStates(businessUnitRequest.getStates());
+                newBusinessUnit.setGstNumber(businessUnitRequest.getGstNumber());
+
 
                 // Save the new BusinessUnit
                 BusinessUnit savedBusinessUnit = businessUnitRepository.save(newBusinessUnit);
@@ -71,6 +73,8 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                 response.setUpdatedAt(savedBusinessUnit.getUpdatedAt());
                 response.setEnable(savedBusinessUnit.isEnable());
                 response.setDateRegistration(savedBusinessUnit.getDateRegistration());
+                response.setStates(savedBusinessUnit.getStates());
+                response.setGstNumber(savedBusinessUnit.getGstNumber());
 
                 return response;
             } else {

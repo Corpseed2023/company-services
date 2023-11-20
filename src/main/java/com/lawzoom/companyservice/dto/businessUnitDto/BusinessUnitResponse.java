@@ -43,10 +43,10 @@ public class BusinessUnitResponse {
 
 	private boolean isEnable;
 
-	private Long gstId;
+//	private Long gstId;
 
 	private String gstNumber;
 
-	private String gstState;
+	private String states;
 
 }

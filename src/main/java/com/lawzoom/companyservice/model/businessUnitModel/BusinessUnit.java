@@ -73,11 +73,18 @@ public class BusinessUnit {
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;
 
+	private String gstNumber;
+
+	private String states;
+
+
+
+
 //	@OneToMany(mappedBy = "businessUnit", cascade = CascadeType.ALL)
 //	private List<Gst> gstList;
 
-	@OneToMany(mappedBy = "businessUnit", cascade = CascadeType.ALL)
-	private List<Gst> gstList;
+//	@OneToMany(mappedBy = "businessUnit", cascade = CascadeType.ALL)
+//	private List<Gst> gstList;
 
 
 
