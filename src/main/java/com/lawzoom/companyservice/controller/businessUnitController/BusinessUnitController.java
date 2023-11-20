@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 //@RequestMapping("/company/business-unit/{gstId}")
-@RequestMapping("/company/business-unit")
+@RequestMapping("/companyServices/business-unit")
 
 public class BusinessUnitController {
 
