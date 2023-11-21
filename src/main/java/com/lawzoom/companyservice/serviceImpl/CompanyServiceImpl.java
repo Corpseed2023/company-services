@@ -132,6 +132,8 @@ public class CompanyServiceImpl implements CompanyService {
             response.setContractEmployee(company.getContractEmployee());
             response.setGstNumber(company.getGstNumber());
             response.setOperationUnitAddress(company.getOperationUnitAddress());
+            response.setTeamsList(company.getTeams());
+
 
             companyResponses.add(response);
         }

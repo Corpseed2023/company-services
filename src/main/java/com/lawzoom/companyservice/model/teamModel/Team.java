@@ -28,6 +28,7 @@
 //		@ManyToOne(fetch = FetchType.LAZY)
 //		@JoinColumn(name = "company_id",nullable = false)
 //		@JsonIgnore
+
 		@JsonIgnore
 		@ManyToOne(fetch = FetchType.LAZY)
 		@JoinColumn(name = "company_id")

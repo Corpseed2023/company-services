@@ -1,8 +1,12 @@
 package com.lawzoom.companyservice.dto.companyDto;
 
+import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
+import com.lawzoom.companyservice.model.teamModel.Team;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
+import java.util.List;
+
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -74,5 +78,8 @@ public class CompanyResponse {
 
     private String operationUnitAddress;
 
+    private List<Team> teamsList;
+
+    private List<BusinessUnit> businessUnits;
 
 }
