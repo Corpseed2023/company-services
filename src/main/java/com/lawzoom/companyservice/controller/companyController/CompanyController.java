@@ -9,7 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.lawzoom.companyservice.dto.companyDto.CompanyRequest;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin
@@ -61,10 +64,44 @@ CompanyController {
         }
     }
 
-    @GetMapping("/getAllCompanyNames")
-    public ResponseEntity<List<String>> getAllCompanyNames() {
-        List<String> companyNames = companyService.getAllCompanyNames();
-        return ResponseEntity.ok(companyNames);
+//    @GetMapping("/getAllCompanyNames")
+//    public ResponseEntity<List<String>> getAllCompanyNames() {
+//        List<String> companyNames = companyService.getAllCompanyNames();
+//        return ResponseEntity.ok(companyNames);
+//    }
+//
+//    @GetMapping("/details")
+//    public Map<String, List<Map<String, Object>>> getAllDetails() {
+//        Map<String, List<Map<String, Object>>> allDetails = new HashMap<>();
+//
+//        List<Map<String, Object>> companies = companyService.getAllCompaniesDetails();
+//        allDetails.put("companies", companies);
+//
+//        List<Map<String,Object>> businessUnitList = companyService.getAllBusinessUnitsDetails();
+//        allDetails.put("businessUnit",businessUnitList);
+//
+//        return allDetails;
+//    }
+
+    @GetMapping("getAllCompanyUnitTeamData")
+    public Map<String,List<Map<String,Object>>> getAllDetailsOfCompanyUnitTeam()
+    {
+
+        Map<String,List<Map<String,Object>>> allDetails= new HashMap<>();
+
+        List<Map<String,Object>> companyDetails =  companyService.getAllCompanyDetails();
+        allDetails.put("companies",companyDetails);
+
+        List<Map<String,Object>> businessDetails = companyService.getAllBusinessDetails();
+        allDetails.put("businessUnit",businessDetails);
+
+        List<Map<String,Object>> teams = companyService.getAllTeamDetails();
+        allDetails.put("team",teams);
+
+        return allDetails;
+
+
+
     }
 
 

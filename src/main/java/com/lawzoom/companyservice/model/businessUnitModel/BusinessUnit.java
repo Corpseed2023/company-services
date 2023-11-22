@@ -1,13 +1,6 @@
 package com.lawzoom.companyservice.model.businessUnitModel;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lawzoom.companyservice.model.companyModel.Company;
-import com.lawzoom.companyservice.model.gstModel.Gst;
-
-//import javax.persistence.*;
-//import javax.validation.constraints.NotNull;
-
-
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotNull;
@@ -16,7 +9,6 @@ import org.hibernate.annotations.Comment;
 
 
 import java.util.Date;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -76,15 +68,6 @@ public class BusinessUnit {
 	private String gstNumber;
 
 	private String states;
-
-
-
-
-//	@OneToMany(mappedBy = "businessUnit", cascade = CascadeType.ALL)
-//	private List<Gst> gstList;
-
-//	@OneToMany(mappedBy = "businessUnit", cascade = CascadeType.ALL)
-//	private List<Gst> gstList;
 
 
 
