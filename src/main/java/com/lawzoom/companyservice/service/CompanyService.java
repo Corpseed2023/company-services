@@ -2,10 +2,9 @@ package com.lawzoom.companyservice.service;
 
 import com.lawzoom.companyservice.dto.companyDto.CompanyRequest;
 import com.lawzoom.companyservice.dto.companyDto.CompanyResponse;
-import com.lawzoom.companyservice.model.companyModel.Company;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CompanyService {
 
@@ -20,6 +19,25 @@ public interface CompanyService {
 
     void deleteCompany(Long id);
 
+    List<Map<String, Object>> getAllCompanyDetails();
 
-    List<CompanyResponse> getAllCompaniesByUserId(Long userId);
+    List<Map<String, Object>> getAllBusinessDetails();
+
+    List<Map<String, Object>> getAllTeamDetails();
+
+
+//    List<CompanyResponse> getAllCompaniesByUserId(Long userId);
+//
+//    String getCompanyNameById(Long id, Long userId);
+
+//
+//    List<String> getAllCompanyNames();
+//
+//    List<String> getAllTeamNames();
+//
+//    List<String> getAllBusinessUnits();
+//
+//    List<Map<String, Object>> getAllCompaniesDetails();
+//
+//    List<Map<String, Object>> getAllBusinessUnitsDetails();
 }

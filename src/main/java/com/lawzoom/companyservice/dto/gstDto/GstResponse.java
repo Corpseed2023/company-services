@@ -36,10 +36,13 @@ public class GstResponse {
 
 	private boolean isEnable;
 
-	private List<BusinessUnitResponse> businessUnitResponseList;
+//	private List<BusinessUnitResponse> businessUnitResponseList;
+//
+//	private Long companyId;
+//
+//	private String companyName;
 
-	private Long companyId;
+	private BusinessUnitResponse businessUnitResponse;
 
-	private String companyName;
 
 }

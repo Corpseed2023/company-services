@@ -33,40 +33,40 @@ public class GstController {
 
     @PutMapping("/editGst")
     public ResponseEntity<GstResponse> updateGst(
-            @RequestParam("companyId") Long companyId,
+            @RequestParam("companyId") Long businessUnitId,
             @RequestParam("gstId") Long gstId,
             @RequestBody GstRequest gstRequest) {
-        GstResponse updatedGst = gstService.updateGst(companyId, gstId, gstRequest);
+        GstResponse updatedGst = gstService.updateGst(businessUnitId, gstId, gstRequest);
         return new ResponseEntity<>(updatedGst, HttpStatus.OK);
     }
 
     @GetMapping("/getAllGst")
-    public ResponseEntity<List<GstResponse>> getAllGst(@RequestParam("companyId") Long companyId) {
-        List<GstResponse> allGst = gstService.getAllGst(companyId);
+    public ResponseEntity<List<GstResponse>> getAllGst(@RequestParam("businessUnitId") Long businessUnitId) {
+        List<GstResponse> allGst = gstService.getAllGst(businessUnitId);
         return new ResponseEntity<>(allGst, HttpStatus.OK);
     }
 
 
-    @GetMapping("/getGst")
-    public ResponseEntity<GstResponse> getGstData(
-            @RequestParam Long gstId,
-            @RequestParam Long companyId
-    ) {
-        try {
-            GstResponse gstData = gstService.getGstData(gstId, companyId);
-            return ResponseEntity.ok(gstData);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
+//    @GetMapping("/getGst")
+//    public ResponseEntity<GstResponse> getGstData(
+//            @RequestParam Long gstId,
+//            @RequestParam Long companyId
+//    ) {
+//        try {
+//            GstResponse gstData = gstService.getGstData(gstId, companyId);
+//            return ResponseEntity.ok(gstData);
+//        } catch (Exception e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
 
-    @DeleteMapping("/removeGst")
-    public ResponseEntity<GstResponse> deleteGst(@RequestParam Long gstId) {
-        GstResponse removedGstData = gstService.removeGstdata(gstId);
-        if (removedGstData != null) {
-            return new ResponseEntity<>(removedGstData, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
+//    @DeleteMapping("/removeGst")
+//    public ResponseEntity<GstResponse> deleteGst(@RequestParam Long gstId) {
+//        GstResponse removedGstData = gstService.removeGstdata(gstId);
+//        if (removedGstData != null) {
+//            return new ResponseEntity<>(removedGstData, HttpStatus.OK);
+//        } else {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//    }
 }

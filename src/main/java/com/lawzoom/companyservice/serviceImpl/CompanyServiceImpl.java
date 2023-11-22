@@ -2,27 +2,32 @@ package com.lawzoom.companyservice.serviceImpl;
 
 import com.lawzoom.companyservice.dto.companyDto.CompanyRequest;
 import com.lawzoom.companyservice.dto.companyDto.CompanyResponse;
-import com.lawzoom.companyservice.exception.CompanyNotFoundException;
 import com.lawzoom.companyservice.model.companyModel.Company;
+import com.lawzoom.companyservice.model.teamModel.Team;
+import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
+import com.lawzoom.companyservice.repository.BusinessUnitRepository;
 import com.lawzoom.companyservice.repository.CompanyRepository;
+import com.lawzoom.companyservice.repository.TeamRepository;
 import com.lawzoom.companyservice.service.CompanyService;
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import javax.swing.plaf.LabelUI;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
-    private final CompanyRepository companyRepository;
+    private  CompanyRepository companyRepository;
+
+    @Autowired
+    private TeamRepository teamRepository;
+
+    @Autowired
+    private BusinessUnitRepository businessUnitRepository;
 
     public CompanyServiceImpl(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
@@ -133,6 +138,8 @@ public class CompanyServiceImpl implements CompanyService {
             response.setContractEmployee(company.getContractEmployee());
             response.setGstNumber(company.getGstNumber());
             response.setOperationUnitAddress(company.getOperationUnitAddress());
+            response.setTeamsList(company.getTeams());
+
 
             companyResponses.add(response);
         }
@@ -249,52 +256,157 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public void deleteCompany(Long id) throws CompanyNotFoundException {
+    public void deleteCompany(Long id) throws NotFoundException {
         Optional<Company> companyOptional = companyRepository.findById(id);
         if (companyOptional.isPresent()) {
             Company company = companyOptional.get();
             companyRepository.delete(company);
         } else {
-            throw new CompanyNotFoundException("Company with ID " + id + " not found");
+            throw new NotFoundException("Company with ID " + id + " not found");
         }
     }
 
-    @Override
-    public List<CompanyResponse> getAllCompaniesByUserId(Long userId) {
-        List<Company> companies = companyRepository.findAllByUserId(userId);
-        return companies.stream()
-                .map(company -> {
-                    CompanyResponse response = new CompanyResponse();
-                    response.setCompanyId(company.getId());
-                    response.setCompanyType(company.getCompanyType());
-                    response.setCompanyName(company.getCompanyName());
-                    response.setFirstName(company.getFirstName());
-                    response.setLastName(company.getLastName());
-                    response.setBusinessActivityEmail(company.getBusinessActivityEmail());
-                    response.setDesignation(company.getDesignation());
-                    response.setCompanyState(company.getState());
-                    response.setCompanyCity(company.getCity());
-                    response.setCompanyRegistrationNumber(company.getRegistrationNumber());
-                    response.setCompanyRegistrationDate(company.getRegistrationDate());
-                    response.setCompanyCINNumber(company.getCinNumber());
-                    response.setCompanyRemarks(company.getRemarks());
-                    response.setCompanyPinCode(company.getPinCode());
-                    response.setCompanyAddress(company.getAddress());
-                    response.setCompanyTurnover(company.getTurnover());
-                    response.setLocatedAt(company.getLocatedAt());
-                    response.setCreatedAt(company.getCreatedAt());
-                    response.setUpdatedAt(company.getUpdatedAt());
-                    response.setEnable(company.isEnable());
-                    response.setBusinessActivity(company.getBusinessActivity());
-                    response.setPermanentEmployee(company.getPermanentEmployee());
-                    response.setContractEmployee(company.getContractEmployee());
-                    response.setGstNumber(company.getGstNumber());
-                    response.setOperationUnitAddress(company.getOperationUnitAddress());
-                    return response;
+//    @Override
+//    public List<CompanyResponse> getAllCompaniesByUserId(Long userId) {
+//        List<Company> companies = companyRepository.findAllByUserId(userId);
+//        return companies.stream()
+//                .map(company -> {
+//                    CompanyResponse response = new CompanyResponse();
+//                    response.setCompanyId(company.getId());
+//                    response.setCompanyType(company.getCompanyType());
+//                    response.setCompanyName(company.getCompanyName());
+//                    response.setFirstName(company.getFirstName());
+//                    response.setLastName(company.getLastName());
+//                    response.setBusinessActivityEmail(company.getBusinessActivityEmail());
+//                    response.setDesignation(company.getDesignation());
+//                    response.setCompanyState(company.getState());
+//                    response.setCompanyCity(company.getCity());
+//                    response.setCompanyRegistrationNumber(company.getRegistrationNumber());
+//                    response.setCompanyRegistrationDate(company.getRegistrationDate());
+//                    response.setCompanyCINNumber(company.getCinNumber());
+//                    response.setCompanyRemarks(company.getRemarks());
+//                    response.setCompanyPinCode(company.getPinCode());
+//                    response.setCompanyAddress(company.getAddress());
+//                    response.setCompanyTurnover(company.getTurnover());
+//                    response.setLocatedAt(company.getLocatedAt());
+//                    response.setCreatedAt(company.getCreatedAt());
+//                    response.setUpdatedAt(company.getUpdatedAt());
+//                    response.setEnable(company.isEnable());
+//                    response.setBusinessActivity(company.getBusinessActivity());
+//                    response.setPermanentEmployee(company.getPermanentEmployee());
+//                    response.setContractEmployee(company.getContractEmployee());
+//                    response.setGstNumber(company.getGstNumber());
+//                    response.setOperationUnitAddress(company.getOperationUnitAddress());
+//                    return response;
+//
+//                })
+//                .collect(Collectors.toList());
+//    }
 
-                })
-                .collect(Collectors.toList());
+
+//    @Override
+//    public String getCompanyNameById(Long id, Long userId) {
+//        Company companyOptional = companyRepository.findByIdAndUserId(id, userId);
+//        if (companyOptional!=null) {
+//            return companyOptional.getCompanyName();
+//        } else {
+//            throw new NotFoundException("Company not found with ID: " + id + " and User ID: " + userId);
+//        }
+//    }
+
+//    @Override
+//    public List<String> getAllCompanyNames() {
+//
+//        List<Company> companies= companyRepository.findAll();
+//
+//        return companies.stream()
+//                .map(Company ::getCompanyName)
+//                .collect(Collectors.toList());
+//
+//    }
+
+//    public List<String> getAllTeamNames() {
+//        List<Team> teams = teamRepository.findAll();
+//        return teams.stream()
+//                .map(Team::getTeamName)
+//                .collect(Collectors.toList());
+//    }
+
+
+//    @Override
+//    public List<String> getAllBusinessUnits() {
+//
+//        List<BusinessUnit> businessUnits =  businessUnitRepository.findAll();
+//
+//        return businessUnits.stream()
+//                .map(BusinessUnit :: getCity)
+//                .collect(Collectors.toList());
+//    }
+//
+//    public List<Map<String, Object>> getAllCompaniesDetails() {
+//        List<Company> companies = companyRepository.findAll();
+//        return companies.stream()
+//                .map(company -> {
+//                    Map<String, Object> companyMap = new HashMap<>();
+//                    companyMap.put("id", company.getId());
+//                    companyMap.put("name", company.getCompanyName());
+//                    return companyMap;
+//                })
+//                .collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public List<Map<String, Object>> getAllBusinessUnitsDetails() {
+//        return null;
+//    }
+
+
+    @Override
+    public List<Map<String, Object>> getAllCompanyDetails() {
+
+        List<Company> companies = companyRepository.findAll();
+
+        return companies.stream().map(company -> {
+            Map<String,Object> companyMap = new HashMap<>();
+            companyMap.put("id",company.getId());
+            companyMap.put("name",company.getCompanyName());
+            return companyMap;
+
+        }).collect(Collectors.toList());
     }
+// i want companyId, teamId and business id so i can pass in this API write code for it
+    @Override
+    public List<Map<String, Object>> getAllBusinessDetails() {
+
+        List<BusinessUnit> businessUnitsList= businessUnitRepository.findAll();
+
+        return businessUnitsList.stream().map(businessUnit -> {
+            Map<String,Object> businessMap = new HashMap<>();
+            businessMap.put("id",businessUnit.getId());
+            businessMap.put("name",businessUnit.getCity());
+            businessMap.put("businessacitivity",businessUnit.getBusinessActivity());
+
+            return businessMap;
+
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllTeamDetails() {
+
+        List<Team> teamList= teamRepository.findAll();
+
+        return teamList.stream().map(team -> {
+            Map<String,Object> teamMap = new HashMap<>();
+            teamMap.put("id",team.getId());
+            teamMap.put("name",team.getTeamName());
+            teamMap.put("teamType",team.getTeamType());
+
+            return teamMap;
+
+        }).collect(Collectors.toList());
+    }
+
 
 }
 

@@ -13,5 +13,5 @@ public interface BusinessUnitRepository extends JpaRepository<BusinessUnit,Long>
 {
     BusinessUnit findByAddress(String address);
 
-    List<BusinessUnit> findByGstId(Long gstId);
+    List<BusinessUnit> findByCompanyId(Long companyId);
 }

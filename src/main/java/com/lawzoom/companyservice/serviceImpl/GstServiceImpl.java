@@ -3,9 +3,8 @@ package com.lawzoom.companyservice.serviceImpl;
 
 import com.lawzoom.companyservice.dto.gstDto.GstRequest;
 import com.lawzoom.companyservice.dto.gstDto.GstResponse;
-import com.lawzoom.companyservice.exception.CompanyNotFoundException;
+import com.lawzoom.companyservice.exception.NotFoundException;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
-import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.gstModel.Gst;
 import com.lawzoom.companyservice.repository.BusinessUnitRepository;
 import com.lawzoom.companyservice.repository.CompanyRepository;
@@ -34,9 +33,8 @@ public class GstServiceImpl implements GstService {
     @Override
     public GstResponse createGst(GstRequest gstRequest, Long businessUnitId) {
 
-        // Check if the company with the given companyId exists
         BusinessUnit businessUnit = businessUnitRepository.findById(businessUnitId)
-                .orElseThrow(() -> new CompanyNotFoundException("Business Unit not found for ID: " + businessUnitId));
+                .orElseThrow(() -> new NotFoundException("Business Unit not found for ID: " + businessUnitId));
 
         Gst gst = new Gst();
         gst.setGstNumber(gstRequest.getGstNumber());
@@ -45,6 +43,8 @@ public class GstServiceImpl implements GstService {
         gst.setCreatedAt(gstRequest.getCreatedAt()); // Set the created date
         gst.setUpdatedAt(gstRequest.getUpdatedAt()); // Set the updated date
         gst.setEnable(gstRequest.isEnable()); // Set isEnable field
+        gst.setBusinessUnit(businessUnit);
+
 
         // Save the Gst entity
         Gst savedGst = gstRepository.save(gst);
@@ -58,13 +58,17 @@ public class GstServiceImpl implements GstService {
         response.setUpdatedAt(savedGst.getUpdatedAt());
         response.setEnable(savedGst.isEnable());
 
-
         return response;
     }
 
 
     @Override
-    public GstResponse updateGst(Long companyId, Long gstId, GstRequest gstRequest) {
+    public GstResponse updateGst(Long businessUnitId, Long gstId, GstRequest gstRequest) {
+
+        BusinessUnit businessUnitData = businessUnitRepository.findById(businessUnitId)
+                .orElseThrow(() -> new
+                        NotFoundException("Business Unit not found for ID: " + businessUnitId));
+
         // Fetch the existing Gst entity from the database
         Gst existingGst = gstRepository.findById(gstId)
                 .orElseThrow(() -> new RuntimeException("GST not found with id: " + gstId));
@@ -72,6 +76,9 @@ public class GstServiceImpl implements GstService {
         // Update the existing Gst entity with the new values
         existingGst.setGstNumber(gstRequest.getGstNumber());
         existingGst.setStateJurisdiction(gstRequest.getStateJurisdiction());
+        existingGst.setUpdatedAt(gstRequest.getUpdatedAt());
+        existingGst.setCreatedAt(gstRequest.getCreatedAt());
+        existingGst.setRegistrationDate(gstRequest.getRegistrationDate());
         // Update other properties as needed...
 
         // Set the updatedAt property to the current date and time
@@ -94,20 +101,14 @@ public class GstServiceImpl implements GstService {
     }
 
     @Override
-    public List<GstResponse> getAllGst(Long companyId) {
+    public List<GstResponse> getAllGst(Long businessUnitId) {
 
-        Optional<Company> companyData = companyRepository.findById(companyId);
+        Optional<BusinessUnit> businessUnitData = businessUnitRepository.findById(businessUnitId);
 
-        // Retrieve a list of GST entities by company ID from the repository
+        if (businessUnitData.isPresent()) {
 
+            List<Gst> gstList = gstRepository.findByBusinessUnitId(businessUnitId);
 
-        if (companyData.isPresent()) {
-            // Company data exists, proceed to retrieve and process GST entities
-
-            // Retrieve a list of GST entities by company ID from the repository
-            List<Gst> gstList = gstRepository.findByCompanyId(companyId);
-
-            // Create a list to store GstResponse objects
             List<GstResponse> gstResponseList = new ArrayList<>();
 
             // Iterate through the retrieved GST entities and create GstResponse objects
@@ -121,59 +122,59 @@ public class GstServiceImpl implements GstService {
                 gstResponse.setUpdatedAt(gst.getUpdatedAt());
                 gstResponse.setEnable(gst.isEnable());
 
-                // Add the GstResponse object to the list
                 gstResponseList.add(gstResponse);
             }
 
             // Return the list of GstResponse objects
             return gstResponseList;
         } else {
-            // Company data does not exist, return a specific message
-            throw new CompanyNotFoundException("Company is not present or enter a valid company ID");
+            // Business data does not exist, return a specific message
+            throw new NotFoundException("Business Unit is not present or enter a valid company ID");
         }
     }
 
-    @Override
-    public GstResponse getGstData(Long gstId, Long companyId) {
 
-        Optional<Company> companyData = companyRepository.findById(companyId);
-        GstResponse response = new GstResponse();
+//    @Override
+//    public GstResponse getGstData(Long gstId, Long companyId) {
+//
+//        Optional<Company> companyData = companyRepository.findById(companyId);
+//        GstResponse response = new GstResponse();
+//
+//        if (companyData.isPresent()) {
+//            Optional<Gst> gstData = gstRepository.findByIdAndCompany_Id(gstId, companyId);
+//
+//            if (gstData.isPresent()) {
+//                // Create a GstResponse object or process the Gst entity as needed
+//                Gst gstEntity = gstData.get();
+//                response.setId(gstEntity.getId());
+//                response.setGstNumber(gstEntity.getGstNumber());
+//                response.setStateJurisdiction(gstEntity.getStateJurisdiction());
+//                response.setRegistrationDate(gstEntity.getRegistrationDate());
+//                response.setCreatedAt(gstEntity.getCreatedAt());
+//                response.setUpdatedAt(gstEntity.getUpdatedAt());
+//                response.setEnable(gstEntity.isEnable());
+//                response.setCompanyId(companyId); // Assuming companyId is part of GstResponse
+//                response.setCompanyName(companyData.get().getCompanyName()); // Assuming company name is part of Company entity
+//
+//
+////                // Now you can set the businessUnitResponseList. You would need to convert BusinessUnit entities to BusinessUnitResponse objects.
+////                List<BusinessUnitResponse> businessUnitResponses = new ArrayList<>();
+////                for (BusinessUnit businessUnit : gstEntity.getBusinessUnits()) {
+////                    BusinessUnitResponse businessUnitResponse = new BusinessUnitResponse();
+////                    // Set values in the businessUnitResponse object here
+////                    // Example: businessUnitResponse.setId(businessUnit.getId());
+////                    businessUnitResponses.add(businessUnitResponse);
+////                }
+////                response.setBusinessUnitResponseList(businessUnitResponses);
+//
+//            }
+//
+//        }
+//        return response;
+//    }
 
-        if (companyData.isPresent()) {
-            Optional<Gst> gstData = gstRepository.findByIdAndCompany_Id(gstId, companyId);
-
-            if (gstData.isPresent()) {
-                // Create a GstResponse object or process the Gst entity as needed
-                Gst gstEntity = gstData.get();
-                response.setId(gstEntity.getId());
-                response.setGstNumber(gstEntity.getGstNumber());
-                response.setStateJurisdiction(gstEntity.getStateJurisdiction());
-                response.setRegistrationDate(gstEntity.getRegistrationDate());
-                response.setCreatedAt(gstEntity.getCreatedAt());
-                response.setUpdatedAt(gstEntity.getUpdatedAt());
-                response.setEnable(gstEntity.isEnable());
-                response.setCompanyId(companyId); // Assuming companyId is part of GstResponse
-                response.setCompanyName(companyData.get().getCompanyName()); // Assuming company name is part of Company entity
-
-
-//                // Now you can set the businessUnitResponseList. You would need to convert BusinessUnit entities to BusinessUnitResponse objects.
-//                List<BusinessUnitResponse> businessUnitResponses = new ArrayList<>();
-//                for (BusinessUnit businessUnit : gstEntity.getBusinessUnits()) {
-//                    BusinessUnitResponse businessUnitResponse = new BusinessUnitResponse();
-//                    // Set values in the businessUnitResponse object here
-//                    // Example: businessUnitResponse.setId(businessUnit.getId());
-//                    businessUnitResponses.add(businessUnitResponse);
-//                }
-//                response.setBusinessUnitResponseList(businessUnitResponses);
-
-            }
-
-        }
-        return response;
-    }
-
-    @Override
-    public GstResponse removeGstdata(Long gstId) {
+//    @Override
+//    public GstResponse removeGstdata(Long gstId) {
 
 //        Optional<Gst> gstOptional = gstRepository.findById(gstId);
 //
@@ -198,6 +199,6 @@ public class GstServiceImpl implements GstService {
 //            return removedGstResponse;
 //        }
 
-        return null;
-    }
+//        return null;
+//    }
 }

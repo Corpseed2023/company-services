@@ -1,17 +1,18 @@
 package com.lawzoom.companyservice.controller.companyController;
 
 import com.lawzoom.companyservice.dto.companyDto.CompanyResponse;
-import com.lawzoom.companyservice.exception.CompanyNotFoundException;
-import com.lawzoom.companyservice.model.LeadTest;
-import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.service.CompanyService;
+import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.lawzoom.companyservice.dto.companyDto.CompanyRequest;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin
@@ -19,7 +20,8 @@ import java.util.List;
 //@RequestMapping("/companyServices/company")
 @RequestMapping("/companyServices/company")
 
-public class CompanyController {
+public class
+CompanyController {
 
     @Autowired
     private CompanyService companyService;
@@ -29,14 +31,6 @@ public class CompanyController {
         CompanyResponse companyResponse = companyService.createCompany(companyRequest,userId);
         return new ResponseEntity<>(companyResponse, HttpStatus.CREATED);
     }
-
-    @GetMapping("/leadTest")
-    public String createLead() {
-        System.out.println("Lead generated successfully");
-        return "generated";
-    }
-
-
 
     @GetMapping("/allCompany")
     public ResponseEntity<List<CompanyResponse>> getAllCompanies() {
@@ -60,7 +54,7 @@ public class CompanyController {
 
             return ResponseEntity.ok("Company with ID  deleted successfully");
 
-        } catch (CompanyNotFoundException e) {
+        } catch (NotFoundException e) {
 
             return ResponseEntity.notFound().build();
 
@@ -70,10 +64,80 @@ public class CompanyController {
         }
     }
 
-    @GetMapping("/getAllCompaniesByUserId")
-    public ResponseEntity<List<CompanyResponse>> getAllCompaniesByUserId(@RequestParam Long userId) {
-        List<CompanyResponse> companies = companyService.getAllCompaniesByUserId(userId);
-        return ResponseEntity.ok(companies);
+//    @GetMapping("/getAllCompanyNames")
+//    public ResponseEntity<List<String>> getAllCompanyNames() {
+//        List<String> companyNames = companyService.getAllCompanyNames();
+//        return ResponseEntity.ok(companyNames);
+//    }
+//
+//    @GetMapping("/details")
+//    public Map<String, List<Map<String, Object>>> getAllDetails() {
+//        Map<String, List<Map<String, Object>>> allDetails = new HashMap<>();
+//
+//        List<Map<String, Object>> companies = companyService.getAllCompaniesDetails();
+//        allDetails.put("companies", companies);
+//
+//        List<Map<String,Object>> businessUnitList = companyService.getAllBusinessUnitsDetails();
+//        allDetails.put("businessUnit",businessUnitList);
+//
+//        return allDetails;
+//    }
+
+    @GetMapping("getAllCompanyUnitTeamData")
+    public Map<String,List<Map<String,Object>>> getAllDetailsOfCompanyUnitTeam()
+    {
+
+        Map<String,List<Map<String,Object>>> allDetails= new HashMap<>();
+
+        List<Map<String,Object>> companyDetails =  companyService.getAllCompanyDetails();
+
+        List<Long> companyIds = new ArrayList<>();
+        for (Map<String, Object> company : companyDetails) {
+            if (company.containsKey("id")) {
+                companyIds.add((Long) company.get("id"));
+            }
+        }
+
+        System.out.println("Id"+  companyIds);
+
+        allDetails.put("companies",companyDetails);
+
+        List<Map<String,Object>> businessDetails = companyService.getAllBusinessDetails();
+        List<Long> businessIds = new ArrayList<>();
+        for (Map<String,Object> businessUnit : businessDetails)
+        {
+            if (businessUnit.containsKey("id"))
+            {
+                businessIds.add((Long) businessUnit.get("id"));
+            }
+        }
+        System.out.println("Id"+ businessIds);
+
+        allDetails.put("businessUnit",businessDetails);
+
+        List<Map<String,Object>> teams = companyService.getAllTeamDetails();
+        List<Long> teamList = new ArrayList<>();
+
+        for (Map<String,Object> teamData : teams)
+        {
+
+            if (teamData.containsKey("id"))
+            {
+                teamList.add((Long) teamData.get("id"));
+
+            }
+
+
+        }
+
+        System.out.println("Id"+ teamList);
+
+
+        allDetails.put("team",teams);
+
+        return allDetails;
+
     }
+
 
 }
