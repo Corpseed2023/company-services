@@ -19,6 +19,8 @@ import jakarta.persistence.TemporalType;
 public class CompanyResponse {
 
     private Long companyId;
+
+    private Long userId;
 //
 //    private Long userId;
 

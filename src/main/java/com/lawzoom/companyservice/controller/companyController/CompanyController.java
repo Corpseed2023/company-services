@@ -37,9 +37,10 @@ CompanyController {
         List<CompanyResponse> companies = companyService.getAllCompanies();
         return ResponseEntity.ok(companies);
     }
-    @GetMapping("/fetchCompany")
-    public CompanyResponse getCompany(@RequestParam Long id, @RequestParam Long userId) {
-        return companyService.getCompanyById(id,userId);
+
+    @GetMapping("getAllCompany")
+    public List<CompanyResponse> getCompaniesByUserId(@RequestParam Long userId) {
+        return companyService.getCompaniesByUserId(userId);
     }
 
      @PutMapping("/updateCompany")
@@ -126,8 +127,6 @@ CompanyController {
                 teamList.add((Long) teamData.get("id"));
 
             }
-
-
         }
 
         System.out.println("Id"+ teamList);

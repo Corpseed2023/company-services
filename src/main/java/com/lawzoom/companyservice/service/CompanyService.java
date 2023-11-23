@@ -13,7 +13,7 @@ public interface CompanyService {
 
     List<CompanyResponse> getAllCompanies();
 
-    CompanyResponse getCompanyById(Long id, Long userId);
+    List<CompanyResponse> getCompaniesByUserId(Long userId);
 
     CompanyResponse updateCompany(CompanyRequest companyRequest,Long companyId);
 

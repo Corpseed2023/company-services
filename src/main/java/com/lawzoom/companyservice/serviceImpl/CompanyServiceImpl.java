@@ -149,14 +149,19 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public CompanyResponse getCompanyById(Long id, Long userId) {
+    public List<CompanyResponse> getCompaniesByUserId(Long userId) {
+        List<Company> companies = companyRepository.findByUserId(userId);
 
-        Company company = companyRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Company not found"));
+        return companies.stream()
+                .map(this::mapToCompanyResponse)
+                .collect(Collectors.toList());
+    }
 
+    private CompanyResponse mapToCompanyResponse(Company company) {
         CompanyResponse companyResponse = new CompanyResponse();
 
         companyResponse.setCompanyId(company.getId());
+        companyResponse.setUserId(company.getUserId());
         companyResponse.setCompanyType(company.getCompanyType());
         companyResponse.setCompanyName(company.getCompanyName());
         companyResponse.setFirstName(company.getFirstName());
@@ -173,8 +178,8 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setCompanyAddress(company.getAddress());
         companyResponse.setCompanyTurnover(company.getTurnover());
         companyResponse.setLocatedAt(company.getLocatedAt());
-        company.setCreatedAt (new Date());
-        company.setUpdatedAt (new Date());
+        companyResponse.setCreatedAt(company.getCreatedAt());
+        companyResponse.setUpdatedAt(company.getUpdatedAt());
         companyResponse.setEnable(company.isEnable());
         companyResponse.setBusinessActivity(company.getBusinessActivity());
         companyResponse.setPermanentEmployee(company.getPermanentEmployee());
@@ -182,9 +187,9 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setGstNumber(company.getGstNumber());
         companyResponse.setOperationUnitAddress(company.getOperationUnitAddress());
 
+
         return companyResponse;
     }
-
 
     @Override
     public CompanyResponse updateCompany(CompanyRequest companyRequest, Long companyId)
