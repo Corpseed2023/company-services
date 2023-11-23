@@ -100,7 +100,6 @@ CompanyController {
         }
 
         System.out.println("Id"+  companyIds);
-
         allDetails.put("companies",companyDetails);
 
         List<Map<String,Object>> businessDetails = companyService.getAllBusinessDetails();
@@ -130,7 +129,6 @@ CompanyController {
         }
 
         System.out.println("Id"+ teamList);
-
 
         allDetails.put("team",teams);
 

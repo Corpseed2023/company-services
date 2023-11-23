@@ -186,6 +186,7 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setContractEmployee(company.getContractEmployee());
         companyResponse.setGstNumber(company.getGstNumber());
         companyResponse.setOperationUnitAddress(company.getOperationUnitAddress());
+        companyResponse.setBusinessUnits(company.getBusinessUnits());
 
 
         return companyResponse;
