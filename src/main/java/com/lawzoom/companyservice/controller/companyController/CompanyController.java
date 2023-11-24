@@ -87,9 +87,7 @@ CompanyController {
     @GetMapping("getAllCompanyUnitTeamData")
     public Map<String,List<Map<String,Object>>> getAllDetailsOfCompanyUnitTeam()
     {
-
         Map<String,List<Map<String,Object>>> allDetails= new HashMap<>();
-
         List<Map<String,Object>> companyDetails =  companyService.getAllCompanyDetails();
 
         List<Long> companyIds = new ArrayList<>();
@@ -130,8 +128,6 @@ CompanyController {
         }
 
         System.out.println("Id"+ teamList);
-
-
         allDetails.put("team",teams);
 
         return allDetails;

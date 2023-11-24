@@ -5,8 +5,10 @@ import com.lawzoom.companyservice.dto.businessUnitDto.BusinessUnitRequest;
 import com.lawzoom.companyservice.dto.businessUnitDto.BusinessUnitResponse;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
 import com.lawzoom.companyservice.model.companyModel.Company;
+import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.repository.BusinessUnitRepository;
 import com.lawzoom.companyservice.repository.CompanyRepository;
+import com.lawzoom.companyservice.repository.TeamRepository;
 import com.lawzoom.companyservice.service.BusinessUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +29,12 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
     @Autowired
     private CompanyRepository companyRepository;
 
+    @Autowired
+    private TeamRepository teamRepository;
+
+
     @Override
-    public BusinessUnitResponse createBusinessUnit(BusinessUnitRequest businessUnitRequest, Long companyId) {
+    public BusinessUnitResponse createBusinessUnit(BusinessUnitRequest businessUnitRequest, Long companyId,Long teamId) {
 
         Optional<Company> companyData = companyRepository.findById(companyId);
 
@@ -38,8 +44,13 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
             BusinessUnit existingBusinessUnit = businessUnitRepository.findByAddress(businessUnitRequest.getAddress());
 
             if (existingBusinessUnit == null) {
-                // Create a new BusinessUnit
+
                 BusinessUnit newBusinessUnit = new BusinessUnit();
+
+                if (teamId != null) {
+                    Team team = teamRepository.findById(teamId).orElseThrow(() -> new RuntimeException("Team not found"));
+                    newBusinessUnit.setTeam(team);
+                }
 
                 // Set the properties based on the request
                 newBusinessUnit.setAddress(businessUnitRequest.getAddress());
@@ -55,7 +66,6 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                 newBusinessUnit.setDateRegistration(businessUnitRequest.getDateRegistration());
                 newBusinessUnit.setStates(businessUnitRequest.getStates());
                 newBusinessUnit.setGstNumber(businessUnitRequest.getGstNumber());
-
 
                 // Save the new BusinessUnit
                 BusinessUnit savedBusinessUnit = businessUnitRepository.save(newBusinessUnit);
@@ -75,6 +85,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                 response.setDateRegistration(savedBusinessUnit.getDateRegistration());
                 response.setStates(savedBusinessUnit.getStates());
                 response.setGstNumber(savedBusinessUnit.getGstNumber());
+
 
                 return response;
             } else {

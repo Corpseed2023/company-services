@@ -19,18 +19,17 @@ import java.util.List;
 
 public class BusinessUnitController {
 
-
-
     @Autowired
     private BusinessUnitService businessUnitService;
 
     @PostMapping("/saveBusinessUnit")
-    public ResponseEntity<BusinessUnitResponse> createBusinessUnit(@RequestBody BusinessUnitRequest businessUnitRequest, @RequestParam Long companyId)
-//    public ResponseEntity<BusinessUnitResponse> createBusinessUnit(@RequestBody BusinessUnitRequest businessUnitRequest,@RequestParam (required = false) Long gstId)
-
+    public ResponseEntity<BusinessUnitResponse> createBusinessUnit(
+            @RequestBody BusinessUnitRequest businessUnitRequest,
+            @RequestParam Long companyId,
+            @RequestParam(required = false) Long teamId)
     {
         try{
-            BusinessUnitResponse savedBusinessData= businessUnitService.createBusinessUnit(businessUnitRequest,companyId);
+            BusinessUnitResponse savedBusinessData= businessUnitService.createBusinessUnit(businessUnitRequest,companyId,teamId);
             return new ResponseEntity<>(savedBusinessData, HttpStatus.CREATED);
 
         } catch (Exception e)  {

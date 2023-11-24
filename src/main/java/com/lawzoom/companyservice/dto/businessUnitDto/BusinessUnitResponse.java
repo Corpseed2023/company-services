@@ -49,4 +49,6 @@ public class BusinessUnitResponse {
 
 	private String states;
 
+	private Long teamId;
+
 }

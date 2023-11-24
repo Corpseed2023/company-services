@@ -1,6 +1,7 @@
 package com.lawzoom.companyservice.model.businessUnitModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lawzoom.companyservice.model.companyModel.Company;
+import com.lawzoom.companyservice.model.teamModel.Team;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotNull;
@@ -9,6 +10,7 @@ import org.hibernate.annotations.Comment;
 
 
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -64,6 +66,9 @@ public class BusinessUnit {
 	@Column(length = 1,name="is_enable",columnDefinition = "tinyint(1) default 1")
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;
+
+	@OneToOne
+	private Team team;
 
 	private String gstNumber;
 
