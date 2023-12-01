@@ -1,7 +1,9 @@
 package com.lawzoom.companyservice.serviceImpl;
 
+import com.lawzoom.companyservice.dto.companyDto.CompanyBusinessUnitDto;
 import com.lawzoom.companyservice.dto.companyDto.CompanyRequest;
 import com.lawzoom.companyservice.dto.companyDto.CompanyResponse;
+import com.lawzoom.companyservice.feignClient.ComplianceMap;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
@@ -22,6 +24,9 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private  CompanyRepository companyRepository;
+
+    @Autowired
+    ComplianceMap complianceMap;
 
     @Autowired
     private TeamRepository teamRepository;
@@ -365,6 +370,26 @@ public class CompanyServiceImpl implements CompanyService {
 //        return null;
 //    }
 
+    public List<Map<String, Object>> getAllCompanyDetailsV2() {
+        List<Company> companies = companyRepository.findAll();
+        Map<Long,Integer>compCount=complianceMap.getComplianceCount();
+        System.out.println(compCount);
+
+        List<Map<String,Object>>result = new ArrayList<>();
+        for(Company c:companies){
+            Map<String,Object>res = new HashMap<>();
+            res.put("id",c.getId());
+            res.put("name",c.getCompanyName());
+            res.put("businessUnit",c.getBusinessUnits()!=null?c.getBusinessUnits().stream().map(i->i.getAddress()).collect(Collectors.toSet()) : "NA");
+            res.put("businessActivity",c.getBusinessActivity());
+            res.put("team",c.getTeams());
+            res.put("lastUpdatedDate",c.getUpdatedAt());
+            res.put("complianceCount",compCount.get(c.getId()));
+//            res.put("updatedBy",c);
+            result.add(res);
+        }
+        return result;
+    }
 
     @Override
     public List<Map<String, Object>> getAllCompanyDetails() {
@@ -412,6 +437,28 @@ public class CompanyServiceImpl implements CompanyService {
         }).collect(Collectors.toList());
     }
 
+    @Override
+    public List<CompanyBusinessUnitDto> getCompanyBusinessUnits() {
+        List<Company> companies = companyRepository.findAll();
+        List<CompanyBusinessUnitDto> companyBusinessUnitDtos = new ArrayList<>();
+        Map<Long,Integer>totalCompliance=complianceMap.getComplianceCount();
+
+
+        for (Company company : companies) {
+            for (BusinessUnit businessUnit : company.getBusinessUnits()) {
+                CompanyBusinessUnitDto dto = new CompanyBusinessUnitDto();
+                dto.setCompanyId(company.getId());
+                dto.setCompanyName(company.getCompanyName());
+                dto.setBusinessUnitId(businessUnit.getId());
+                dto.setBusinessUnit(businessUnit.getBusinessActivity());
+                dto.setAddress(businessUnit.getAddress());
+//                dto.setTotalCompliance(totalCompliance);
+                companyBusinessUnitDtos.add(dto);
+            }
+        }
+
+        return companyBusinessUnitDtos;
+    }
 
 }
 

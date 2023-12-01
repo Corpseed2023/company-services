@@ -1,15 +1,15 @@
 	package com.lawzoom.companyservice.model.teamModel;
 
 	import com.fasterxml.jackson.annotation.JsonIgnore;
+	import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
 	import com.lawzoom.companyservice.model.companyModel.Company;
 	import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 	import jakarta.persistence.*;
 	import jakarta.validation.constraints.NotNull;
 	import lombok.*;
 	import org.hibernate.annotations.Comment;
-	import java.util.ArrayList;
-	import java.util.Date;
-	import java.util.List;
+
+	import java.util.*;
 
 	@AllArgsConstructor
 	@NoArgsConstructor
@@ -59,12 +59,11 @@
 		@Comment(value = "1 : Active, 0 : Inactive")
 		private boolean isEnable;
 
-
-//		@OneToMany(mappedBy = "team",cascade = CascadeType.ALL,orphanRemoval = true)
-//		private List<TeamMember> teamMembers=new ArrayList<>();
-
 		@OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
 		private List<TeamMember> teamMembers = new ArrayList<>();
+
+		@ManyToMany(mappedBy = "teams")
+		private Set<BusinessUnit> businessUnits = new HashSet<>();
 
 
 	}

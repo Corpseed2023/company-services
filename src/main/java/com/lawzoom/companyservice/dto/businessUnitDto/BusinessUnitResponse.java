@@ -1,10 +1,11 @@
 package com.lawzoom.companyservice.dto.businessUnitDto;
 
+import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
+import com.lawzoom.companyservice.model.teamModel.Team;
 import jakarta.persistence.Column;
 import lombok.*;
-
-
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -18,6 +19,8 @@ import jakarta.persistence.TemporalType;
 public class BusinessUnitResponse {
 
 	private Long id;
+
+	private Long companyId;
 
 	private String businessActivity;
 
@@ -43,12 +46,14 @@ public class BusinessUnitResponse {
 
 	private boolean isEnable;
 
-//	private Long gstId;
+	private List<Long> teamIds;
+
+	private List<TeamResponse> teams;
 
 	private String gstNumber;
 
 	private String states;
 
-	private Long teamId;
+
 
 }

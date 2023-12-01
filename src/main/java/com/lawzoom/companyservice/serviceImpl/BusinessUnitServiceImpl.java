@@ -3,6 +3,7 @@ package com.lawzoom.companyservice.serviceImpl;
 
 import com.lawzoom.companyservice.dto.businessUnitDto.BusinessUnitRequest;
 import com.lawzoom.companyservice.dto.businessUnitDto.BusinessUnitResponse;
+import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamModel.Team;
@@ -15,9 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BusinessUnitServiceImpl implements BusinessUnitService {
@@ -34,25 +34,31 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
 
 
     @Override
-    public BusinessUnitResponse createBusinessUnit(BusinessUnitRequest businessUnitRequest, Long companyId,Long teamId) {
+    public BusinessUnitResponse createBusinessUnit(BusinessUnitRequest businessUnitRequest, Long companyId) {
 
         Optional<Company> companyData = companyRepository.findById(companyId);
 
-
         if (companyData.isPresent()) {
-            // Check if a business unit with the same address already exists
             BusinessUnit existingBusinessUnit = businessUnitRepository.findByAddress(businessUnitRequest.getAddress());
 
             if (existingBusinessUnit == null) {
 
-                BusinessUnit newBusinessUnit = new BusinessUnit();
+                Set<Team> teams = new HashSet<>();
 
-                if (teamId != null) {
-                    Team team = teamRepository.findById(teamId).orElseThrow(() -> new RuntimeException("Team not found"));
-                    newBusinessUnit.setTeam(team);
+                if (businessUnitRequest.getTeamIds() != null && !businessUnitRequest.getTeamIds().isEmpty()) {
+                    for (Long teamId : businessUnitRequest.getTeamIds()) {
+                        Optional<Team> teamOptional = teamRepository.findById(teamId);
+                        if (teamOptional.isPresent()) {
+                            teams.add(teamOptional.get());
+                        } else {
+                            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team with ID " + teamId + " not found");
+                        }
+                    }
                 }
 
-                // Set the properties based on the request
+                BusinessUnit newBusinessUnit = new BusinessUnit();
+
+//
                 newBusinessUnit.setAddress(businessUnitRequest.getAddress());
                 newBusinessUnit.setCompany(companyData.get()); // Set the Company association
                 newBusinessUnit.setBusinessActivity(businessUnitRequest.getBusinessActivity());
@@ -66,9 +72,13 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                 newBusinessUnit.setDateRegistration(businessUnitRequest.getDateRegistration());
                 newBusinessUnit.setStates(businessUnitRequest.getStates());
                 newBusinessUnit.setGstNumber(businessUnitRequest.getGstNumber());
+                newBusinessUnit.setTeams(teams);
 
-                // Save the new BusinessUnit
                 BusinessUnit savedBusinessUnit = businessUnitRepository.save(newBusinessUnit);
+
+                List<Long> savedTeamIds = savedBusinessUnit.getTeams().stream()
+                        .map(Team::getId)
+                        .collect(Collectors.toList());
 
                 // Create and return a response
                 BusinessUnitResponse response = new BusinessUnitResponse();
@@ -85,7 +95,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                 response.setDateRegistration(savedBusinessUnit.getDateRegistration());
                 response.setStates(savedBusinessUnit.getStates());
                 response.setGstNumber(savedBusinessUnit.getGstNumber());
-
+                response.setTeamIds(savedTeamIds);
 
                 return response;
             } else {
@@ -108,23 +118,38 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
         }
 
         // Check if the business unit exists
-        Optional<BusinessUnit> businessUnit = businessUnitRepository.findById(businessUnitId);
-        if (!companyData.isPresent() || !businessUnit.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "GST or Business Unit not found");
+        Optional<BusinessUnit> businessUnitOptional = businessUnitRepository.findById(businessUnitId);
+        if (!businessUnitOptional.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Business Unit not found with ID: " + businessUnitId);
         }
-        // Update the business unit data
-        BusinessUnit updatedBusinessUnit = businessUnit.get();
-        updatedBusinessUnit.setBusinessActivity(businessUnitRequest.getBusinessActivity());
-        updatedBusinessUnit.setCity(businessUnitRequest.getCity());
-        updatedBusinessUnit.setLocatedAt(businessUnitRequest.getLocatedAt());
-        updatedBusinessUnit.setPermanentEmployee(businessUnitRequest.getPermanentEmployee());
-        updatedBusinessUnit.setContractEmployee(businessUnitRequest.getContractEmployee());
-        updatedBusinessUnit.setAddress(businessUnitRequest.getAddress());
-        updatedBusinessUnit.setGstNumber(businessUnitRequest.getGstNumber());
-        updatedBusinessUnit.setDateRegistration(businessUnitRequest.getDateRegistration());
 
-        // Save the updated business unit
-        BusinessUnit savedBusinessUnit = businessUnitRepository.save(updatedBusinessUnit);
+        BusinessUnit existingBusinessUnit = businessUnitOptional.get();
+
+        // Update the business unit data
+        existingBusinessUnit.setBusinessActivity(businessUnitRequest.getBusinessActivity());
+        existingBusinessUnit.setCity(businessUnitRequest.getCity());
+        existingBusinessUnit.setLocatedAt(businessUnitRequest.getLocatedAt());
+        existingBusinessUnit.setPermanentEmployee(businessUnitRequest.getPermanentEmployee());
+        existingBusinessUnit.setContractEmployee(businessUnitRequest.getContractEmployee());
+        existingBusinessUnit.setAddress(businessUnitRequest.getAddress());
+        existingBusinessUnit.setGstNumber(businessUnitRequest.getGstNumber());
+        existingBusinessUnit.setDateRegistration(businessUnitRequest.getDateRegistration());
+
+        Set<Team> teams = new HashSet<>();
+        if (businessUnitRequest.getTeamIds() != null && !businessUnitRequest.getTeamIds().isEmpty()) {
+            for (Long teamId : businessUnitRequest.getTeamIds()) {
+                Optional<Team> teamOptional = teamRepository.findById(teamId);
+                if (teamOptional.isPresent()) {
+                    teams.add(teamOptional.get());
+                } else {
+                    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team with ID " + teamId + " not found");
+                }
+            }
+        }
+
+        existingBusinessUnit.setTeams(teams);
+
+        BusinessUnit savedBusinessUnit = businessUnitRepository.save(existingBusinessUnit);
 
         // Create a response manually
         BusinessUnitResponse response = new BusinessUnitResponse();
@@ -140,10 +165,11 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
         response.setEnable(savedBusinessUnit.isEnable());
         response.setGstNumber(savedBusinessUnit.getGstNumber());
         response.setDateRegistration(savedBusinessUnit.getDateRegistration());
-
+        response.setTeamIds(savedBusinessUnit.getTeams().stream().map(Team::getId).collect(Collectors.toList()));
 
         return response;
     }
+
 
 //
 //    @Override
@@ -200,26 +226,23 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
             response.setDateRegistration(businessUnit.getDateRegistration());
             response.setStates(businessUnit.getStates());
 
+            List<TeamResponse> teams = new ArrayList<>();
+
+            for (Team team : businessUnit.getTeams()) {
+                teams.add(new TeamResponse(team.getId(), team.getTeamName(), team.getCreatedAt(), team.getUpdatedAt(),
+                        team.isEnable(), team.getTeamLeadName(), team.getLeadDesignation(), team.getTeamType()));
+            }
+
+            response.setTeams(teams);
 
             businessUnitResponses.add(response);
         }
 
         return businessUnitResponses;
     }
-//
-//    @Override
-//    public void deleteBusinessUnit(Long gstId, Long businessUnitId) {
-//        // Check if the GST data exists
-//        if (!companyRepository.existsById(gstId)) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "GST not found");
-//        }
-//
-//        // Check if the business unit exists
-//        if (!businessUnitRepository.existsById(businessUnitId)) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Business unit not found");
-//        }
-//
-//        // Delete the business unit
-//        businessUnitRepository.deleteById(businessUnitId);
-//    }
+
+    @Override
+    public List<BusinessUnitResponse> getAllBusinessUnitsWithAllCompany() {
+        return null;
+    }
 }

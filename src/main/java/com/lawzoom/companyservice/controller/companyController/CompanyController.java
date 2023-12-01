@@ -1,5 +1,6 @@
 package com.lawzoom.companyservice.controller.companyController;
 
+import com.lawzoom.companyservice.dto.companyDto.CompanyBusinessUnitDto;
 import com.lawzoom.companyservice.dto.companyDto.CompanyResponse;
 import com.lawzoom.companyservice.service.CompanyService;
 import jakarta.ws.rs.NotFoundException;
@@ -84,6 +85,13 @@ CompanyController {
 //        return allDetails;
 //    }
 
+    @GetMapping("getAllCompanyUnitTeamDataV2")
+    public List<Map<String, Object>> getAllDetailsOfCompanyUnitTeamV2()
+    {
+        List<Map<String, Object>>result= companyService.getAllCompanyDetailsV2();
+        return result;
+    }
+
     @GetMapping("getAllCompanyUnitTeamData")
     public Map<String,List<Map<String,Object>>> getAllDetailsOfCompanyUnitTeam()
     {
@@ -132,6 +140,12 @@ CompanyController {
 
         return allDetails;
 
+    }
+
+
+    @GetMapping("/business-units")
+    public List<CompanyBusinessUnitDto> getCompanyBusinessUnits() {
+        return companyService.getCompanyBusinessUnits();
     }
 
 

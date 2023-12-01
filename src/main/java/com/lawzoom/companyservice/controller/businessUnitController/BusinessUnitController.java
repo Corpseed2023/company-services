@@ -1,7 +1,6 @@
 package com.lawzoom.companyservice.controller.businessUnitController;
 
 
-
 import com.lawzoom.companyservice.dto.businessUnitDto.BusinessUnitRequest;
 import com.lawzoom.companyservice.dto.businessUnitDto.BusinessUnitResponse;
 import com.lawzoom.companyservice.service.BusinessUnitService;
@@ -25,11 +24,10 @@ public class BusinessUnitController {
     @PostMapping("/saveBusinessUnit")
     public ResponseEntity<BusinessUnitResponse> createBusinessUnit(
             @RequestBody BusinessUnitRequest businessUnitRequest,
-            @RequestParam Long companyId,
-            @RequestParam(required = false) Long teamId)
+            @RequestParam Long companyId)
     {
         try{
-            BusinessUnitResponse savedBusinessData= businessUnitService.createBusinessUnit(businessUnitRequest,companyId,teamId);
+            BusinessUnitResponse savedBusinessData= businessUnitService.createBusinessUnit(businessUnitRequest,companyId);
             return new ResponseEntity<>(savedBusinessData, HttpStatus.CREATED);
 
         } catch (Exception e)  {
@@ -72,13 +70,15 @@ public class BusinessUnitController {
         List<BusinessUnitResponse> businessUnits = businessUnitService.getAllBusinessUnits(companyId);
         return ResponseEntity.ok(businessUnits);
     }
-//
-//    @DeleteMapping("/deleteBusinessUnit")
-////    @DeleteMapping("/deleteBusinessUnit/{businessUnitId}")
-//    public ResponseEntity<String> deleteBusinessUnit(@RequestParam Long gstId, @RequestParam Long businessUnitId) {
-//        businessUnitService.deleteBusinessUnit(gstId, businessUnitId);
-//        return new ResponseEntity<>("Business unit deleted successfully", HttpStatus.OK);
-//    }
+
+    @GetMapping("/getAllBusinessUnitsWithAllCompany")
+    public ResponseEntity<List<BusinessUnitResponse>> getAllBusinessUnitsWithAllCompany() {
+        List<BusinessUnitResponse> businessUnits = businessUnitService.getAllBusinessUnitsWithAllCompany();
+        return ResponseEntity.ok(businessUnits);
+    }
+
+
+
 
 
 }

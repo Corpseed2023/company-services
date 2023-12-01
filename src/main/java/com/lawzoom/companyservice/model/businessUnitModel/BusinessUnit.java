@@ -10,7 +10,9 @@ import org.hibernate.annotations.Comment;
 
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -67,8 +69,12 @@ public class BusinessUnit {
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;
 
-	@OneToOne
-	private Team team;
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(
+			name = "unit_team",
+			joinColumns = @JoinColumn(name = "unit_id"),
+			inverseJoinColumns = @JoinColumn(name = "team_id"))
+	private Set<Team> teams = new HashSet<>();
 
 	private String gstNumber;
 
