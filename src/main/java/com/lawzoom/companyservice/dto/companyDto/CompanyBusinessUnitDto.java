@@ -2,6 +2,8 @@ package com.lawzoom.companyservice.dto.companyDto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class CompanyBusinessUnitDto {
     private Long companyId;
@@ -9,5 +11,5 @@ public class CompanyBusinessUnitDto {
     private Long businessUnitId;
     private String businessUnit;
     private String address;
-    private String totalCompliance;
+    private List<TotalComplianceDto> totalCompliance;
 }

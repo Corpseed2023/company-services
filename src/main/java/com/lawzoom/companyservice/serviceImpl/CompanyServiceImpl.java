@@ -3,6 +3,7 @@ package com.lawzoom.companyservice.serviceImpl;
 import com.lawzoom.companyservice.dto.companyDto.CompanyBusinessUnitDto;
 import com.lawzoom.companyservice.dto.companyDto.CompanyRequest;
 import com.lawzoom.companyservice.dto.companyDto.CompanyResponse;
+import com.lawzoom.companyservice.dto.companyDto.TotalComplianceDto;
 import com.lawzoom.companyservice.feignClient.ComplianceMap;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamModel.Team;
@@ -438,11 +439,10 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<CompanyBusinessUnitDto> getCompanyBusinessUnits() {
+    public List<CompanyBusinessUnitDto> getCompanyUnitComplianceDetails() {
         List<Company> companies = companyRepository.findAll();
         List<CompanyBusinessUnitDto> companyBusinessUnitDtos = new ArrayList<>();
-        Map<Long,Integer>totalCompliance=complianceMap.getComplianceCount();
-
+        List<Map<String, Object>> totalCompliance = complianceMap.getComplianceCountPerCompanyAndBusinessUnit();
 
         for (Company company : companies) {
             for (BusinessUnit businessUnit : company.getBusinessUnits()) {
@@ -452,10 +452,22 @@ public class CompanyServiceImpl implements CompanyService {
                 dto.setBusinessUnitId(businessUnit.getId());
                 dto.setBusinessUnit(businessUnit.getBusinessActivity());
                 dto.setAddress(businessUnit.getAddress());
-//                dto.setTotalCompliance(totalCompliance);
+
+                List<TotalComplianceDto> totalComplianceDtos = totalCompliance.stream()
+                        .filter(map -> String.valueOf(company.getId()).equals(String.valueOf(map.get("companyId")))
+                                && String.valueOf(businessUnit.getId()).equals(String.valueOf(map.get("businessUnitId"))))
+                        .map(map -> {
+                            TotalComplianceDto totalComplianceDto = new TotalComplianceDto();
+                            totalComplianceDto.setTotalCompliance((int) map.get("complianceCount"));
+                            return totalComplianceDto;
+                        })
+                        .collect(Collectors.toList());
+
+                dto.setTotalCompliance(totalComplianceDtos);
                 companyBusinessUnitDtos.add(dto);
             }
         }
+
 
         return companyBusinessUnitDtos;
     }

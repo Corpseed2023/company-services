@@ -28,5 +28,5 @@ public interface CompanyService {
     List<Map<String, Object>> getAllCompanyDetailsV2();
 
 
-    List<CompanyBusinessUnitDto> getCompanyBusinessUnits();
+    List<CompanyBusinessUnitDto> getCompanyUnitComplianceDetails();
 }

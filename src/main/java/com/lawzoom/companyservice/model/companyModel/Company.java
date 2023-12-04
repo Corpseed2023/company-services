@@ -1,6 +1,8 @@
 package com.lawzoom.companyservice.model.companyModel;
 
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
+import com.lawzoom.companyservice.model.region.City;
+import com.lawzoom.companyservice.model.region.States;
 import com.lawzoom.companyservice.model.teamModel.Team;
 
 import jakarta.persistence.*;
@@ -42,17 +44,24 @@ public class Company {
 	@NotNull
 	private String designation;
 	
-	@Column(name = "company_type")
-	private String companyType;
+//	@Column(name = "company_type")
+//	private String companyType;
+
+	@ManyToOne
+	@JoinColumn(name = "companyType_id")
+	private CompanyType companyType;
+
 
 	@Column(name = "companyName")
 	private String companyName;
 
-	@Column(name = "state")
-	private String state;
+	@ManyToOne
+	@JoinColumn(name = "state_id")
+	private States state;
 
-	@Column(name = "city")
-	private String city;
+	@ManyToOne
+	@JoinColumn(name = "city_id")
+	private City city;
 
 	@Column(name = "registration_number")
 	private String registrationNumber;

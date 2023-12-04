@@ -85,67 +85,67 @@ CompanyController {
 //        return allDetails;
 //    }
 
-    @GetMapping("getAllCompanyUnitTeamDataV2")
-    public List<Map<String, Object>> getAllDetailsOfCompanyUnitTeamV2()
-    {
-        List<Map<String, Object>>result= companyService.getAllCompanyDetailsV2();
-        return result;
-    }
+//    @GetMapping("getAllCompanyUnitTeamDataV2")
+//    public List<Map<String, Object>> getAllDetailsOfCompanyUnitTeamV2()
+//    {
+//        List<Map<String, Object>>result= companyService.getAllCompanyDetailsV2();
+//        return result;
+//    }
+//
+//    @GetMapping("getAllCompanyUnitTeamData")
+//    public Map<String,List<Map<String,Object>>> getAllDetailsOfCompanyUnitTeam()
+//    {
+//        Map<String,List<Map<String,Object>>> allDetails= new HashMap<>();
+//        List<Map<String,Object>> companyDetails =  companyService.getAllCompanyDetails();
+//
+//        List<Long> companyIds = new ArrayList<>();
+//        for (Map<String, Object> company : companyDetails) {
+//            if (company.containsKey("id")) {
+//                companyIds.add((Long) company.get("id"));
+//            }
+//        }
+//
+//        System.out.println("Id"+  companyIds);
+//
+//        allDetails.put("companies",companyDetails);
+//
+//        List<Map<String,Object>> businessDetails = companyService.getAllBusinessDetails();
+//        List<Long> businessIds = new ArrayList<>();
+//        for (Map<String,Object> businessUnit : businessDetails)
+//        {
+//            if (businessUnit.containsKey("id"))
+//            {
+//                businessIds.add((Long) businessUnit.get("id"));
+//            }
+//        }
+//        System.out.println("Id"+ businessIds);
+//
+//        allDetails.put("businessUnit",businessDetails);
+//
+//        List<Map<String,Object>> teams = companyService.getAllTeamDetails();
+//        List<Long> teamList = new ArrayList<>();
+//
+//        for (Map<String,Object> teamData : teams)
+//        {
+//
+//            if (teamData.containsKey("id"))
+//            {
+//                teamList.add((Long) teamData.get("id"));
+//
+//            }
+//        }
+//
+//        System.out.println("Id"+ teamList);
+//        allDetails.put("team",teams);
+//
+//        return allDetails;
+//
+//    }
 
-    @GetMapping("getAllCompanyUnitTeamData")
-    public Map<String,List<Map<String,Object>>> getAllDetailsOfCompanyUnitTeam()
-    {
-        Map<String,List<Map<String,Object>>> allDetails= new HashMap<>();
-        List<Map<String,Object>> companyDetails =  companyService.getAllCompanyDetails();
 
-        List<Long> companyIds = new ArrayList<>();
-        for (Map<String, Object> company : companyDetails) {
-            if (company.containsKey("id")) {
-                companyIds.add((Long) company.get("id"));
-            }
-        }
-
-        System.out.println("Id"+  companyIds);
-
-        allDetails.put("companies",companyDetails);
-
-        List<Map<String,Object>> businessDetails = companyService.getAllBusinessDetails();
-        List<Long> businessIds = new ArrayList<>();
-        for (Map<String,Object> businessUnit : businessDetails)
-        {
-            if (businessUnit.containsKey("id"))
-            {
-                businessIds.add((Long) businessUnit.get("id"));
-            }
-        }
-        System.out.println("Id"+ businessIds);
-
-        allDetails.put("businessUnit",businessDetails);
-
-        List<Map<String,Object>> teams = companyService.getAllTeamDetails();
-        List<Long> teamList = new ArrayList<>();
-
-        for (Map<String,Object> teamData : teams)
-        {
-
-            if (teamData.containsKey("id"))
-            {
-                teamList.add((Long) teamData.get("id"));
-
-            }
-        }
-
-        System.out.println("Id"+ teamList);
-        allDetails.put("team",teams);
-
-        return allDetails;
-
-    }
-
-
-    @GetMapping("/business-units")
-    public List<CompanyBusinessUnitDto> getCompanyBusinessUnits() {
-        return companyService.getCompanyBusinessUnits();
+    @GetMapping("/getCompanyUnitComplianceDetails")
+    public List<CompanyBusinessUnitDto> getCompanyUnitComplianceDetails() {
+        return companyService.getCompanyUnitComplianceDetails();
     }
 
 
