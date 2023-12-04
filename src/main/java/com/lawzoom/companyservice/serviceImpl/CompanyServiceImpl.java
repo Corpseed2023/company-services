@@ -46,11 +46,11 @@ public class CompanyServiceImpl implements CompanyService {
 
         company.setFirstName(companyRequest.getFirstName());
         company.setLastName(companyRequest.getLastName());
-        company.setCompanyType(companyRequest.getCompanyType());
+//        company.setCompanyType(companyRequest.getCompanyType());
         company.setCinNumber(companyRequest.getCompanyCINNumber());
         company.setBusinessActivityEmail(companyRequest.getBusinessActivityEmail());
         company.setCompanyName(companyRequest.getCompanyName());
-        company.setCity(companyRequest.getCompanyCity());
+//        company.setCity(companyRequest.getCompanyCity());
         company.setAddress(companyRequest.getCompanyAddress());
         company.setDesignation(companyRequest.getDesignation());
         company.setContractEmployee(companyRequest.getContractEmployee());
@@ -61,7 +61,7 @@ public class CompanyServiceImpl implements CompanyService {
         company.setBusinessActivity(companyRequest.getBusinessActivity());
         company.setEnable(companyRequest.isEnable());
         company.setLocatedAt(companyRequest.getLocatedAt());
-        company.setState(companyRequest.getCompanyState());
+//        company.setState(companyRequest.getCompanyState());
         company.setPinCode(companyRequest.getCompanyPinCode());
         company.setPermanentEmployee(companyRequest.getPermanentEmployee());
         company.setRegistrationNumber(companyRequest.getCompanyRegistrationNumber());
@@ -78,7 +78,7 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setCompanyId(company.getId());
         companyResponse.setFirstName(company.getFirstName());
         companyResponse.setLastName(company.getLastName());
-        companyResponse.setCompanyType(company.getCompanyType());
+//        companyResponse.setCompanyType(company.getCompanyType());
         companyResponse.setCompanyCINNumber(company.getCinNumber());
         companyResponse.setCompanyRegistrationNumber(company.getRegistrationNumber());
         companyResponse.setCompanyRegistrationDate(company.getRegistrationDate());
@@ -96,8 +96,8 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setCompanyName(company.getCompanyName());
         companyResponse.setBusinessActivityEmail(company.getBusinessActivityEmail());
         companyResponse.setDesignation(company.getDesignation());
-        companyResponse.setCompanyState(company.getState());
-        companyResponse.setCompanyCity(company.getCity());
+//        companyResponse.setCompanyState(company.getState());
+//        companyResponse.setCompanyCity(company.getCity());
         companyResponse.setCompanyRegistrationNumber(company.getRegistrationNumber());
         companyResponse.setCompanyRegistrationDate(company.getRegistrationDate());
         companyResponse.setCompanyCINNumber(company.getCinNumber());
@@ -120,14 +120,14 @@ public class CompanyServiceImpl implements CompanyService {
 
             response.setCompanyId(company.getId());
 
-            response.setCompanyType(company.getCompanyType());
+//            response.setCompanyType(company.getCompanyType());
             response.setCompanyName(company.getCompanyName());
             response.setFirstName(company.getFirstName());
             response.setLastName(company.getLastName());
             response.setBusinessActivityEmail(company.getBusinessActivityEmail());
             response.setDesignation(company.getDesignation());
-            response.setCompanyState(company.getState());
-            response.setCompanyCity(company.getCity());
+//            response.setCompanyState(company.getState());
+//            response.setCompanyCity(company.getCity());
             response.setCompanyRegistrationNumber(company.getRegistrationNumber());
             response.setCompanyRegistrationDate(company.getRegistrationDate());
             response.setCompanyCINNumber(company.getCinNumber());
@@ -168,14 +168,14 @@ public class CompanyServiceImpl implements CompanyService {
 
         companyResponse.setCompanyId(company.getId());
         companyResponse.setUserId(company.getUserId());
-        companyResponse.setCompanyType(company.getCompanyType());
+//        companyResponse.setCompanyType(company.getCompanyType());
         companyResponse.setCompanyName(company.getCompanyName());
         companyResponse.setFirstName(company.getFirstName());
         companyResponse.setLastName(company.getLastName());
         companyResponse.setBusinessActivityEmail(company.getBusinessActivityEmail());
         companyResponse.setDesignation(company.getDesignation());
-        companyResponse.setCompanyState(company.getState());
-        companyResponse.setCompanyCity(company.getCity());
+//        companyResponse.setCompanyState(company.getState());
+//        companyResponse.setCompanyCity(company.getCity());
         companyResponse.setCompanyRegistrationNumber(company.getRegistrationNumber());
         companyResponse.setCompanyRegistrationDate(company.getRegistrationDate());
         companyResponse.setCompanyCINNumber(company.getCinNumber());
@@ -207,12 +207,12 @@ public class CompanyServiceImpl implements CompanyService {
 
             companyData.setCompanyName(companyRequest.getCompanyName());
             companyData.setAddress(companyRequest.getCompanyAddress());
-            companyData.setCompanyType(companyRequest.getCompanyType());
+//            companyData.setCompanyType(companyRequest.getCompanyType());
             companyData.setBusinessActivityEmail(companyRequest.getBusinessActivityEmail());
             companyData.setFirstName(companyRequest.getFirstName());
             companyData.setLastName(companyRequest.getLastName());
-            companyData.setState(companyRequest.getCompanyState());
-            companyData.setCity(companyRequest.getCompanyCity());
+//            companyData.setState(companyRequest.getCompanyState());
+//            companyData.setCity(companyRequest.getCompanyCity());
             companyData.setRegistrationNumber(companyRequest.getCompanyRegistrationNumber());
             companyData.setRegistrationDate(companyRequest.getCompanyRegistrationDate());
             companyData.setCinNumber(companyRequest.getCompanyCINNumber());
@@ -236,12 +236,12 @@ public class CompanyServiceImpl implements CompanyService {
             companyResponse.setCompanyId(savedData.getId());
             companyResponse.setCompanyName(savedData.getCompanyName());
             companyResponse.setCompanyAddress(savedData.getAddress());
-            companyResponse.setCompanyType(savedData.getCompanyType());
+//            companyResponse.setCompanyType(savedData.getCompanyType());
             companyResponse.setBusinessActivityEmail(savedData.getBusinessActivityEmail());
             companyResponse.setFirstName(savedData.getFirstName());
             companyResponse.setLastName(savedData.getLastName());
-            companyResponse.setCompanyState(savedData.getState());
-            companyResponse.setCompanyCity(savedData.getCity());
+//            companyResponse.setCompanyState(savedData.getState());
+//            companyResponse.setCompanyCity(savedData.getCity());
             companyResponse.setCompanyRegistrationNumber(savedData.getRegistrationNumber());
             companyResponse.setCompanyRegistrationDate(savedData.getRegistrationDate());
             companyResponse.setCompanyCINNumber(savedData.getCinNumber());
@@ -392,56 +392,59 @@ public class CompanyServiceImpl implements CompanyService {
         return result;
     }
 
-    @Override
-    public List<Map<String, Object>> getAllCompanyDetails() {
+//    @Override
+//    public List<Map<String, Object>> getAllCompanyDetails() {
+//
+//        List<Company> companies = companyRepository.findAll();
+//
+//        return companies.stream().map(company -> {
+//            Map<String,Object> companyMap = new HashMap<>();
+//            companyMap.put("id",company.getId());
+//            companyMap.put("name",company.getCompanyName());
+//            return companyMap;
+//
+//        }).collect(Collectors.toList());
+//    }
+//// i want companyId, teamId and business id so i can pass in this API write code for it
+//    @Override
+//    public List<Map<String, Object>> getAllBusinessDetails() {
+//
+//        List<BusinessUnit> businessUnitsList= businessUnitRepository.findAll();
+//
+//        return businessUnitsList.stream().map(businessUnit -> {
+//            Map<String,Object> businessMap = new HashMap<>();
+//            businessMap.put("id",businessUnit.getId());
+//            businessMap.put("name",businessUnit.getCity());
+//            businessMap.put("businessacitivity",businessUnit.getBusinessActivity());
+//
+//            return businessMap;
+//
+//        }).collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public List<Map<String, Object>> getAllTeamDetails() {
+//
+//        List<Team> teamList= teamRepository.findAll();
+//
+//        return teamList.stream().map(team -> {
+//            Map<String,Object> teamMap = new HashMap<>();
+//            teamMap.put("id",team.getId());
+//            teamMap.put("name",team.getTeamName());
+//            teamMap.put("teamType",team.getTeamType());
+//
+//            return teamMap;
+//
+//        }).collect(Collectors.toList());
+//    }
 
-        List<Company> companies = companyRepository.findAll();
+    public List<CompanyBusinessUnitDto> getCompanyUnitComplianceDetails(Long userId) {
 
-        return companies.stream().map(company -> {
-            Map<String,Object> companyMap = new HashMap<>();
-            companyMap.put("id",company.getId());
-            companyMap.put("name",company.getCompanyName());
-            return companyMap;
+        List<Company> companies = companyRepository.findByUserId(userId);
 
-        }).collect(Collectors.toList());
-    }
-// i want companyId, teamId and business id so i can pass in this API write code for it
-    @Override
-    public List<Map<String, Object>> getAllBusinessDetails() {
 
-        List<BusinessUnit> businessUnitsList= businessUnitRepository.findAll();
-
-        return businessUnitsList.stream().map(businessUnit -> {
-            Map<String,Object> businessMap = new HashMap<>();
-            businessMap.put("id",businessUnit.getId());
-            businessMap.put("name",businessUnit.getCity());
-            businessMap.put("businessacitivity",businessUnit.getBusinessActivity());
-
-            return businessMap;
-
-        }).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Map<String, Object>> getAllTeamDetails() {
-
-        List<Team> teamList= teamRepository.findAll();
-
-        return teamList.stream().map(team -> {
-            Map<String,Object> teamMap = new HashMap<>();
-            teamMap.put("id",team.getId());
-            teamMap.put("name",team.getTeamName());
-            teamMap.put("teamType",team.getTeamType());
-
-            return teamMap;
-
-        }).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<CompanyBusinessUnitDto> getCompanyUnitComplianceDetails() {
-        List<Company> companies = companyRepository.findAll();
         List<CompanyBusinessUnitDto> companyBusinessUnitDtos = new ArrayList<>();
+
         List<Map<String, Object>> totalCompliance = complianceMap.getComplianceCountPerCompanyAndBusinessUnit();
 
         for (Company company : companies) {
@@ -464,10 +467,11 @@ public class CompanyServiceImpl implements CompanyService {
                         .collect(Collectors.toList());
 
                 dto.setTotalCompliance(totalComplianceDtos);
+
+
                 companyBusinessUnitDtos.add(dto);
             }
         }
-
 
         return companyBusinessUnitDtos;
     }

@@ -117,7 +117,7 @@ public class Company {
 	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
 	private List<Team> teams;
 
-	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
 	private List<BusinessUnit> businessUnits;
 
 

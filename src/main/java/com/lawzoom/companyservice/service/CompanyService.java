@@ -20,13 +20,13 @@ public interface CompanyService {
 
     void deleteCompany(Long id);
 
-    List<Map<String, Object>> getAllCompanyDetails();
+//    List<Map<String, Object>> getAllCompanyDetails();
+//
+//    List<Map<String, Object>> getAllBusinessDetails();
+//
+//    List<Map<String, Object>> getAllTeamDetails();
+//    List<Map<String, Object>> getAllCompanyDetailsV2();
 
-    List<Map<String, Object>> getAllBusinessDetails();
 
-    List<Map<String, Object>> getAllTeamDetails();
-    List<Map<String, Object>> getAllCompanyDetailsV2();
-
-
-    List<CompanyBusinessUnitDto> getCompanyUnitComplianceDetails();
+    List<CompanyBusinessUnitDto> getCompanyUnitComplianceDetails(Long userId);
 }

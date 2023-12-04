@@ -43,18 +43,18 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
 
             if (existingBusinessUnit == null) {
 
-                Set<Team> teams = new HashSet<>();
+//                Set<Team> teams = new HashSet<>();
 
-                if (businessUnitRequest.getTeamIds() != null && !businessUnitRequest.getTeamIds().isEmpty()) {
-                    for (Long teamId : businessUnitRequest.getTeamIds()) {
-                        Optional<Team> teamOptional = teamRepository.findById(teamId);
-                        if (teamOptional.isPresent()) {
-                            teams.add(teamOptional.get());
-                        } else {
-                            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team with ID " + teamId + " not found");
-                        }
-                    }
-                }
+//                if (businessUnitRequest.getTeamIds() != null && !businessUnitRequest.getTeamIds().isEmpty()) {
+//                    for (Long teamId : businessUnitRequest.getTeamIds()) {
+//                        Optional<Team> teamOptional = teamRepository.findById(teamId);
+//                        if (teamOptional.isPresent()) {
+//                            teams.add(teamOptional.get());
+//                        } else {
+//                            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team with ID " + teamId + " not found");
+//                        }
+//                    }
+//                }
 
                 BusinessUnit newBusinessUnit = new BusinessUnit();
 
@@ -72,13 +72,13 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                 newBusinessUnit.setDateRegistration(businessUnitRequest.getDateRegistration());
                 newBusinessUnit.setStates(businessUnitRequest.getStates());
                 newBusinessUnit.setGstNumber(businessUnitRequest.getGstNumber());
-                newBusinessUnit.setTeams(teams);
+//                newBusinessUnit.setTeams(teams);
 
                 BusinessUnit savedBusinessUnit = businessUnitRepository.save(newBusinessUnit);
 
-                List<Long> savedTeamIds = savedBusinessUnit.getTeams().stream()
-                        .map(Team::getId)
-                        .collect(Collectors.toList());
+//                List<Long> savedTeamIds = savedBusinessUnit.getTeams().stream()
+//                        .map(Team::getId)
+//                        .collect(Collectors.toList());
 
                 // Create and return a response
                 BusinessUnitResponse response = new BusinessUnitResponse();
@@ -95,7 +95,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                 response.setDateRegistration(savedBusinessUnit.getDateRegistration());
                 response.setStates(savedBusinessUnit.getStates());
                 response.setGstNumber(savedBusinessUnit.getGstNumber());
-                response.setTeamIds(savedTeamIds);
+//                response.setTeamIds(savedTeamIds);
 
                 return response;
             } else {

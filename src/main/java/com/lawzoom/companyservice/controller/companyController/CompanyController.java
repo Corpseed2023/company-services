@@ -144,8 +144,8 @@ CompanyController {
 
 
     @GetMapping("/getCompanyUnitComplianceDetails")
-    public List<CompanyBusinessUnitDto> getCompanyUnitComplianceDetails() {
-        return companyService.getCompanyUnitComplianceDetails();
+    public List<CompanyBusinessUnitDto> getCompanyUnitComplianceDetails(@RequestParam Long userId) {
+        return companyService.getCompanyUnitComplianceDetails(userId);
     }
 
 
