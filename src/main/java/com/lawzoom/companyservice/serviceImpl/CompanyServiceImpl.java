@@ -456,6 +456,8 @@ public class CompanyServiceImpl implements CompanyService {
                 dto.setBusinessUnit(businessUnit.getBusinessActivity());
                 dto.setAddress(businessUnit.getAddress());
 
+                dto.setLastUpdated(businessUnit.getUpdatedAt());
+
                 List<TotalComplianceDto> totalComplianceDtos = totalCompliance.stream()
                         .filter(map -> String.valueOf(company.getId()).equals(String.valueOf(map.get("companyId")))
                                 && String.valueOf(businessUnit.getId()).equals(String.valueOf(map.get("businessUnitId"))))

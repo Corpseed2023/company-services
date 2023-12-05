@@ -2,6 +2,7 @@ package com.lawzoom.companyservice.dto.companyDto;
 
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -12,4 +13,5 @@ public class CompanyBusinessUnitDto {
     private String businessUnit;
     private String address;
     private List<TotalComplianceDto> totalCompliance;
+    private Date lastUpdated;
 }

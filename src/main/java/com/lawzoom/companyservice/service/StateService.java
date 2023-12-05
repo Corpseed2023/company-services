@@ -5,15 +5,15 @@ import com.lawzoom.companyservice.model.region.States;
 import java.util.List;
 
 public interface StateService {
+
+    States createOrUpdateState(States states);
+
     List<States> getAllStates();
 
-//    States getStateById(Long id);
+    States getStateById(Long id);
 
-//    States createOrUpdateState(States states);
 
-    void deleteState(Long id);
+    States updateState(Long id, States states);
 
-//    List<States> createOrUpdateStates(List<String> stateNames);
-    Object createOrUpdateStates(List<String> stateNames);
 
 }

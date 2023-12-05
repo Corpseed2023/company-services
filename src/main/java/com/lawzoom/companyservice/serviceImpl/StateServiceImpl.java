@@ -19,50 +19,37 @@ public class StateServiceImpl implements StateService {
     private StatesRepository statesRepository;
 
     @Override
+    public States createOrUpdateState(States states) {
+        return statesRepository.save(states);
+    }
+
+    @Override
     public List<States> getAllStates() {
-        return statesRepository.findByIsEnable(true);
+        return statesRepository.findAll();
     }
 
-//    @Override
-//    public States getStateById(Long id) {
-//        return statesRepository.findById(id).orElse(null);
-//    }
-
-//    @Override
-//    public States createOrUpdateState(States states) {
-//        return statesRepository.save(states);
-//    }
+    @Override
+    public States getStateById(Long id) {
+        return statesRepository.findById(id).orElse(null);
+    }
 
     @Override
-    public Object createOrUpdateStates(List<String> stateNames) {
-        List<States> statesList = new ArrayList<>();
-        List<String> existingStates = new ArrayList<>();
+    public States updateState(Long id, States states) {
+        States existingState = statesRepository.findById(id).orElse(null);
 
-        for (String stateName : stateNames) {
-            States existingState = statesRepository.findByStateName(stateName);
-            if (existingState == null) {
-                States states = new States();
-                states.setStateName(stateName);
-                states.setEnable(true);
-                statesList.add(states);
-            } else {
-                System.out.println("State with name '" + stateName + "' already exists. Skipping...");
-                existingStates.add(stateName);
-            }
-        }
+        if (existingState != null) {
+            // Update fields as needed
+            existingState.setStateName(states.getStateName());
+            existingState.setUpdatedAt(states.getUpdatedAt());
+            existingState.setEnable(states.isEnable());
 
-        if (existingStates.isEmpty()) {
-            List<States> savedStates = statesRepository.saveAll(statesList);
-            return new ResponseEntity<>(savedStates, HttpStatus.CREATED);
+            // Save the updated state
+            return statesRepository.save(existingState);
         } else {
-            return new ResponseEntity<>("Already Exist", HttpStatus.ALREADY_REPORTED);
+            return null; // Handle not found scenario
         }
     }
 
 
-    @Override
-    public void deleteState(Long id) {
-        statesRepository.deleteById(id);
-    }
 
 }

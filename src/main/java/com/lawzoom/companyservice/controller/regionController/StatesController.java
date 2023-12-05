@@ -14,41 +14,24 @@ import java.util.List;
 public class StatesController {
 
     @Autowired
-    private StateService stateService;
+    private StateService statesService;
 
     @GetMapping
     public ResponseEntity<List<States>> getAllStates() {
-        List<States> statesList = stateService.getAllStates();
+        List<States> statesList = statesService.getAllStates();
         return new ResponseEntity<>(statesList, HttpStatus.OK);
     }
 
-//    @GetMapping("/getState")
-//    public ResponseEntity<States> getStateById(@PathVariable Long id) {
-//        States states = stateService.getStateById(id);
-//        return new ResponseEntity<>(states, HttpStatus.OK);
-//    }
-////
-//    @PostMapping
-//    public ResponseEntity<States> createOrUpdateState(@RequestBody States states) {
-//        States savedState = stateService.createOrUpdateState(states);
-//        return new ResponseEntity<>(savedState, HttpStatus.CREATED);
-//    }
-
-//    @PostMapping("/batch")
-//    public ResponseEntity<List<States>> createOrUpdateStates(@RequestBody List<String> stateNames) {
-//        List<States> savedStates = stateService.createOrUpdateStates(stateNames);
-//        return new ResponseEntity<>(savedStates, HttpStatus.CREATED);
-//    }
-
-    @PostMapping("/batch")
-    public ResponseEntity<Object> createOrUpdateStates(@RequestBody List<String> stateNames) {
-        Object response = stateService.createOrUpdateStates(stateNames);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    @PostMapping
+    public ResponseEntity<States> createOrUpdateState(@RequestBody States states) {
+        States savedState = statesService.createOrUpdateState(states);
+        return new ResponseEntity<>(savedState, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/removeState")
-    public ResponseEntity<Void> deleteState(@PathVariable Long id) {
-        stateService.deleteState(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @PutMapping("/updateStates")
+    public ResponseEntity<States> updateState(@RequestParam Long id, @RequestBody States states) {
+        States updatedState = statesService.updateState(id, states);
+        return new ResponseEntity<>(updatedState, HttpStatus.OK);
     }
+
 }
