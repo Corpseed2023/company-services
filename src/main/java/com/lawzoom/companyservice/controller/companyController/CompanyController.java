@@ -2,7 +2,7 @@ package com.lawzoom.companyservice.controller.companyController;
 
 import com.lawzoom.companyservice.dto.companyDto.CompanyBusinessUnitDto;
 import com.lawzoom.companyservice.dto.companyDto.CompanyResponse;
-import com.lawzoom.companyservice.service.CompanyService;
+import com.lawzoom.companyservice.services.companyService.CompanyService;
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.lawzoom.companyservice.dto.companyDto.CompanyRequest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @CrossOrigin

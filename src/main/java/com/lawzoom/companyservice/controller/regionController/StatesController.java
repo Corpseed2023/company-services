@@ -1,7 +1,7 @@
 package com.lawzoom.companyservice.controller.regionController;
 
 import com.lawzoom.companyservice.model.region.States;
-import com.lawzoom.companyservice.service.StateService;
+import com.lawzoom.companyservice.services.regionService.StateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +23,8 @@ public class StatesController {
     }
 
     @PostMapping
-    public ResponseEntity<States> createOrUpdateState(@RequestBody States states) {
-        States savedState = statesService.createOrUpdateState(states);
+    public ResponseEntity<States> createState(@RequestBody States states) {
+        States savedState = statesService.createStates(states);
         return new ResponseEntity<>(savedState, HttpStatus.CREATED);
     }
 

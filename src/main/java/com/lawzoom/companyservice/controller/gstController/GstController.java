@@ -3,7 +3,7 @@ package com.lawzoom.companyservice.controller.gstController;
 
 import com.lawzoom.companyservice.dto.gstDto.GstRequest;
 import com.lawzoom.companyservice.dto.gstDto.GstResponse;
-import com.lawzoom.companyservice.service.GstService;
+import com.lawzoom.companyservice.services.GstService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
