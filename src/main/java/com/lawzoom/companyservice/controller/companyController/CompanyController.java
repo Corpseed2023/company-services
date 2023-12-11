@@ -2,6 +2,7 @@ package com.lawzoom.companyservice.controller.companyController;
 
 import com.lawzoom.companyservice.dto.companyDto.CompanyBusinessUnitDto;
 import com.lawzoom.companyservice.dto.companyDto.CompanyResponse;
+import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.service.CompanyService;
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,6 +147,11 @@ CompanyController {
     @GetMapping("/getCompanyUnitComplianceDetails")
     public List<CompanyBusinessUnitDto> getCompanyUnitComplianceDetails(@RequestParam Long userId) {
         return companyService.getCompanyUnitComplianceDetails(userId);
+    }
+
+    @GetMapping("/getCompanyByMemberMail")
+    public Map<String, Object> getCompanyByMemberMail(@RequestParam String memberMail) {
+        return companyService.getCompanyByMemberMail(memberMail);
     }
 
 

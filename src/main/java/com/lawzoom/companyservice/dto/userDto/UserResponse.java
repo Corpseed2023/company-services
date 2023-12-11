@@ -32,4 +32,7 @@ public class UserResponse {
 
 	private boolean isEnable;
 
+	private boolean isAssociated;
+
+
 }

@@ -61,6 +61,8 @@ public class UserRequest {
 
     private Set<Roles> roles;
 
+    private boolean isAssociated;
+
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;

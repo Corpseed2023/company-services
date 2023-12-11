@@ -1,20 +1,27 @@
 package com.lawzoom.companyservice.serviceImpl;
 
+import com.lawzoom.companyservice.config.RestTemplateConfig;
 import com.lawzoom.companyservice.dto.companyDto.CompanyBusinessUnitDto;
 import com.lawzoom.companyservice.dto.companyDto.CompanyRequest;
 import com.lawzoom.companyservice.dto.companyDto.CompanyResponse;
 import com.lawzoom.companyservice.dto.companyDto.TotalComplianceDto;
+import com.lawzoom.companyservice.feignClient.AuthenticationFeignClient;
 import com.lawzoom.companyservice.feignClient.ComplianceMap;
 import com.lawzoom.companyservice.model.companyModel.Company;
+import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
 import com.lawzoom.companyservice.repository.BusinessUnitRepository;
 import com.lawzoom.companyservice.repository.CompanyRepository;
+import com.lawzoom.companyservice.repository.TeamMemberRepository;
 import com.lawzoom.companyservice.repository.TeamRepository;
 import com.lawzoom.companyservice.service.CompanyService;
+import jakarta.ws.rs.HttpMethod;
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import javax.swing.plaf.LabelUI;
 import java.util.*;
@@ -33,11 +40,68 @@ public class CompanyServiceImpl implements CompanyService {
     private TeamRepository teamRepository;
 
     @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
     private BusinessUnitRepository businessUnitRepository;
+
+    @Autowired
+    private TeamMemberRepository teamMemberRepository;
+
+    @Autowired
+    private AuthenticationFeignClient authenticationFeignClient;
 
     public CompanyServiceImpl(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
     }
+
+
+    @Override
+    public Map<String, Object> getCompanyByMemberMail(String memberMail) {
+        // Check if the email exists in TeamMember table
+        TeamMember teamMember = teamMemberRepository.findByMemberMail(memberMail);
+
+        if (teamMember != null) {
+            // If the TeamMember is found, retrieve the associated Team
+            Team team = teamMember.getTeam();
+
+            if (team != null) {
+                Long teamId = team.getId();
+
+                // Check if the Team with the retrieved teamId exists
+                Optional<Team> optionalTeam = teamRepository.findById(teamId);
+
+                if (optionalTeam.isPresent()) {
+                    // If the Team is found, retrieve the associated Company
+                    Company company = optionalTeam.get().getCompany();
+
+                    if (company != null) {
+                        // If the Company is found, return companyId, companyName, and Company data
+                        Map<String, Object> result = new HashMap<>();
+                        result.put("companyId", company.getId());
+                        result.put("companyName", company.getCompanyName());
+                        return result;
+                    } else {
+                        // Handle the case where the Team doesn't have an associated Company
+                        return handleNotFoundError("Company not found for the given Team.");
+                    }
+                } else {
+                    // Handle the case where the Team is not found
+                    return handleNotFoundError("Team not found for the given Team ID.");
+                }
+            }
+        }
+
+        // Handle the case where the TeamMember is not found
+        return handleNotFoundError("TeamMember not found for the given email.");
+    }
+
+    private Map<String, Object> handleNotFoundError(String message) {
+        Map<String, Object> errorResult = new HashMap<>();
+        errorResult.put("error", message);
+        return errorResult;
+    }
+
 
     @Override
     public CompanyResponse createCompany(CompanyRequest companyRequest , Long userId) {
@@ -106,7 +170,15 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setOperationUnitAddress(company.getOperationUnitAddress());
         companyResponse.setCompanyTurnover(company.getTurnover());
 
+//        updateIsAssociated(userId, true);
+
+
+
         return companyResponse;
+    }
+
+    public void updateIsAssociated(Long userId, boolean isAssociated) {
+        authenticationFeignClient.updateIsAssociated(userId, isAssociated);
     }
 
 
@@ -477,6 +549,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         return companyBusinessUnitDtos;
     }
+
 
 }
 
