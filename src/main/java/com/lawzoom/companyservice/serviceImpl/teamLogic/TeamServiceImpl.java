@@ -1,12 +1,12 @@
-package com.lawzoom.companyservice.serviceImpl;
+package com.lawzoom.companyservice.serviceImpl.teamLogic;
 
 import com.lawzoom.companyservice.dto.teamDto.TeamRequest;
 import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamModel.Team;
-import com.lawzoom.companyservice.repository.CompanyRepository;
-import com.lawzoom.companyservice.repository.TeamRepository;
-import com.lawzoom.companyservice.service.TeamService;
+import com.lawzoom.companyservice.repository.companyRepo.CompanyRepository;
+import com.lawzoom.companyservice.repository.team.TeamRepository;
+import com.lawzoom.companyservice.services.teamService.TeamService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

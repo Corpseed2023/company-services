@@ -1,10 +1,10 @@
-package com.lawzoom.companyservice.serviceImpl;
+package com.lawzoom.companyservice.serviceImpl.regionLogic;
 
 import com.lawzoom.companyservice.model.region.City;
 import com.lawzoom.companyservice.model.region.States;
-import com.lawzoom.companyservice.repository.CityRepository;
-import com.lawzoom.companyservice.repository.StatesRepository;
-import com.lawzoom.companyservice.service.CityService;
+import com.lawzoom.companyservice.repository.regionRepo.CityRepository;
+import com.lawzoom.companyservice.repository.regionRepo.StatesRepository;
+import com.lawzoom.companyservice.services.regionService.CityService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

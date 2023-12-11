@@ -1,4 +1,4 @@
-package com.lawzoom.companyservice.repository;
+package com.lawzoom.companyservice.repository.team;
 
 import com.lawzoom.companyservice.model.teamModel.Team;
 import org.springframework.data.jpa.repository.JpaRepository;

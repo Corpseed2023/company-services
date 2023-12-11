@@ -1,7 +1,7 @@
 package com.lawzoom.companyservice.controller.mail;
 
 
-import com.lawzoom.companyservice.serviceImpl.EmailService;
+import com.lawzoom.companyservice.config.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

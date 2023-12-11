@@ -1,15 +1,11 @@
-package com.lawzoom.companyservice.serviceImpl;
+package com.lawzoom.companyservice.serviceImpl.regionLogic;
 
 import com.lawzoom.companyservice.model.region.States;
-import com.lawzoom.companyservice.repository.StatesRepository;
-import com.lawzoom.companyservice.service.StateService;
-import jakarta.persistence.Access;
+import com.lawzoom.companyservice.repository.regionRepo.StatesRepository;
+import com.lawzoom.companyservice.services.regionService.StateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,18 +15,13 @@ public class StateServiceImpl implements StateService {
     private StatesRepository statesRepository;
 
     @Override
-    public States createOrUpdateState(States states) {
+    public States createStates(States states) {
         return statesRepository.save(states);
     }
 
     @Override
     public List<States> getAllStates() {
         return statesRepository.findAll();
-    }
-
-    @Override
-    public States getStateById(Long id) {
-        return statesRepository.findById(id).orElse(null);
     }
 
     @Override

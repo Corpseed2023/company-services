@@ -1,25 +1,23 @@
-package com.lawzoom.companyservice.serviceImpl;
+package com.lawzoom.companyservice.serviceImpl.teamLogic;
 
 import com.lawzoom.companyservice.controller.PasswordController;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
 import com.lawzoom.companyservice.dto.userDto.UserRequest;
 import com.lawzoom.companyservice.feignClient.AuthenticationFeignClient;
-import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import com.lawzoom.companyservice.model.teamModel.Team;
-import com.lawzoom.companyservice.repository.CompanyRepository;
-import com.lawzoom.companyservice.repository.TeamMemberRepository;
-import com.lawzoom.companyservice.repository.TeamRepository;
-import com.lawzoom.companyservice.service.TeamMemberService;
-import jakarta.mail.internet.MimeMessage;
+import com.lawzoom.companyservice.repository.companyRepo.CompanyRepository;
+import com.lawzoom.companyservice.repository.team.TeamMemberRepository;
+import com.lawzoom.companyservice.repository.team.TeamRepository;
+import com.lawzoom.companyservice.config.EmailService;
+import com.lawzoom.companyservice.services.teamService.TeamMemberService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class TeamMemberServiceImpl implements TeamMemberService {

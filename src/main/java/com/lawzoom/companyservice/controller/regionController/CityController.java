@@ -2,9 +2,7 @@ package com.lawzoom.companyservice.controller.regionController;
 
 
 import com.lawzoom.companyservice.model.region.City;
-import com.lawzoom.companyservice.model.region.States;
-import com.lawzoom.companyservice.service.CityService;
-import com.lawzoom.companyservice.service.StateService;
+import com.lawzoom.companyservice.services.regionService.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

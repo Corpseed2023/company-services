@@ -1,4 +1,4 @@
-package com.lawzoom.companyservice.service;
+package com.lawzoom.companyservice.services.businessService;
 
 import com.lawzoom.companyservice.dto.businessUnitDto.BusinessUnitRequest;
 import com.lawzoom.companyservice.dto.businessUnitDto.BusinessUnitResponse;

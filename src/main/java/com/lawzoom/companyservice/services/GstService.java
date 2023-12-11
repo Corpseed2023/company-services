@@ -1,4 +1,4 @@
-package com.lawzoom.companyservice.service;
+package com.lawzoom.companyservice.services;
 
 import com.lawzoom.companyservice.dto.gstDto.GstRequest;
 import com.lawzoom.companyservice.dto.gstDto.GstResponse;

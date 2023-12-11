@@ -73,7 +73,7 @@ public class Company {
 	@Column(name = "cin_number")
 	private String cinNumber;
 
-	@Column(columnDefinition = "TEXT",name="remarks")
+	@Column(columnDefinition = "text",name="remarks")
 	private String remarks;
 
 	@Column(name = "pin_code")

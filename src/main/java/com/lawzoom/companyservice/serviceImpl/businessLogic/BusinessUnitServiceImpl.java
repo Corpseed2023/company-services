@@ -1,4 +1,4 @@
-package com.lawzoom.companyservice.serviceImpl;
+package com.lawzoom.companyservice.serviceImpl.businessLogic;
 
 
 import com.lawzoom.companyservice.dto.businessUnitDto.BusinessUnitRequest;
@@ -7,10 +7,10 @@ import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamModel.Team;
-import com.lawzoom.companyservice.repository.BusinessUnitRepository;
-import com.lawzoom.companyservice.repository.CompanyRepository;
-import com.lawzoom.companyservice.repository.TeamRepository;
-import com.lawzoom.companyservice.service.BusinessUnitService;
+import com.lawzoom.companyservice.repository.businessRepo.BusinessUnitRepository;
+import com.lawzoom.companyservice.repository.companyRepo.CompanyRepository;
+import com.lawzoom.companyservice.repository.team.TeamRepository;
+import com.lawzoom.companyservice.services.businessService.BusinessUnitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

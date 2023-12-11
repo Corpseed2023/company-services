@@ -1,9 +1,8 @@
-package com.lawzoom.companyservice.service;
+package com.lawzoom.companyservice.services.teamService;
 
 
 import com.lawzoom.companyservice.dto.teamDto.TeamRequest;
 import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
-import com.lawzoom.companyservice.model.teamModel.Team;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.lawzoom.companyservice.repository;
+package com.lawzoom.companyservice.repository.businessRepo;
 
 
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;

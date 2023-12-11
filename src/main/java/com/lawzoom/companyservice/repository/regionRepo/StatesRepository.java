@@ -1,4 +1,4 @@
-package com.lawzoom.companyservice.repository;
+package com.lawzoom.companyservice.repository.regionRepo;
 
 
 import com.lawzoom.companyservice.model.region.States;

@@ -3,7 +3,7 @@ package com.lawzoom.companyservice.controller.teamController;
 
 import com.lawzoom.companyservice.dto.teamDto.TeamRequest;
 import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
-import com.lawzoom.companyservice.service.TeamService;
+import com.lawzoom.companyservice.services.teamService.TeamService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

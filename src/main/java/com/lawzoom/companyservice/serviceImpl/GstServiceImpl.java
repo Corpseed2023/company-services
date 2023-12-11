@@ -6,10 +6,10 @@ import com.lawzoom.companyservice.dto.gstDto.GstResponse;
 import com.lawzoom.companyservice.exception.NotFoundException;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
 import com.lawzoom.companyservice.model.gstModel.Gst;
-import com.lawzoom.companyservice.repository.BusinessUnitRepository;
-import com.lawzoom.companyservice.repository.CompanyRepository;
+import com.lawzoom.companyservice.repository.businessRepo.BusinessUnitRepository;
+import com.lawzoom.companyservice.repository.companyRepo.CompanyRepository;
 import com.lawzoom.companyservice.repository.GstRepository;
-import com.lawzoom.companyservice.service.GstService;
+import com.lawzoom.companyservice.services.GstService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

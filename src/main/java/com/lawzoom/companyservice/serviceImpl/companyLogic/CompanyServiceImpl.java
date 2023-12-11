@@ -1,6 +1,5 @@
-package com.lawzoom.companyservice.serviceImpl;
+package com.lawzoom.companyservice.serviceImpl.companyLogic;
 
-import com.lawzoom.companyservice.config.RestTemplateConfig;
 import com.lawzoom.companyservice.dto.companyDto.CompanyBusinessUnitDto;
 import com.lawzoom.companyservice.dto.companyDto.CompanyRequest;
 import com.lawzoom.companyservice.dto.companyDto.CompanyResponse;
@@ -11,19 +10,19 @@ import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
-import com.lawzoom.companyservice.repository.BusinessUnitRepository;
-import com.lawzoom.companyservice.repository.CompanyRepository;
-import com.lawzoom.companyservice.repository.TeamMemberRepository;
-import com.lawzoom.companyservice.repository.TeamRepository;
-import com.lawzoom.companyservice.service.CompanyService;
-import jakarta.ws.rs.HttpMethod;
+import com.lawzoom.companyservice.dto.userDto.UserRequest;
+import com.lawzoom.companyservice.repository.businessRepo.BusinessUnitRepository;
+import com.lawzoom.companyservice.repository.companyRepo.CompanyRepository;
+import com.lawzoom.companyservice.repository.team.TeamMemberRepository;
+import com.lawzoom.companyservice.repository.team.TeamRepository;
+import com.lawzoom.companyservice.services.companyService.CompanyService;
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.swing.plaf.LabelUI;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,6 +36,9 @@ public class CompanyServiceImpl implements CompanyService {
     ComplianceMap complianceMap;
 
     @Autowired
+    private AuthenticationFeignClient authenticationFeignClient;
+
+    @Autowired
     private TeamRepository teamRepository;
 
     @Autowired
@@ -47,9 +49,6 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private TeamMemberRepository teamMemberRepository;
-
-    @Autowired
-    private AuthenticationFeignClient authenticationFeignClient;
 
     public CompanyServiceImpl(CompanyRepository companyRepository) {
         this.companyRepository = companyRepository;
@@ -80,6 +79,7 @@ public class CompanyServiceImpl implements CompanyService {
                         Map<String, Object> result = new HashMap<>();
                         result.put("companyId", company.getId());
                         result.put("companyName", company.getCompanyName());
+                        result.put("registrationDate",company.getRegistrationDate());
                         return result;
                     } else {
                         // Handle the case where the Team doesn't have an associated Company
@@ -104,7 +104,13 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public CompanyResponse createCompany(CompanyRequest companyRequest , Long userId) {
+    public CompanyResponse createCompany(CompanyRequest companyRequest , Long userId)
+    { UserRequest userRequest = authenticationFeignClient.getUserId(userId);
+
+        if (userRequest == null) {
+
+            throw new NotFoundException("User not found with userId: " + userId);
+        }
 
         Company company = new Company();
 
@@ -168,7 +174,7 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setCompanyRemarks(company.getRemarks());
         companyResponse.setUpdatedAt(company.getUpdatedAt());
         companyResponse.setOperationUnitAddress(company.getOperationUnitAddress());
-        companyResponse.setCompanyTurnover(company.getTurnover());
+        companyResponse.setUserId(userId);
 
 //        updateIsAssociated(userId, true);
 
@@ -177,9 +183,9 @@ public class CompanyServiceImpl implements CompanyService {
         return companyResponse;
     }
 
-    public void updateIsAssociated(Long userId, boolean isAssociated) {
-        authenticationFeignClient.updateIsAssociated(userId, isAssociated);
-    }
+//    public void updateIsAssociated(Long userId, boolean isAssociated) {
+//        authenticationFeignClient.updateIsAssociated(userId, isAssociated);
+//    }
 
 
     @Override

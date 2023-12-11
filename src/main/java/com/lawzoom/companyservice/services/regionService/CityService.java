@@ -1,7 +1,6 @@
-package com.lawzoom.companyservice.service;
+package com.lawzoom.companyservice.services.regionService;
 
 import com.lawzoom.companyservice.model.region.City;
-import com.lawzoom.companyservice.model.region.States;
 
 import java.util.List;
 
