@@ -105,7 +105,9 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyResponse createCompany(CompanyRequest companyRequest , Long userId)
-    { UserRequest userRequest = authenticationFeignClient.getUserId(userId);
+    {
+        // checking user ID is exist or not in authentication service
+        UserRequest userRequest = authenticationFeignClient.getUserId(userId);
 
         if (userRequest == null) {
 
