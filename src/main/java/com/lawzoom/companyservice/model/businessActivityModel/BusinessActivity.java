@@ -1,11 +1,13 @@
 package com.lawzoom.companyservice.model.businessActivityModel;
 
+import com.lawzoom.companyservice.model.companyModel.Company;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,6 +18,9 @@ public class BusinessActivity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToMany(mappedBy = "businessActivity", cascade = CascadeType.ALL)
+    private List<Company> companies;
 
     private String businessActivityName;
 

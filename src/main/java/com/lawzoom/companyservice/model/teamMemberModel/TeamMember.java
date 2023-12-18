@@ -26,12 +26,14 @@ public class TeamMember {
 	@JoinColumn(name = "team_id")
 	private Team team;
 
-
 	@NonNull
 	@NotBlank
 	private String memberName;
 
 	private String accessType;
+
+	//basically its role table which going to save in user table
+	private Long accessTypeId;
 
 	@NonNull
 	@NotBlank
@@ -61,6 +63,10 @@ public class TeamMember {
 	private String password;
 
 	private String role;
+
+	private Long createdById;
+
+	private Long companyId;
 
 	public TeamMember(){
 

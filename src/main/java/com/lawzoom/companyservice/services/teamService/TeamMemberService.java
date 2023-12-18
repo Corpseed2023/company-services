@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TeamMemberService {
 
-    TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest,Long teamId);
+    TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest,Long teamId,Long createdById);
 
     TeamMemberResponse updateTeamMember(Long id, TeamMemberRequest teamMemberRequest);
     List<TeamMemberResponse> getAllTeamMembers(Long teamId);

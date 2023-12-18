@@ -24,9 +24,10 @@ public class TeamController {
     private TeamService teamService;
 
     @PostMapping("/addTeam")
-    public ResponseEntity createTeam(@Valid @RequestBody TeamRequest teamRequest, @RequestParam Long companyId){
+    public ResponseEntity createTeam(@Valid @RequestBody TeamRequest teamRequest, @RequestParam Long companyId,
+                                     @RequestParam Long createdById){
 
-        TeamResponse teamResponse = teamService.createTeam(teamRequest,companyId);
+        TeamResponse teamResponse = teamService.createTeam(teamRequest,companyId,createdById);
         return new ResponseEntity<>(teamResponse, HttpStatus.CREATED);
     }
 

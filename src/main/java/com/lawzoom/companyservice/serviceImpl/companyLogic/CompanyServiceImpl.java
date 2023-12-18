@@ -130,7 +130,7 @@ public class CompanyServiceImpl implements CompanyService {
         company.setUpdatedAt (new Date());
         company.setTurnover(companyRequest.getCompanyTurnover());
         company.setGstNumber(companyRequest.getGstNumber());
-        company.setBusinessActivity(companyRequest.getBusinessActivity());
+//        company.setBusinessActivity(companyRequest.getBusinessActivity());
         company.setEnable(companyRequest.isEnable());
         company.setLocatedAt(companyRequest.getLocatedAt());
 //        company.setState(companyRequest.getCompanyState());
@@ -161,7 +161,7 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setCreatedAt(company.getCreatedAt());
         companyResponse.setUpdatedAt(company.getUpdatedAt());
         companyResponse.setEnable(company.isEnable());
-        companyResponse.setBusinessActivity(company.getBusinessActivity());
+//        companyResponse.setBusinessActivity(company.getBusinessActivity());
         companyResponse.setPermanentEmployee(company.getPermanentEmployee());
         companyResponse.setContractEmployee(company.getContractEmployee());
         companyResponse.setGstNumber(company.getGstNumber());
@@ -219,7 +219,7 @@ public class CompanyServiceImpl implements CompanyService {
             company.setCreatedAt (new Date());
             company.setUpdatedAt (new Date());
             response.setEnable(company.isEnable());
-            response.setBusinessActivity(company.getBusinessActivity());
+//            response.setBusinessActivity(company.getBusinessActivity());
             response.setPermanentEmployee(company.getPermanentEmployee());
             response.setContractEmployee(company.getContractEmployee());
             response.setGstNumber(company.getGstNumber());
@@ -267,7 +267,7 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setCreatedAt(company.getCreatedAt());
         companyResponse.setUpdatedAt(company.getUpdatedAt());
         companyResponse.setEnable(company.isEnable());
-        companyResponse.setBusinessActivity(company.getBusinessActivity());
+//        companyResponse.setBusinessActivity(company.getBusinessActivity());
         companyResponse.setPermanentEmployee(company.getPermanentEmployee());
         companyResponse.setContractEmployee(company.getContractEmployee());
         companyResponse.setGstNumber(company.getGstNumber());
@@ -303,7 +303,7 @@ public class CompanyServiceImpl implements CompanyService {
             companyData.setCreatedAt(companyRequest.getCreatedAt());
             companyData.setUpdatedAt(companyRequest.getUpdatedAt());
             companyData.setEnable(companyRequest.isEnable());
-            companyData.setBusinessActivity(companyRequest.getBusinessActivity());
+//            companyData.setBusinessActivity(companyRequest.getBusinessActivity());
             companyData.setPermanentEmployee(companyRequest.getPermanentEmployee());
             companyData.setContractEmployee(companyRequest.getContractEmployee());
             companyData.setGstNumber(companyRequest.getGstNumber());
@@ -332,7 +332,7 @@ public class CompanyServiceImpl implements CompanyService {
             companyResponse.setCreatedAt(savedData.getCreatedAt());
             companyResponse.setUpdatedAt(savedData.getUpdatedAt());
             companyResponse.setEnable(savedData.isEnable());
-            companyResponse.setBusinessActivity(savedData.getBusinessActivity());
+//            companyResponse.setBusinessActivity(savedData.getBusinessActivity());
             companyResponse.setPermanentEmployee(savedData.getPermanentEmployee());
             companyResponse.setContractEmployee(savedData.getContractEmployee());
             companyResponse.setGstNumber(savedData.getGstNumber());

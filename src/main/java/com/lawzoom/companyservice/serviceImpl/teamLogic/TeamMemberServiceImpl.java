@@ -5,6 +5,7 @@ import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
 import com.lawzoom.companyservice.dto.userDto.UserRequest;
 import com.lawzoom.companyservice.feignClient.AuthenticationFeignClient;
+import com.lawzoom.companyservice.model.Roles;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.repository.companyRepo.CompanyRepository;
@@ -39,7 +40,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     private JavaMailSender javaMailSender;
 
-
     @Autowired
     private AuthenticationFeignClient authenticationFeignClient;
 //
@@ -51,11 +51,17 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
 
     @Override
-    public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest, Long teamId) {
+    public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest, Long teamId,Long createdById) {
+
+//        UserRequest userData = authenticationFeignClient.getUserId(createdById);
+//        if (userData == null) {
+//            throw new IllegalArgumentException("User not found with ID: " + createdById);
+//        }
 
         Optional<Team> teamSavedData = teamRepository.findById(teamId);
         if (teamSavedData.isPresent()) {
             Team teamData = teamSavedData.get();
+
 
             try {
                 if (teamMemberRequest == null) {
@@ -66,7 +72,10 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
                 TeamMember teamMember = new TeamMember();
 //                teamMember.setMemberId(teamMemberRequest.getMemberId());
-                teamMember.setMemberRole(teamMemberRequest.getRole());
+                teamMember.setMemberRole(teamMemberRequest.getAccessType());
+                Long companyId = teamData.getCompany().getId();
+                teamMember.setCompanyId(companyId);
+//                teamMember.setCompanyId(teamMemberRequest.getCompanyId());  // Set the company_id from the team
                 teamMember.setMemberName(teamMemberRequest.getMemberName());
                 teamMember.setMemberMail(teamMemberRequest.getMemberMail());
                 teamMember.setMemberMobile(teamMemberRequest.getMemberMobile());
@@ -76,6 +85,10 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMember.setUpdatedAt(new Date());
                 teamMember.setEnable(teamMemberRequest.isEnable());
                 teamMember.setTeam(teamData);
+                teamMember.setCreatedById(createdById);
+                teamMember.setAccessType(teamMemberRequest.getAccessType());
+                teamMember.setAccessTypeId(teamMemberRequest.getAccessTypeId());
+
 //                teamMember.setPassword(randomPassword);
 
                 System.out.println("Got Hit");
@@ -89,17 +102,28 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMemberResponse.setCreatedAt(teamMember.getCreatedAt());
                 teamMemberResponse.setUpdatedAt(teamMember.getUpdatedAt());
                 teamMemberResponse.setEnable(teamMember.isEnable());
-                teamMemberResponse.setAccessType(teamMember.getAccessType());
                 teamMemberResponse.setMemberMobile(teamMember.getMemberMobile());
                 teamMemberResponse.setTypeOfResource(teamMember.getTypeOfResource());
+                teamMemberResponse.setAccessTypeId(teamMember.getAccessTypeId());
+                teamMemberResponse.setAccessType(teamMember.getAccessType());
+
 
                 UserRequest userRequest = new UserRequest();
+
                 userRequest.setFirstName(teamMemberResponse.getMemberName());
                 userRequest.setEmail(teamMemberResponse.getMemberMail());
+                Roles r = new Roles();
+                r.setId(teamMemberResponse.getAccessTypeId());
+                r.setRole(teamMemberResponse.getAccessType());
+                Set<Roles> s = new HashSet<>();
+                s.add(r);
+                userRequest.setRoles(s);
                 userRequest.setPassword(randomPassword);
 //                userRequest.setDesignation(teamMemberResponse.get);
                 userRequest.setResourceType(teamMemberResponse.getTypeOfResource());
 //                userRequest.setRoles(teamMemberResponse.getAccessType());
+                userRequest.setCompany_id(1L);
+                System.out.println(userRequest);
 
                 authenticationFeignClient.createTeamMemberUsers(userRequest);
 //                sendInvitationEmail(teamMemberRequest);
