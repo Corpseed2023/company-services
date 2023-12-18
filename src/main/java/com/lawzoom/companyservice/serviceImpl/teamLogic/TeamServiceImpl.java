@@ -2,6 +2,8 @@ package com.lawzoom.companyservice.serviceImpl.teamLogic;
 
 import com.lawzoom.companyservice.dto.teamDto.TeamRequest;
 import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
+import com.lawzoom.companyservice.dto.userDto.UserRequest;
+import com.lawzoom.companyservice.feignClient.AuthenticationFeignClient;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.repository.companyRepo.CompanyRepository;
@@ -23,10 +25,17 @@ public class TeamServiceImpl implements TeamService {
     @Autowired
     private CompanyRepository companyRepository;
 
+    private AuthenticationFeignClient authenticationFeignClient;
+
 
 
     @Override
-    public TeamResponse createTeam(TeamRequest teamRequest, Long companyId) {
+    public TeamResponse createTeam(TeamRequest teamRequest, Long companyId , Long createdById) {
+
+//        UserRequest userRequest = authenticationFeignClient.getUserId(createdById);
+//        if (userRequest == null) {
+//            throw new IllegalArgumentException("User not found with ID: " + createdById);
+//        }
 
         Optional <Company> companyOptional = companyRepository.findById(companyId);
         if (companyOptional.isPresent()) {
@@ -47,7 +56,9 @@ public class TeamServiceImpl implements TeamService {
                 team.setEnable(teamRequest.isEnable());
                 team.setCreatedAt(new Date());
                 team.setUpdatedAt(new Date());
+                team.setCreatedBy(createdById);
                 team = teamRepository.save(team);
+
 
                 TeamResponse teamResponse = new TeamResponse();
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 
 public interface TeamService {
-    TeamResponse createTeam(TeamRequest teamRequest,Long companyId);
+    TeamResponse createTeam(TeamRequest teamRequest,Long companyId,Long createdById);
 
     TeamResponse updateTeam(Long teamId, TeamRequest teamRequest);
 

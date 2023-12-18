@@ -28,8 +28,9 @@ public class TeamMemberController {
     private TeamMemberService teamMemberService;
 
     @PostMapping("/addTeamMember")
-    public ResponseEntity<TeamMemberResponse> createTeamMember(@RequestBody TeamMemberRequest teamMemberRequest, @RequestParam Long teamId) {
-        TeamMemberResponse createdTeamMember = teamMemberService.createTeamMember(teamMemberRequest,teamId);
+    public ResponseEntity<TeamMemberResponse> createTeamMember(@RequestBody TeamMemberRequest teamMemberRequest,
+                                                               @RequestParam Long teamId,@RequestParam Long createdById) {
+        TeamMemberResponse createdTeamMember = teamMemberService.createTeamMember(teamMemberRequest,teamId,createdById);
         return new ResponseEntity<>(createdTeamMember, HttpStatus.CREATED);
     }
 

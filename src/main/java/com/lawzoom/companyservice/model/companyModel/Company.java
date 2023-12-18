@@ -1,5 +1,6 @@
 package com.lawzoom.companyservice.model.companyModel;
 
+import com.lawzoom.companyservice.model.businessActivityModel.BusinessActivity;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
 import com.lawzoom.companyservice.model.region.City;
 import com.lawzoom.companyservice.model.region.States;
@@ -88,8 +89,10 @@ public class Company {
 	@Column(name = "located_at")
 	private String locatedAt;
 
-	@Column(name = "business_activity")
-	private String businessActivity;
+	@ManyToOne
+	@JoinColumn(name = "business_activity_id") // Adjust the column name as needed
+	private BusinessActivity businessActivity;
+
 
 	@Column(name = "permanent_employee")
 	private int permanentEmployee;

@@ -55,9 +55,19 @@
 		@Temporal(TemporalType.TIMESTAMP)
 		private Date updatedAt;
 
+
 		@Column(length = 1,name="is_enable",columnDefinition = "tinyint(1) default 1")
 		@Comment(value = "1 : Active, 0 : Inactive")
 		private boolean isEnable;
+
+		private int reportingManager;
+
+		private Long superAdminId;
+
+		private Long createdBy;
+
+
+		private String uuid;
 
 		@OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
 		private List<TeamMember> teamMembers = new ArrayList<>();

@@ -27,6 +27,9 @@ public class TeamMemberResponse {
 
 	private String accessType;
 
+	//basically its role table which going to save in user table
+	private Long accessTypeId;
+
 	@NonNull
 	@NotBlank
 	private String memberMail;
@@ -48,5 +51,8 @@ public class TeamMemberResponse {
 	private Date updatedAt;
 
 	private boolean isEnable;
+
+	private Long companyId;
+
 
 }
