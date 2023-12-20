@@ -11,7 +11,7 @@ public interface TeamMemberService {
     TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest,Long companyId,Long createdById);
 
     TeamMemberResponse updateTeamMember(Long id, TeamMemberRequest teamMemberRequest);
-    List<TeamMemberResponse> getAllTeamMembers(Long teamId);
+    List<TeamMemberResponse> getAllTeamMembers(Long companyId);
     TeamMemberResponse getTeamMemberById(Long id);
     void removeTeamMember(Long memberId);
 

@@ -57,9 +57,9 @@ public class TeamMemberRequest {
 
 	private boolean isEnable;
 
-	private Long companyId;
-
-    private Long createdById;
+//	private Long companyId;
+//
+//    private Long createdById;
 
 
 }

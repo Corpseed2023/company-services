@@ -107,26 +107,27 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMemberResponse.setTypeOfResource(teamMember.getTypeOfResource());
                 teamMemberResponse.setAccessTypeId(teamMember.getAccessTypeId());
                 teamMemberResponse.setAccessType(teamMember.getAccessType());
+                teamMemberResponse.setCompanyId(teamMember.getCompanyId());
 
 
-                UserRequest userRequest = new UserRequest();
-
-                userRequest.setFirstName(teamMemberResponse.getMemberName());
-                userRequest.setEmail(teamMemberResponse.getMemberMail());
-                Roles r = new Roles();
-                r.setId(teamMemberResponse.getAccessTypeId());
-                r.setRole(teamMemberResponse.getAccessType());
-                Set<Roles> s = new HashSet<>();
-                s.add(r);
-                userRequest.setRoles(s);
-                userRequest.setPassword(randomPassword);
-//                userRequest.setDesignation(teamMemberResponse.get);
-                userRequest.setResourceType(teamMemberResponse.getTypeOfResource());
-//                userRequest.setRoles(teamMemberResponse.getAccessType());
-                userRequest.setCompany_id(1L);
-                System.out.println(userRequest);
-
-                authenticationFeignClient.createTeamMemberUsers(userRequest);
+//                UserRequest userRequest = new UserRequest();
+//
+//                userRequest.setFirstName(teamMemberResponse.getMemberName());
+//                userRequest.setEmail(teamMemberResponse.getMemberMail());
+//                Roles r = new Roles();
+//                r.setId(teamMemberResponse.getAccessTypeId());
+//                r.setRole(teamMemberResponse.getAccessType());
+//                Set<Roles> s = new HashSet<>();
+//                s.add(r);
+//                userRequest.setRoles(s);
+//                userRequest.setPassword(randomPassword);
+////                userRequest.setDesignation(teamMemberResponse.get);
+//                userRequest.setResourceType(teamMemberResponse.getTypeOfResource());
+////                userRequest.setRoles(teamMemberResponse.getAccessType());
+//                userRequest.setCompany_id(1L);
+//                System.out.println(userRequest);
+//
+//                authenticationFeignClient.createTeamMemberUsers(userRequest);
 //                sendInvitationEmail(teamMemberRequest);
 
 

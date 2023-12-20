@@ -44,8 +44,8 @@ public class TeamMemberController {
 
 
     @GetMapping("/getAllTeamMembers")
-    public ResponseEntity<List<TeamMemberResponse>> getAllTeamMembers(@RequestParam Long teamId) {
-        List<TeamMemberResponse> allTeamMembers = teamMemberService.getAllTeamMembers(teamId);
+    public ResponseEntity<List<TeamMemberResponse>> getAllTeamMembers(@RequestParam Long companyId) {
+        List<TeamMemberResponse> allTeamMembers = teamMemberService.getAllTeamMembers(companyId);
         return new ResponseEntity<>(allTeamMembers, HttpStatus.OK);
     }
 
