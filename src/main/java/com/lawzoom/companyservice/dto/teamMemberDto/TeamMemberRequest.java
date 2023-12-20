@@ -10,7 +10,7 @@ import jakarta.persistence.TemporalType;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.util.Date;
@@ -58,6 +58,8 @@ public class TeamMemberRequest {
 	private boolean isEnable;
 
 	private Long companyId;
+
+    private Long createdById;
 
 
 }

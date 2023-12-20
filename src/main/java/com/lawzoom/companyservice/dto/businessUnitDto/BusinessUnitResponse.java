@@ -1,7 +1,7 @@
 package com.lawzoom.companyservice.dto.businessUnitDto;
 
 import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
-import com.lawzoom.companyservice.model.teamModel.Team;
+//import com.lawzoom.companyservice.model.teamModel.Team;
 import jakarta.persistence.Column;
 import lombok.*;
 import java.util.Date;
@@ -46,7 +46,7 @@ public class BusinessUnitResponse {
 
 	private boolean isEnable;
 
-	private List<Long> teamIds;
+//	private List<Long> teamIds;
 
 	private List<TeamResponse> teams;
 

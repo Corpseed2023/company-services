@@ -22,5 +22,5 @@ public interface CompanyService {
 
     List<CompanyBusinessUnitDto> getCompanyUnitComplianceDetails(Long userId);
 
-    Map<String, Object> getCompanyByMemberMail(String memberMail);
+//    Map<String, Object> getCompanyByMemberMail(String memberMail);
 }

@@ -2,9 +2,9 @@ package com.lawzoom.companyservice.dto.businessUnitDto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import com.lawzoom.companyservice.model.region.City;
-import com.lawzoom.companyservice.model.region.States;
-import com.lawzoom.companyservice.model.teamModel.Team;
+//import com.lawzoom.companyservice.model.region.City;
+//import com.lawzoom.companyservice.model.region.States;
+//import com.lawzoom.companyservice.model.teamModel.Team;
 import jakarta.persistence.Column;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -54,7 +54,7 @@ public class BusinessUnitRequest {
 
 	private String states;
 
-	private List<Long> teamIds;
+//	private List<Long> teamIds;
 
 
 

@@ -4,7 +4,7 @@ import com.lawzoom.companyservice.model.businessActivityModel.BusinessActivity;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
 import com.lawzoom.companyservice.model.region.City;
 import com.lawzoom.companyservice.model.region.States;
-import com.lawzoom.companyservice.model.teamModel.Team;
+//import com.lawzoom.companyservice.model.teamModel.Team;
 
 import jakarta.persistence.*;
 
@@ -117,8 +117,8 @@ public class Company {
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;
 
-	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
-	private List<Team> teams;
+//	@OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
+//	private List<Team> teams;
 
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
 	private List<BusinessUnit> businessUnits;

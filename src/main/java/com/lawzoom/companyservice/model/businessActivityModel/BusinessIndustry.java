@@ -1,8 +1,8 @@
 package com.lawzoom.companyservice.model.businessActivityModel;
 
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.lawzoom.companyservice.model.teamModel.Team;
+//import com.fasterxml.jackson.annotation.JsonManagedReference;
+//import com.lawzoom.companyservice.model.teamModel.Team;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
 package com.lawzoom.companyservice.model.teamMemberModel;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.lawzoom.companyservice.model.teamModel.Team;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.lawzoom.companyservice.model.teamModel.Team;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -21,10 +21,10 @@ public class TeamMember {
 	@Column(name = "id")
 	private Long id;
 
-	@JsonIgnore
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "team_id")
-	private Team team;
+//	@JsonIgnore
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "team_id")
+//	private Team team;
 
 	@NonNull
 	@NotBlank
@@ -68,9 +68,13 @@ public class TeamMember {
 
 	private Long companyId;
 
-	public TeamMember(){
+	public TeamMember() {
 
 	}
+
+//	public TeamMember(){
+//
+//	}
 
 	@Override
 	public String toString() {

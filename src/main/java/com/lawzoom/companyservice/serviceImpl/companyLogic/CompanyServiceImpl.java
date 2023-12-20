@@ -7,14 +7,16 @@ import com.lawzoom.companyservice.dto.companyDto.TotalComplianceDto;
 import com.lawzoom.companyservice.feignClient.AuthenticationFeignClient;
 import com.lawzoom.companyservice.feignClient.ComplianceMap;
 import com.lawzoom.companyservice.model.companyModel.Company;
+import com.lawzoom.companyservice.model.companyModel.CompanyType;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
-import com.lawzoom.companyservice.model.teamModel.Team;
+//import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
 import com.lawzoom.companyservice.dto.userDto.UserRequest;
 import com.lawzoom.companyservice.repository.businessRepo.BusinessUnitRepository;
 import com.lawzoom.companyservice.repository.companyRepo.CompanyRepository;
+import com.lawzoom.companyservice.repository.companyRepo.CompanyTypeRepository;
 import com.lawzoom.companyservice.repository.team.TeamMemberRepository;
-import com.lawzoom.companyservice.repository.team.TeamRepository;
+//import com.lawzoom.companyservice.repository.team.TeamRepository;
 import com.lawzoom.companyservice.services.companyService.CompanyService;
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +35,16 @@ public class CompanyServiceImpl implements CompanyService {
     private  CompanyRepository companyRepository;
 
     @Autowired
-    ComplianceMap complianceMap;
+   private   ComplianceMap complianceMap;
+
+    @Autowired
+    private CompanyTypeRepository companyTypeRepository;
 
     @Autowired
     private AuthenticationFeignClient authenticationFeignClient;
 
-    @Autowired
-    private TeamRepository teamRepository;
+//    @Autowired
+//    private TeamRepository teamRepository;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -55,46 +60,46 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
 
-    @Override
-    public Map<String, Object> getCompanyByMemberMail(String memberMail) {
-        // Check if the email exists in TeamMember table
-        TeamMember teamMember = teamMemberRepository.findByMemberMail(memberMail);
-
-        if (teamMember != null) {
-            // If the TeamMember is found, retrieve the associated Team
-            Team team = teamMember.getTeam();
-
-            if (team != null) {
-                Long teamId = team.getId();
-
-                // Check if the Team with the retrieved teamId exists
-                Optional<Team> optionalTeam = teamRepository.findById(teamId);
-
-                if (optionalTeam.isPresent()) {
-                    // If the Team is found, retrieve the associated Company
-                    Company company = optionalTeam.get().getCompany();
-
-                    if (company != null) {
-                        // If the Company is found, return companyId, companyName, and Company data
-                        Map<String, Object> result = new HashMap<>();
-                        result.put("companyId", company.getId());
-                        result.put("companyName", company.getCompanyName());
-                        result.put("registrationDate",company.getRegistrationDate());
-                        return result;
-                    } else {
-                        // Handle the case where the Team doesn't have an associated Company
-                        return handleNotFoundError("Company not found for the given Team.");
-                    }
-                } else {
-                    // Handle the case where the Team is not found
-                    return handleNotFoundError("Team not found for the given Team ID.");
-                }
-            }
-        }
-
-        // Handle the case where the TeamMember is not found
-        return handleNotFoundError("TeamMember not found for the given email.");
-    }
+//    @Override
+//    public Map<String, Object> getCompanyByMemberMail(String memberMail) {
+//        // Check if the email exists in TeamMember table
+//        TeamMember teamMember = teamMemberRepository.findByMemberMail(memberMail);
+//
+//        if (teamMember != null) {
+//            // If the TeamMember is found, retrieve the associated Team
+//            Team team = teamMember.getTeam();
+//
+//            if (team != null) {
+//                Long teamId = team.getId();
+//
+//                // Check if the Team with the retrieved teamId exists
+//                Optional<Team> optionalTeam = teamRepository.findById(teamId);
+//
+//                if (optionalTeam.isPresent()) {
+//                    // If the Team is found, retrieve the associated Company
+//                    Company company = optionalTeam.get().getCompany();
+//
+//                    if (company != null) {
+//                        // If the Company is found, return companyId, companyName, and Company data
+//                        Map<String, Object> result = new HashMap<>();
+//                        result.put("companyId", company.getId());
+//                        result.put("companyName", company.getCompanyName());
+//                        result.put("registrationDate",company.getRegistrationDate());
+//                        return result;
+//                    } else {
+//                        // Handle the case where the Team doesn't have an associated Company
+//                        return handleNotFoundError("Company not found for the given Team.");
+//                    }
+//                } else {
+//                    // Handle the case where the Team is not found
+//                    return handleNotFoundError("Team not found for the given Team ID.");
+//                }
+//            }
+//        }
+//
+//        // Handle the case where the TeamMember is not found
+//        return handleNotFoundError("TeamMember not found for the given email.");
+//    }
 
     private Map<String, Object> handleNotFoundError(String message) {
         Map<String, Object> errorResult = new HashMap<>();
@@ -118,7 +123,12 @@ public class CompanyServiceImpl implements CompanyService {
 
         company.setFirstName(companyRequest.getFirstName());
         company.setLastName(companyRequest.getLastName());
-//        company.setCompanyType(companyRequest.getCompanyType());
+
+        Optional<CompanyType> companySavedData = companyTypeRepository.
+                findById(companyRequest.getCompanyType());
+
+        company.setCompanyType(companySavedData.get());
+
         company.setCinNumber(companyRequest.getCompanyCINNumber());
         company.setBusinessActivityEmail(companyRequest.getBusinessActivityEmail());
         company.setCompanyName(companyRequest.getCompanyName());
@@ -176,6 +186,7 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setCompanyRemarks(company.getRemarks());
         companyResponse.setUpdatedAt(company.getUpdatedAt());
         companyResponse.setOperationUnitAddress(company.getOperationUnitAddress());
+        companyResponse.setCompanyType(companyResponse.getCompanyType());
         companyResponse.setUserId(userId);
 
 //        updateIsAssociated(userId, true);
@@ -224,7 +235,7 @@ public class CompanyServiceImpl implements CompanyService {
             response.setContractEmployee(company.getContractEmployee());
             response.setGstNumber(company.getGstNumber());
             response.setOperationUnitAddress(company.getOperationUnitAddress());
-            response.setTeamsList(company.getTeams());
+//            response.setTeamsList(company.getTeams());
 
 
             companyResponses.add(response);
@@ -463,7 +474,7 @@ public class CompanyServiceImpl implements CompanyService {
             res.put("name",c.getCompanyName());
             res.put("businessUnit",c.getBusinessUnits()!=null?c.getBusinessUnits().stream().map(i->i.getAddress()).collect(Collectors.toSet()) : "NA");
             res.put("businessActivity",c.getBusinessActivity());
-            res.put("team",c.getTeams());
+//            res.put("team",c.getTeams());
             res.put("lastUpdatedDate",c.getUpdatedAt());
             res.put("complianceCount",compCount.get(c.getId()));
 //            res.put("updatedBy",c);

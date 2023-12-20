@@ -1,7 +1,8 @@
 package com.lawzoom.companyservice.dto.companyDto;
 
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
-import com.lawzoom.companyservice.model.teamModel.Team;
+//import com.lawzoom.companyservice.model.teamModel.Team;
+import com.lawzoom.companyservice.model.companyModel.CompanyType;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
@@ -24,7 +25,7 @@ public class CompanyResponse {
 //
 //    private Long userId;
 
-    private String companyType;
+    private CompanyType companyType;
 
     private String companyName;
 
@@ -80,8 +81,8 @@ public class CompanyResponse {
 
     private String operationUnitAddress;
 
-    private List<Team> teamsList;
+//    private List<Team> teamsList;
 
-    private List<BusinessUnit> businessUnits;
+//    private List<BusinessUnit> businessUnits;
 
 }

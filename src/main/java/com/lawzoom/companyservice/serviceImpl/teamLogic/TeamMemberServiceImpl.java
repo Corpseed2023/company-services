@@ -6,11 +6,12 @@ import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
 import com.lawzoom.companyservice.dto.userDto.UserRequest;
 import com.lawzoom.companyservice.feignClient.AuthenticationFeignClient;
 import com.lawzoom.companyservice.model.Roles;
+import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
-import com.lawzoom.companyservice.model.teamModel.Team;
+//import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.repository.companyRepo.CompanyRepository;
 import com.lawzoom.companyservice.repository.team.TeamMemberRepository;
-import com.lawzoom.companyservice.repository.team.TeamRepository;
+//import com.lawzoom.companyservice.repository.team.TeamRepository;
 import com.lawzoom.companyservice.config.EmailService;
 import com.lawzoom.companyservice.services.teamService.TeamMemberService;
 import jakarta.persistence.EntityNotFoundException;
@@ -25,9 +26,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Autowired
     private TeamMemberRepository teamMemberRepository;
-
-    @Autowired
-    private TeamRepository teamRepository;
+//
+//    @Autowired
+//    private TeamRepository teamRepository;
 
     @Autowired
     private PasswordController passwordController;
@@ -51,16 +52,16 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
 
     @Override
-    public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest, Long teamId,Long createdById) {
+    public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest, Long companyId, Long createdById) {
 
 //        UserRequest userData = authenticationFeignClient.getUserId(createdById);
 //        if (userData == null) {
 //            throw new IllegalArgumentException("User not found with ID: " + createdById);
 //        }
 
-        Optional<Team> teamSavedData = teamRepository.findById(teamId);
-        if (teamSavedData.isPresent()) {
-            Team teamData = teamSavedData.get();
+        Optional<Company> companySavedData = companyRepository.findById(companyId);
+        if (companySavedData.isPresent()) {
+            Company companyData = companySavedData.get();
 
 
             try {
@@ -73,7 +74,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 TeamMember teamMember = new TeamMember();
 //                teamMember.setMemberId(teamMemberRequest.getMemberId());
                 teamMember.setMemberRole(teamMemberRequest.getAccessType());
-                Long companyId = teamData.getCompany().getId();
+//                Long companyId = teamData.getCompany().getId();
                 teamMember.setCompanyId(companyId);
 //                teamMember.setCompanyId(teamMemberRequest.getCompanyId());  // Set the company_id from the team
                 teamMember.setMemberName(teamMemberRequest.getMemberName());
@@ -84,7 +85,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMember.setCreatedAt(new Date());
                 teamMember.setUpdatedAt(new Date());
                 teamMember.setEnable(teamMemberRequest.isEnable());
-                teamMember.setTeam(teamData);
+//                teamMember.setTeam(teamData);
                 teamMember.setCreatedById(createdById);
                 teamMember.setAccessType(teamMemberRequest.getAccessType());
                 teamMember.setAccessTypeId(teamMemberRequest.getAccessTypeId());
@@ -139,7 +140,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 throw new RuntimeException("Failed to create team members");
             }
         } else {
-            throw new IllegalArgumentException("Team not found with ID: " + teamId);
+            throw new IllegalArgumentException("Company not found with ID: " + companyId);
         }
     }
 //    private void sendInvitationEmail(TeamMemberRequest teamMemberRequest) {
@@ -225,8 +226,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
 
     @Override
-    public List<TeamMemberResponse> getAllTeamMembers(Long teamId) {
-        List<TeamMember> teamMembers = teamMemberRepository.findAllByTeamId(teamId);
+    public List<TeamMemberResponse> getAllTeamMembers(Long companyId) {
+        List<TeamMember> teamMembers = teamMemberRepository.findAllByCompanyId(companyId);
         List<TeamMemberResponse> teamMemberResponses = new ArrayList<>();
         System.out.println("kaushal");
 
@@ -290,20 +291,21 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         }
 
     }
-
-    @Override
-    public List<Team> getTeamWithAllTeamMember(Long companyId) {
-        List<Team> teamList = teamRepository.findAllByCompanyId(companyId);
-
-            return teamList;
-        }
-
-
-    @Override
-    public List<Team> getAllTeam() {
-        return null;
-    }
 }
+//
+//    @Override
+//    public List<Team> getTeamWithAllTeamMember(Long companyId) {
+//        List<Team> teamList = teamRepository.findAllByCompanyId(companyId);
+//
+//            return teamList;
+//        }
+
+
+//    @Override
+//    public List<Team> getAllTeam() {
+//        return null;
+//    }
+//}
 //        System.out.println(teams+"print Team");
 //        List<TeamMemberResponse> teamResponses = new ArrayList<>();
 //

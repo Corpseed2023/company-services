@@ -145,11 +145,11 @@ CompanyController {
     public List<CompanyBusinessUnitDto> getCompanyUnitComplianceDetails(@RequestParam Long userId) {
         return companyService.getCompanyUnitComplianceDetails(userId);
     }
-
-    @GetMapping("/getCompanyByMemberMail")
-    public Map<String, Object> getCompanyByMemberMail(@RequestParam String memberMail) {
-        return companyService.getCompanyByMemberMail(memberMail);
-    }
+//
+//    @GetMapping("/getCompanyByMemberMail")
+//    public Map<String, Object> getCompanyByMemberMail(@RequestParam String memberMail) {
+//        return companyService.getCompanyByMemberMail(memberMail);
+//    }
 
 
 }

@@ -1,7 +1,7 @@
 package com.lawzoom.companyservice.dto.companyDto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.lawzoom.companyservice.model.teamModel.Team;
+//import com.lawzoom.companyservice.model.teamModel.Team;
 
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -23,7 +23,7 @@ public class CompanyRequest {
 
 //    private Long userId;
 
-    private String companyType;
+    private Long companyType;
 
     private String firstName;
 

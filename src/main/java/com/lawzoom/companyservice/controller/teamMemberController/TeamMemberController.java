@@ -1,11 +1,11 @@
 package com.lawzoom.companyservice.controller.teamMemberController;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
-import com.lawzoom.companyservice.model.teamModel.Team;
+//import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.services.teamService.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +29,8 @@ public class TeamMemberController {
 
     @PostMapping("/addTeamMember")
     public ResponseEntity<TeamMemberResponse> createTeamMember(@RequestBody TeamMemberRequest teamMemberRequest,
-                                                               @RequestParam Long teamId,@RequestParam Long createdById) {
-        TeamMemberResponse createdTeamMember = teamMemberService.createTeamMember(teamMemberRequest,teamId,createdById);
+                                                               @RequestParam Long companyId,@RequestParam Long createdById) {
+        TeamMemberResponse createdTeamMember = teamMemberService.createTeamMember(teamMemberRequest,companyId,createdById);
         return new ResponseEntity<>(createdTeamMember, HttpStatus.CREATED);
     }
 
@@ -74,21 +74,21 @@ public class TeamMemberController {
 
 
 
-    @GetMapping("/getTeamWithTeamMember")
-    public String getTeamWithAllTeamMember(@RequestParam Long companyId) {
-
-        List<Team> allTeamWithAllTeamMembers = teamMemberService.getTeamWithAllTeamMember(companyId);
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = null;
-        try {
-            json = objectMapper.writeValueAsString(allTeamWithAllTeamMembers);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("allTeamMembers " + json);
-        return json;
-    }
+//    @GetMapping("/getTeamWithTeamMember")
+//    public String getTeamWithAllTeamMember(@RequestParam Long companyId) {
+//
+//        List<Team> allTeamWithAllTeamMembers = teamMemberService.getTeamWithAllTeamMember(companyId);
+//
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String json = null;
+//        try {
+//            json = objectMapper.writeValueAsString(allTeamWithAllTeamMembers);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+//        System.out.println("allTeamMembers " + json);
+//        return json;
+//    }
 
 //    @GetMapping("/getTeamWithTeamMember")
 //    public ResponseEntity<Map<String, List<TeamMember>> getTeamWithTeamMember() {
