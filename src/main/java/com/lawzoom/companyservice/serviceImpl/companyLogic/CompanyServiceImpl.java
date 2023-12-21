@@ -124,10 +124,12 @@ public class CompanyServiceImpl implements CompanyService {
         company.setFirstName(companyRequest.getFirstName());
         company.setLastName(companyRequest.getLastName());
 
-        Optional<CompanyType> companySavedData = companyTypeRepository.
-                findById(companyRequest.getCompanyType());
+//        Optional<CompanyType> companySavedData = companyTypeRepository.
+//                findById(companyRequest.getCompanyType());
+//
+//        company.setCompanyType(companySavedData.get());
 
-        company.setCompanyType(companySavedData.get());
+        company.setCompanyType(companyRequest.getCompanyType());
 
         company.setCinNumber(companyRequest.getCompanyCINNumber());
         company.setBusinessActivityEmail(companyRequest.getBusinessActivityEmail());
@@ -157,10 +159,10 @@ public class CompanyServiceImpl implements CompanyService {
         company = companyRepository.save(company);
 
         CompanyResponse companyResponse = new CompanyResponse();
-        companyResponse.setCompanyId(company.getId());
+//        companyResponse.setCompanyId(company.getId());
         companyResponse.setFirstName(company.getFirstName());
         companyResponse.setLastName(company.getLastName());
-//        companyResponse.setCompanyType(company.getCompanyType());
+        companyResponse.setCompanyType(company.getCompanyType());
         companyResponse.setCompanyCINNumber(company.getCinNumber());
         companyResponse.setCompanyRegistrationNumber(company.getRegistrationNumber());
         companyResponse.setCompanyRegistrationDate(company.getRegistrationDate());
@@ -180,6 +182,8 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setDesignation(company.getDesignation());
 //        companyResponse.setCompanyState(company.getState());
 //        companyResponse.setCompanyCity(company.getCity());
+
+        companyResponse.setCompanyType(company.getCompanyType());
         companyResponse.setCompanyRegistrationNumber(company.getRegistrationNumber());
         companyResponse.setCompanyRegistrationDate(company.getRegistrationDate());
         companyResponse.setCompanyCINNumber(company.getCinNumber());
@@ -209,9 +213,9 @@ public class CompanyServiceImpl implements CompanyService {
         for (Company company : companies) {
             CompanyResponse response = new CompanyResponse();
 
-            response.setCompanyId(company.getId());
+//            response.setCompanyId(company.getId());
 
-//            response.setCompanyType(company.getCompanyType());
+            response.setCompanyType(company.getCompanyType());
             response.setCompanyName(company.getCompanyName());
             response.setFirstName(company.getFirstName());
             response.setLastName(company.getLastName());
@@ -257,9 +261,9 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyResponse mapToCompanyResponse(Company company) {
         CompanyResponse companyResponse = new CompanyResponse();
 
-        companyResponse.setCompanyId(company.getId());
+//        companyResponse.setCompanyId(company.getId());
         companyResponse.setUserId(company.getUserId());
-//        companyResponse.setCompanyType(company.getCompanyType());
+        companyResponse.setCompanyType(company.getCompanyType());
         companyResponse.setCompanyName(company.getCompanyName());
         companyResponse.setFirstName(company.getFirstName());
         companyResponse.setLastName(company.getLastName());
@@ -324,10 +328,10 @@ public class CompanyServiceImpl implements CompanyService {
 
             CompanyResponse companyResponse = new CompanyResponse();
 
-            companyResponse.setCompanyId(savedData.getId());
+//            companyResponse.setCompanyId(savedData.getId());
             companyResponse.setCompanyName(savedData.getCompanyName());
             companyResponse.setCompanyAddress(savedData.getAddress());
-//            companyResponse.setCompanyType(savedData.getCompanyType());
+            companyResponse.setCompanyType(savedData.getCompanyType());
             companyResponse.setBusinessActivityEmail(savedData.getBusinessActivityEmail());
             companyResponse.setFirstName(savedData.getFirstName());
             companyResponse.setLastName(savedData.getLastName());

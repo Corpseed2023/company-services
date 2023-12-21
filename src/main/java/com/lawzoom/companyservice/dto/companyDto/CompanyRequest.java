@@ -23,7 +23,7 @@ public class CompanyRequest {
 
 //    private Long userId;
 
-    private Long companyType;
+    private String companyType;
 
     private String firstName;
 

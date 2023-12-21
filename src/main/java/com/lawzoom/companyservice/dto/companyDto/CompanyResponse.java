@@ -19,13 +19,15 @@ import jakarta.persistence.TemporalType;
 @Builder
 public class CompanyResponse {
 
-    private Long companyId;
+//    private Long companyId;
 
     private Long userId;
 //
 //    private Long userId;
 
-    private CompanyType companyType;
+//    private CompanyType companyType;
+
+    private String companyType;
 
     private String companyName;
 

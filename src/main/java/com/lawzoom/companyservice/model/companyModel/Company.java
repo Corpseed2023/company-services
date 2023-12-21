@@ -45,12 +45,12 @@ public class Company {
 	@NotNull
 	private String designation;
 	
-//	@Column(name = "company_type")
-//	private String companyType;
+	@Column(name = "company_type")
+	private String companyType;
 
-	@ManyToOne
-	@JoinColumn(name = "companyType_id")
-	private CompanyType companyType;
+//	@ManyToOne
+//	@JoinColumn(name = "companyType_id")
+//	private CompanyType companyType;
 
 
 	@Column(name = "companyName")
