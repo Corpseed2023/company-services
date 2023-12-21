@@ -131,6 +131,7 @@ public class CompanyServiceImpl implements CompanyService {
 
         company.setCompanyType(companyRequest.getCompanyType());
 
+
         company.setCinNumber(companyRequest.getCompanyCINNumber());
         company.setBusinessActivityEmail(companyRequest.getBusinessActivityEmail());
         company.setCompanyName(companyRequest.getCompanyName());
@@ -155,6 +156,7 @@ public class CompanyServiceImpl implements CompanyService {
         company.setOperationUnitAddress(companyRequest.getOperationUnitAddress());
         company.setTurnover(companyRequest.getCompanyTurnover());
         company.setUserId(userId);
+
 
         company = companyRepository.save(company);
 
@@ -192,6 +194,7 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setOperationUnitAddress(company.getOperationUnitAddress());
         companyResponse.setCompanyType(companyResponse.getCompanyType());
         companyResponse.setUserId(userId);
+        companyResponse.setCompanyId(company.getId());
 
 //        updateIsAssociated(userId, true);
 
