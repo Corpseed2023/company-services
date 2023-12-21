@@ -1,8 +1,7 @@
 package com.lawzoom.companyservice.dto.userDto;
 
 
-import com.lawzoom.companyservice.model.Roles;
-import jakarta.persistence.Entity;
+//import com.lawzoom.companyservice.model.Roles;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Size;
@@ -50,7 +49,7 @@ public class UserRequest {
     @Comment(value = "1 : Active, 0 : Inactive")
     private boolean isEnable;
 
-    private Set<Roles> roles;
+//    private Set<Roles> roles;
 
     private boolean isAssociated;
 
@@ -71,7 +70,7 @@ public class UserRequest {
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 ", isEnable=" + isEnable +
-                ", roles=" + roles +
+//                ", roles=" + roles +
                 ", isAssociated=" + isAssociated +
                 ", company_id=" + company_id +
                 '}';

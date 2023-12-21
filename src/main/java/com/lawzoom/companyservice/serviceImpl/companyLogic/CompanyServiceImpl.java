@@ -261,7 +261,7 @@ public class CompanyServiceImpl implements CompanyService {
     private CompanyResponse mapToCompanyResponse(Company company) {
         CompanyResponse companyResponse = new CompanyResponse();
 
-//        companyResponse.setCompanyId(company.getId());
+        companyResponse.setCompanyId(company.getId());
         companyResponse.setUserId(company.getUserId());
         companyResponse.setCompanyType(company.getCompanyType());
         companyResponse.setCompanyName(company.getCompanyName());

@@ -14,16 +14,14 @@ import java.util.Date;
 @Setter
 @Builder
 @Entity
-@Table(name = "roles")
-public class Roles {
+@Table(name = "accessType")
+public class AccessType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    @NotNull
-//    @NotBlank
-//    @NotEmpty
-    private String role;
+
+    private String accessTypeName;
 
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)

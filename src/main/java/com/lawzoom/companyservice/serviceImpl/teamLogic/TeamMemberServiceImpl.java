@@ -5,7 +5,7 @@ import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
 import com.lawzoom.companyservice.dto.userDto.UserRequest;
 import com.lawzoom.companyservice.feignClient.AuthenticationFeignClient;
-import com.lawzoom.companyservice.model.Roles;
+import com.lawzoom.companyservice.model.AccessType;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 //import com.lawzoom.companyservice.model.teamModel.Team;
@@ -114,12 +114,12 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
                 userRequest.setFirstName(teamMemberResponse.getMemberName());
                 userRequest.setEmail(teamMemberResponse.getMemberMail());
-                Roles r = new Roles();
-                r.setId(teamMemberResponse.getAccessTypeId());
-                r.setRole(teamMemberResponse.getAccessType());
-                Set<Roles> s = new HashSet<>();
-                s.add(r);
-                userRequest.setRoles(s);
+//                AccessType r = new AccessType();
+//                r.setId(teamMemberResponse.getAccessTypeId());
+//                r.setAccessTypeName(teamMemberResponse.getAccessType());
+//                Set<AccessType> s = new HashSet<>();
+//                s.add(r);
+//                userRequest.setRoles(s);
                 userRequest.setPassword(randomPassword);
 //                userRequest.setDesignation(teamMemberResponse.get);
                 userRequest.setResourceType(teamMemberResponse.getTypeOfResource());
