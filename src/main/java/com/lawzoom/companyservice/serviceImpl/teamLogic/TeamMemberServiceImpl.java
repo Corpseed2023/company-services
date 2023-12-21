@@ -246,6 +246,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             teamMemberResponse.setMemberMobile(teamMember.getMemberMobile());
             teamMemberResponse.setMemberMail(teamMember.getMemberMail());
             teamMemberResponse.setEnable(teamMember.isEnable());
+            teamMemberResponse.setCompanyId(teamMember.getCompanyId());
 //            teamMemberResponse.setAccessType(teamMember.getAccessType());
 
             teamMemberResponses.add(teamMemberResponse);
