@@ -30,10 +30,10 @@ public class TeamMember {
 	@NotBlank
 	private String memberName;
 
-	private String accessType;
+	private String accessTypeName;
 
-	//basically its role table which going to save in user table
-	private Long accessTypeId;
+//	//basically its role table which going to save in user table
+//	private Long accessTypeId;
 
 	@NonNull
 	@NotBlank
@@ -45,8 +45,8 @@ public class TeamMember {
 
 	private String typeOfResource;
 
-	@Column(name = "member_role",nullable = false)
-	private String memberRole;
+//	@Column(name = "member_role",nullable = true)
+//	private String memberRole;
 
 	@Column(name = "created_at")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -76,21 +76,4 @@ public class TeamMember {
 //
 //	}
 
-	@Override
-	public String toString() {
-		return "TeamMember{" +
-				"id=" + id +
-				", memberName='" + memberName + '\'' +
-				", accessType='" + accessType + '\'' +
-				", memberMail='" + memberMail + '\'' +
-				", memberMobile='" + memberMobile + '\'' +
-				", typeOfResource='" + typeOfResource + '\'' +
-				", memberRole='" + memberRole + '\'' +
-				", createdAt=" + createdAt +
-				", updatedAt=" + updatedAt +
-				", isEnable=" + isEnable +
-				", password='" + password + '\'' +
-				", role='" + role + '\'' +
-				'}';
-	}
 }

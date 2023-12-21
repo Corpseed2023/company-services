@@ -27,10 +27,10 @@ public class TeamMemberRequest {
 	@NotBlank
 	private String memberName;
 
-	private String accessType;
+	private String accessTypeName;
 
-	//basically its role table which going to save in user table
-	private Long accessTypeId;
+//	//basically its role table which going to save in user table
+//	private Long accessTypeId;
 
 	@NonNull
 	@NotBlank

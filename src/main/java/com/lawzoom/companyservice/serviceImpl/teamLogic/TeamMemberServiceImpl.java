@@ -73,22 +73,23 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
                 TeamMember teamMember = new TeamMember();
 //                teamMember.setMemberId(teamMemberRequest.getMemberId());
-                teamMember.setMemberRole(teamMemberRequest.getAccessType());
+//                teamMember.setMemberRole(teamMemberRequest.getAccessType());
 //                Long companyId = teamData.getCompany().getId();
                 teamMember.setCompanyId(companyId);
 //                teamMember.setCompanyId(teamMemberRequest.getCompanyId());  // Set the company_id from the team
                 teamMember.setMemberName(teamMemberRequest.getMemberName());
                 teamMember.setMemberMail(teamMemberRequest.getMemberMail());
                 teamMember.setMemberMobile(teamMemberRequest.getMemberMobile());
-                teamMember.setAccessType(teamMemberRequest.getAccessType());
+//                teamMember.setAccessTypeName(teamMemberRequest.get());
                 teamMember.setTypeOfResource(teamMemberRequest.getTypeOfResource());
                 teamMember.setCreatedAt(new Date());
                 teamMember.setUpdatedAt(new Date());
                 teamMember.setEnable(teamMemberRequest.isEnable());
+                teamMember.setAccessTypeName(teamMemberRequest.getAccessTypeName());
 //                teamMember.setTeam(teamData);
                 teamMember.setCreatedById(createdById);
-                teamMember.setAccessType(teamMemberRequest.getAccessType());
-                teamMember.setAccessTypeId(teamMemberRequest.getAccessTypeId());
+//                teamMember.setAccessType(teamMemberRequest.getAccessType());
+//                teamMember.setAccessTypeId(teamMemberRequest.getAccessTypeId());
 
 //                teamMember.setPassword(randomPassword);
 
@@ -105,30 +106,31 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMemberResponse.setEnable(teamMember.isEnable());
                 teamMemberResponse.setMemberMobile(teamMember.getMemberMobile());
                 teamMemberResponse.setTypeOfResource(teamMember.getTypeOfResource());
-                teamMemberResponse.setAccessTypeId(teamMember.getAccessTypeId());
-                teamMemberResponse.setAccessType(teamMember.getAccessType());
+//                teamMemberResponse.setAccessTypeId(teamMember.getAccessTypeId());
+                teamMemberResponse.setAccessTypeName(teamMember.getAccessTypeName());
+//                teamMemberResponse.setAccessType(teamMember.getAccessType());
                 teamMemberResponse.setCompanyId(teamMember.getCompanyId());
 
 
-                UserRequest userRequest = new UserRequest();
-
-                userRequest.setFirstName(teamMemberResponse.getMemberName());
-                userRequest.setEmail(teamMemberResponse.getMemberMail());
-//                AccessType r = new AccessType();
-//                r.setId(teamMemberResponse.getAccessTypeId());
-//                r.setAccessTypeName(teamMemberResponse.getAccessType());
-//                Set<AccessType> s = new HashSet<>();
-//                s.add(r);
-//                userRequest.setRoles(s);
-                userRequest.setPassword(randomPassword);
-//                userRequest.setDesignation(teamMemberResponse.get);
-                userRequest.setResourceType(teamMemberResponse.getTypeOfResource());
-//                userRequest.setRoles(teamMemberResponse.getAccessType());
-                userRequest.setCompany_id(1L);
-                System.out.println(userRequest);
-
-                authenticationFeignClient.createTeamMemberUsers(userRequest);
-//                sendInvitationEmail(teamMemberRequest);
+//                UserRequest userRequest = new UserRequest();
+//
+//                userRequest.setFirstName(teamMemberResponse.getMemberName());
+//                userRequest.setEmail(teamMemberResponse.getMemberMail());
+////                AccessType r = new AccessType();
+////                r.setId(teamMemberResponse.getAccessTypeId());
+////                r.setAccessTypeName(teamMemberResponse.getAccessType());
+////                Set<AccessType> s = new HashSet<>();
+////                s.add(r);
+////                userRequest.setRoles(s);
+//                userRequest.setPassword(randomPassword);
+////                userRequest.setDesignation(teamMemberResponse.get);
+//                userRequest.setResourceType(teamMemberResponse.getTypeOfResource());
+////                userRequest.setRoles(teamMemberResponse.getAccessType());
+//                userRequest.setCompany_id(1L);
+//                System.out.println(userRequest);
+//
+//                authenticationFeignClient.createTeamMemberUsers(userRequest);
+////                sendInvitationEmail(teamMemberRequest);
 
 
                 System.out.println("Got Wokring Authentication Hit");
@@ -200,7 +202,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         teamMember.setMemberMobile(teamMemberRequest.getMemberMobile());
         teamMember.setCreatedAt(new Date());
         teamMember.setUpdatedAt(new Date());
-        teamMember.setAccessType(teamMemberRequest.getAccessType());
+//        teamMember.setAccessType(teamMemberRequest.getAccessType());
         teamMember.setEnable(teamMemberRequest.isEnable());
         teamMember.setTypeOfResource(teamMemberRequest.getTypeOfResource());
 
@@ -215,7 +217,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         teamMemberResponse.setEnable(teamMember.isEnable());
         teamMemberResponse.setMemberMail(teamMember.getMemberMail());
         teamMemberResponse.setMemberMobile(teamMember.getMemberMobile());
-        teamMemberResponse.setAccessType(teamMember.getAccessType());
+//        teamMemberResponse.setAccessType(teamMember.getAccessType());
         teamMemberResponse.setMemberName(teamMember.getMemberName());
 
 // i want getAllTeamwithTeammber API using spring boot where where all team will store as key and value as list of teammembers so data will fetch as team and list of team memeber and then second then there team memebrs
@@ -244,7 +246,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             teamMemberResponse.setMemberMobile(teamMember.getMemberMobile());
             teamMemberResponse.setMemberMail(teamMember.getMemberMail());
             teamMemberResponse.setEnable(teamMember.isEnable());
-            teamMemberResponse.setAccessType(teamMember.getAccessType());
+//            teamMemberResponse.setAccessType(teamMember.getAccessType());
 
             teamMemberResponses.add(teamMemberResponse);
         }
