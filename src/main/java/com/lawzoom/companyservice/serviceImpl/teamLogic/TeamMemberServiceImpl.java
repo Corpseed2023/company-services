@@ -250,6 +250,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             teamMemberResponse.setTypeOfResource(teamMember.getTypeOfResource());
 //            teamMemberResponse.setAccessType(teamMember.getAccessType());
 
+
             teamMemberResponses.add(teamMemberResponse);
         }
 
