@@ -3,7 +3,7 @@ package com.lawzoom.companyservice.serviceImpl.businessLogic;
 
 import com.lawzoom.companyservice.dto.businessUnitDto.BusinessUnitRequest;
 import com.lawzoom.companyservice.dto.businessUnitDto.BusinessUnitResponse;
-import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
+//import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
 import com.lawzoom.companyservice.model.companyModel.Company;
 //import com.lawzoom.companyservice.model.teamModel.Team;
@@ -226,14 +226,14 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
             response.setDateRegistration(businessUnit.getDateRegistration());
             response.setStates(businessUnit.getStates());
 
-            List<TeamResponse> teams = new ArrayList<>();
+//            List<TeamResponse> teams = new ArrayList<>();
+////
+////            for (Team team : businessUnit.getTeams()) {
+////                teams.add(new TeamResponse(team.getId(), team.getTeamName(), team.getCreatedAt(), team.getUpdatedAt(),
+////                        team.isEnable(), team.getTeamLeadName(), team.getLeadDesignation(), team.getTeamType()));
+////            }
 //
-//            for (Team team : businessUnit.getTeams()) {
-//                teams.add(new TeamResponse(team.getId(), team.getTeamName(), team.getCreatedAt(), team.getUpdatedAt(),
-//                        team.isEnable(), team.getTeamLeadName(), team.getLeadDesignation(), team.getTeamType()));
-//            }
-
-            response.setTeams(teams);
+//            response.setTeams(teams);
 
             businessUnitResponses.add(response);
         }

@@ -112,24 +112,24 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMemberResponse.setCompanyId(teamMember.getCompanyId());
 
 
-//                UserRequest userRequest = new UserRequest();
+                UserRequest userRequest = new UserRequest();
 //
-//                userRequest.setFirstName(teamMemberResponse.getMemberName());
-//                userRequest.setEmail(teamMemberResponse.getMemberMail());
+                userRequest.setFirstName(teamMemberResponse.getMemberName());
+                userRequest.setEmail(teamMemberResponse.getMemberMail());
 ////                AccessType r = new AccessType();
 ////                r.setId(teamMemberResponse.getAccessTypeId());
 ////                r.setAccessTypeName(teamMemberResponse.getAccessType());
 ////                Set<AccessType> s = new HashSet<>();
 ////                s.add(r);
 ////                userRequest.setRoles(s);
-//                userRequest.setPassword(randomPassword);
+                userRequest.setPassword(randomPassword);
 ////                userRequest.setDesignation(teamMemberResponse.get);
 //                userRequest.setResourceType(teamMemberResponse.getTypeOfResource());
 ////                userRequest.setRoles(teamMemberResponse.getAccessType());
-//                userRequest.setCompany_id(1L);
+                userRequest.setCompany_id(1L);
 //                System.out.println(userRequest);
 //
-//                authenticationFeignClient.createTeamMemberUsers(userRequest);
+                authenticationFeignClient.createTeamMemberUsers(userRequest);
 ////                sendInvitationEmail(teamMemberRequest);
 
 

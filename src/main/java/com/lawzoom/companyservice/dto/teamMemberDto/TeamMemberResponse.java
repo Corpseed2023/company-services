@@ -1,10 +1,10 @@
 package com.lawzoom.companyservice.dto.teamMemberDto;
 
-import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
-import com.lawzoom.companyservice.dto.userDto.UserResponse;
-//
-//import javax.persistence.Temporal;
-//import javax.persistence.TemporalType;
+//import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
+//import com.lawzoom.companyservice.dto.userDto.UserResponse;
+////
+////import javax.persistence.Temporal;
+////import javax.persistence.TemporalType;
 
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -40,9 +40,9 @@ public class TeamMemberResponse {
 
 	private String typeOfResource;
 	
-	private TeamResponse teamResponse;
-	
-	private UserResponse userResponse;
+//	private TeamResponse teamResponse;
+//
+//	private UserResponse userResponse;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;

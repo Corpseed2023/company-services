@@ -1,6 +1,6 @@
 package com.lawzoom.companyservice.dto.businessUnitDto;
 
-import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
+//import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
 //import com.lawzoom.companyservice.model.teamModel.Team;
 import jakarta.persistence.Column;
 import lombok.*;
@@ -48,7 +48,7 @@ public class BusinessUnitResponse {
 
 //	private List<Long> teamIds;
 
-	private List<TeamResponse> teams;
+//	private List<TeamResponse> teams;
 
 	private String gstNumber;
 

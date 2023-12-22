@@ -196,6 +196,23 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setUserId(userId);
         companyResponse.setCompanyId(company.getId());
 
+        BusinessUnit businessUnit = new BusinessUnit();
+        businessUnit.setCompany(company);
+        businessUnit.setStates(companyRequest.getCompanyState()); // Use companyRequest instead of company
+        businessUnit.setCity(companyRequest.getCompanyCity()); // Use companyRequest instead of company
+        businessUnit.setLocatedAt(companyRequest.getLocatedAt());
+        businessUnit.setPermanentEmployee(companyRequest.getPermanentEmployee());
+        businessUnit.setContractEmployee(companyRequest.getContractEmployee());
+        businessUnit.setAddress(companyRequest.getCompanyAddress());
+        businessUnit.setCreatedAt(new Date());
+        businessUnit.setUpdatedAt(new Date());
+        businessUnit.setDateRegistration(companyRequest.getCompanyRegistrationDate());
+        businessUnit.setEnable(companyRequest.isEnable());
+        businessUnit.setGstNumber(companyRequest.getGstNumber());
+
+// Save BusinessUnit information
+        businessUnitRepository.save(businessUnit);
+
 //        updateIsAssociated(userId, true);
 
 

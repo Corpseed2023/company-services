@@ -56,13 +56,19 @@ public class Company {
 	@Column(name = "companyName")
 	private String companyName;
 
-	@ManyToOne
-	@JoinColumn(name = "state_id")
-	private States state;
+//	@ManyToOne
+//	@JoinColumn(name = "state_id")
+//	private States state;
 
-	@ManyToOne
-	@JoinColumn(name = "city_id")
-	private City city;
+//	@ManyToOne
+//	@JoinColumn(name = "city_id")
+//	private City city;
+
+	@Column(name = "state")
+	private String state;
+
+	@Column(name = "city")
+	private String city;
 
 	@Column(name = "registration_number")
 	private String registrationNumber;
