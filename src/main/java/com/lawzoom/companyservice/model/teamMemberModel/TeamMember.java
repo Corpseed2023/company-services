@@ -73,3 +73,4 @@ public class TeamMember {
 	}
 
 }
+//write code for get Spring boot REST API for get member name , company name , access type name

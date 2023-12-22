@@ -1,5 +1,6 @@
 package com.lawzoom.companyservice.services.teamService;
 
+import com.lawzoom.companyservice.dto.TeamMemberDetailsResponse;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
 //import com.lawzoom.companyservice.model.teamModel.Team;
@@ -14,6 +15,8 @@ public interface TeamMemberService {
     List<TeamMemberResponse> getAllTeamMembers(Long companyId);
     TeamMemberResponse getTeamMemberById(Long id);
     void removeTeamMember(Long memberId);
+
+    TeamMemberDetailsResponse getTeamMemberDetailsByMail(String memberMail);
 
 //    List<Team> getTeamWithAllTeamMember(Long companyId);
 //

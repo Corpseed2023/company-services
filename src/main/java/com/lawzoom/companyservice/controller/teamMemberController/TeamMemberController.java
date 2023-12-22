@@ -3,6 +3,7 @@ package com.lawzoom.companyservice.controller.teamMemberController;
 
 //import com.fasterxml.jackson.core.JsonProcessingException;
 //import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lawzoom.companyservice.dto.TeamMemberDetailsResponse;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
 //import com.lawzoom.companyservice.model.teamModel.Team;
@@ -101,6 +102,16 @@ public class TeamMemberController {
 //    System.out.println("allTeamMembers " + allTeamMembers);
 //    return allTeamMembers
 //}
+
+    @GetMapping("/memberCompanyDetails")
+    public ResponseEntity<TeamMemberDetailsResponse> getTeamMemberDetails(@RequestParam String memberMail) {
+        TeamMemberDetailsResponse teamMemberDetailsResponse = teamMemberService.getTeamMemberDetailsByMail(memberMail);
+        if (teamMemberDetailsResponse != null) {
+            return new ResponseEntity<>(teamMemberDetailsResponse, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 
 
 

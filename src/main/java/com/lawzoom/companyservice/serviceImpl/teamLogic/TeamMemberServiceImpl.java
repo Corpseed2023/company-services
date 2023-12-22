@@ -1,6 +1,7 @@
 package com.lawzoom.companyservice.serviceImpl.teamLogic;
 
 import com.lawzoom.companyservice.controller.PasswordController;
+import com.lawzoom.companyservice.dto.TeamMemberDetailsResponse;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
 import com.lawzoom.companyservice.dto.userDto.UserRequest;
@@ -297,6 +298,32 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         }
 
     }
+
+
+
+
+    public TeamMemberDetailsResponse getTeamMemberDetailsByMail(String memberMail) {
+        List<TeamMember> teamMembers = teamMemberRepository.findByMemberMail(memberMail);
+
+        if (!teamMembers.isEmpty()) {
+            // Handle non-unique results, for example, you can choose the first result
+            TeamMember teamMember = teamMembers.get(0);
+            Company company = companyRepository.findById(teamMember.getCompanyId()).orElse(null);
+
+            if (company != null) {
+                return new TeamMemberDetailsResponse(
+                        teamMember.getMemberName(),
+                        company.getCompanyName(),
+                        teamMember.getAccessTypeName()
+                        // Initialize other fields as needed
+                );
+            }
+        }
+        return null;
+    }
+
+
+
 }
 //
 //    @Override
