@@ -314,7 +314,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 return new TeamMemberDetailsResponse(
                         teamMember.getMemberName(),
                         company.getCompanyName(),
-                        teamMember.getAccessTypeName()
+                        teamMember.getAccessTypeName(),
+                        company.getId()
                         // Initialize other fields as needed
                 );
             }
