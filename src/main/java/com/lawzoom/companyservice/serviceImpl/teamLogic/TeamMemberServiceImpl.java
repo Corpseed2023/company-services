@@ -119,6 +119,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //
                 userRequest.setFirstName(teamMemberResponse.getMemberName());
                 userRequest.setEmail(teamMemberResponse.getMemberMail());
+                userRequest.setSubscribed(false);
+
 
 ////                AccessType r = new AccessType();
 ////                r.setId(teamMemberResponse.getAccessTypeId());

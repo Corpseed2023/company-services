@@ -56,6 +56,8 @@ public class UserRequest {
 
     private Long companyId;
 
+    private boolean isSubscribed;
+
 
     @Override
     public String toString() {
