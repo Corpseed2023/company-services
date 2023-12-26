@@ -19,8 +19,7 @@ import java.util.Map;
 //@RequestMapping("/companyServices/company")
 @RequestMapping("/companyServices/company")
 
-public class
-CompanyController {
+public class CompanyController {
 
     @Autowired
     private CompanyService companyService;

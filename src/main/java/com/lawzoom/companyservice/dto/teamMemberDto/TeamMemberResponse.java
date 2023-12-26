@@ -54,5 +54,7 @@ public class TeamMemberResponse {
 
 	private Long companyId;
 
+	private Long superAdminId;
+
 
 }

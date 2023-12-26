@@ -64,6 +64,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         if (companySavedData.isPresent()) {
             Company companyData = companySavedData.get();
 
+            companyData.getUserId();
 
             try {
                 if (teamMemberRequest == null) {
@@ -77,6 +78,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //                teamMember.setMemberRole(teamMemberRequest.getAccessType());
 //                Long companyId = teamData.getCompany().getId();
                 teamMember.setCompanyId(companyId);
+                teamMember.setCreatedById(companyData.getUserId());
 //                teamMember.setCompanyId(teamMemberRequest.getCompanyId());  // Set the company_id from the team
                 teamMember.setMemberName(teamMemberRequest.getMemberName());
                 teamMember.setMemberMail(teamMemberRequest.getMemberMail());
@@ -111,12 +113,13 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMemberResponse.setAccessTypeName(teamMember.getAccessTypeName());
 //                teamMemberResponse.setAccessType(teamMember.getAccessType());
                 teamMemberResponse.setCompanyId(teamMember.getCompanyId());
-
+                teamMemberResponse.setSuperAdminId(teamMember.getCreatedById());
 
                 UserRequest userRequest = new UserRequest();
 //
                 userRequest.setFirstName(teamMemberResponse.getMemberName());
                 userRequest.setEmail(teamMemberResponse.getMemberMail());
+
 ////                AccessType r = new AccessType();
 ////                r.setId(teamMemberResponse.getAccessTypeId());
 ////                r.setAccessTypeName(teamMemberResponse.getAccessType());
@@ -127,7 +130,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 ////                userRequest.setDesignation(teamMemberResponse.get);
 //                userRequest.setResourceType(teamMemberResponse.getTypeOfResource());
 ////                userRequest.setRoles(teamMemberResponse.getAccessType());
-                userRequest.setCompany_id(1L);
+//                userRequest.setCompanyId(1L);
+                userRequest.setCompanyId(teamMemberResponse.getCompanyId());
 //                System.out.println(userRequest);
 //
                 authenticationFeignClient.createTeamMemberUsers(userRequest);

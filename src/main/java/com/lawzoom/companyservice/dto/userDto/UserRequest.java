@@ -54,7 +54,7 @@ public class UserRequest {
 
     private boolean isAssociated;
 
-    private Long company_id;
+    private Long companyId;
 
 
     @Override
@@ -73,7 +73,7 @@ public class UserRequest {
                 ", isEnable=" + isEnable +
 //                ", roles=" + roles +
                 ", isAssociated=" + isAssociated +
-                ", company_id=" + company_id +
+                ", companyId=" + companyId +
                 '}';
     }
 }
