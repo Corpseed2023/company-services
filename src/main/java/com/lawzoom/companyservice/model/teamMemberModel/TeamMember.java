@@ -21,19 +21,11 @@ public class TeamMember {
 	@Column(name = "id")
 	private Long id;
 
-//	@JsonIgnore
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "team_id")
-//	private Team team;
-
 	@NonNull
 	@NotBlank
 	private String memberName;
 
 	private String accessTypeName;
-
-//	//basically its role table which going to save in user table
-//	private Long accessTypeId;
 
 	@NonNull
 	@NotBlank
@@ -44,9 +36,6 @@ public class TeamMember {
 	private String memberMobile;
 
 	private String typeOfResource;
-
-//	@Column(name = "member_role",nullable = true)
-//	private String memberRole;
 
 	@Column(name = "created_at")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -67,6 +56,13 @@ public class TeamMember {
 	private Long createdById;
 
 	private Long companyId;
+
+	@ManyToOne
+	@JoinColumn(name = "reporting_manager_id")
+	private TeamMember reportingManager;
+
+	@Column(name = "reporting_manager_name")
+	private String reportingMangerName;
 
 	public TeamMember() {
 

@@ -74,27 +74,20 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 String randomPassword = passwordController.generateRandomPassword();
 
                 TeamMember teamMember = new TeamMember();
-//                teamMember.setMemberId(teamMemberRequest.getMemberId());
-//                teamMember.setMemberRole(teamMemberRequest.getAccessType());
-//                Long companyId = teamData.getCompany().getId();
+
                 teamMember.setCompanyId(companyId);
                 teamMember.setCreatedById(companyData.getUserId());
-//                teamMember.setCompanyId(teamMemberRequest.getCompanyId());  // Set the company_id from the team
                 teamMember.setMemberName(teamMemberRequest.getMemberName());
                 teamMember.setMemberMail(teamMemberRequest.getMemberMail());
                 teamMember.setMemberMobile(teamMemberRequest.getMemberMobile());
-//                teamMember.setAccessTypeName(teamMemberRequest.get());
                 teamMember.setTypeOfResource(teamMemberRequest.getTypeOfResource());
                 teamMember.setCreatedAt(new Date());
                 teamMember.setUpdatedAt(new Date());
                 teamMember.setEnable(teamMemberRequest.isEnable());
                 teamMember.setAccessTypeName(teamMemberRequest.getAccessTypeName());
-//                teamMember.setTeam(teamData);
                 teamMember.setCreatedById(createdById);
-//                teamMember.setAccessType(teamMemberRequest.getAccessType());
-//                teamMember.setAccessTypeId(teamMemberRequest.getAccessTypeId());
+                teamMember.setReportingManager(teamMemberRequest.getReportingManager());
 
-//                teamMember.setPassword(randomPassword);
 
                 System.out.println("Got Hit");
 

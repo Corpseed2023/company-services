@@ -6,6 +6,7 @@ package com.lawzoom.companyservice.dto.teamMemberDto;
 ////import javax.persistence.Temporal;
 ////import javax.persistence.TemporalType;
 
+import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -27,9 +28,6 @@ public class TeamMemberResponse {
 
 	private String accessTypeName;
 
-//	//basically its role table which going to save in user table
-//	private Long accessTypeId;
-
 	@NonNull
 	@NotBlank
 	private String memberMail;
@@ -39,10 +37,6 @@ public class TeamMemberResponse {
 	private String memberMobile;
 
 	private String typeOfResource;
-	
-//	private TeamResponse teamResponse;
-//
-//	private UserResponse userResponse;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
@@ -55,6 +49,11 @@ public class TeamMemberResponse {
 	private Long companyId;
 
 	private Long superAdminId;
+
+	private TeamMember reportingManager;
+
+	private String reportingMangerName;
+
 
 
 }

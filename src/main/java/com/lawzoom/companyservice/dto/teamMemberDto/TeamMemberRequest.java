@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 //import javax.persistence.TemporalType;
 //import javax.validation.constraints.NotBlank;
 
+import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -29,9 +30,6 @@ public class TeamMemberRequest {
 
 	private String accessTypeName;
 
-//	//basically its role table which going to save in user table
-//	private Long accessTypeId;
-
 	@NonNull
 	@NotBlank
 	private String memberMail;
@@ -41,11 +39,6 @@ public class TeamMemberRequest {
 	private String memberMobile;
 
 	private String typeOfResource;
-
-//	@NonNull
-//	private String role;
-//
-//	private Long memberId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
@@ -57,9 +50,9 @@ public class TeamMemberRequest {
 
 	private boolean isEnable;
 
-//	private Long companyId;
-//
-//    private Long createdById;
+	private TeamMember reportingManager;
+
+
 
 
 }
