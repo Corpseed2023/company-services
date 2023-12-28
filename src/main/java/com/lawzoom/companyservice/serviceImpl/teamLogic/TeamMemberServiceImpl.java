@@ -6,13 +6,10 @@ import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
 import com.lawzoom.companyservice.dto.userDto.UserRequest;
 import com.lawzoom.companyservice.feignClient.AuthenticationFeignClient;
-import com.lawzoom.companyservice.model.AccessType;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
-//import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.repository.companyRepo.CompanyRepository;
 import com.lawzoom.companyservice.repository.team.TeamMemberRepository;
-//import com.lawzoom.companyservice.repository.team.TeamRepository;
 import com.lawzoom.companyservice.config.EmailService;
 import com.lawzoom.companyservice.services.teamService.TeamMemberService;
 import jakarta.persistence.EntityNotFoundException;
@@ -27,9 +24,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Autowired
     private TeamMemberRepository teamMemberRepository;
-//
-//    @Autowired
-//    private TeamRepository teamRepository;
 
     @Autowired
     private PasswordController passwordController;
@@ -44,13 +38,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Autowired
     private AuthenticationFeignClient authenticationFeignClient;
-//
-//    @Autowired
-//    private JavaMailSender javaMailSender;
-//
-//    @Value("${spring.mail.username}")
-//    private String fromEmail;
-
 
     @Override
     public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest, Long companyId, Long createdById) {
@@ -61,6 +48,12 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //        }
 
         Optional<Company> companySavedData = companyRepository.findById(companyId);
+
+        Optional<TeamMember> teamMemberData = teamMemberRepository.findById(teamMemberRequest.getReportingManagerId());
+
+
+
+
         if (companySavedData.isPresent()) {
             Company companyData = companySavedData.get();
 
@@ -75,7 +68,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
                 TeamMember teamMember = new TeamMember();
 
-                teamMember.setCompanyId(companyId);
+//
                 teamMember.setCreatedById(companyData.getUserId());
                 teamMember.setMemberName(teamMemberRequest.getMemberName());
                 teamMember.setMemberMail(teamMemberRequest.getMemberMail());
@@ -86,7 +79,9 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMember.setEnable(teamMemberRequest.isEnable());
                 teamMember.setAccessTypeName(teamMemberRequest.getAccessTypeName());
                 teamMember.setCreatedById(createdById);
-                teamMember.setReportingManager(teamMemberRequest.getReportingManager());
+                teamMember.setSuperAdminId(companySavedData.get().getUserId());
+                teamMember.setCompany(companyData);
+                teamMember.setTeamMember(teamMemberData.get());
 
 
                 System.out.println("Got Hit");
@@ -105,8 +100,10 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //                teamMemberResponse.setAccessTypeId(teamMember.getAccessTypeId());
                 teamMemberResponse.setAccessTypeName(teamMember.getAccessTypeName());
 //                teamMemberResponse.setAccessType(teamMember.getAccessType());
-                teamMemberResponse.setCompanyId(teamMember.getCompanyId());
+//                teamMemberResponse.setCompanyId(teamMember.getCompany());
                 teamMemberResponse.setSuperAdminId(teamMember.getCreatedById());
+//                teamMemberResponse.setCompanyId(teamMember.getCompanyId());
+                teamMemberResponse.setSuperAdminId(teamMember.getSuperAdminId());
 
                 UserRequest userRequest = new UserRequest();
 //
@@ -220,7 +217,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //        teamMemberResponse.setAccessType(teamMember.getAccessType());
         teamMemberResponse.setMemberName(teamMember.getMemberName());
 
-// i want getAllTeamwithTeammber API using spring boot where where all team will store as key and value as list of teammembers so data will fetch as team and list of team memeber and then second then there team memebrs
 
         System.out.println("kaushal");
 
@@ -246,7 +242,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             teamMemberResponse.setMemberMobile(teamMember.getMemberMobile());
             teamMemberResponse.setMemberMail(teamMember.getMemberMail());
             teamMemberResponse.setEnable(teamMember.isEnable());
-            teamMemberResponse.setCompanyId(teamMember.getCompanyId());
+//            teamMemberResponse.setCompanyId(teamMember.getCompanyId());
             teamMemberResponse.setTypeOfResource(teamMember.getTypeOfResource());
 //            teamMemberResponse.setAccessType(teamMember.getAccessType());
 
@@ -307,7 +303,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         if (!teamMembers.isEmpty()) {
             // Handle non-unique results, for example, you can choose the first result
             TeamMember teamMember = teamMembers.get(0);
-            Company company = companyRepository.findById(teamMember.getCompanyId()).orElse(null);
+            Company company = companyRepository.findById(teamMember.getCompany().getId()).orElse(null);
 
             if (company != null) {
                 return new TeamMemberDetailsResponse(

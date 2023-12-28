@@ -1,7 +1,7 @@
 package com.lawzoom.companyservice.model.teamMemberModel;
 
-//import com.fasterxml.jackson.annotation.JsonIgnore;
-//import com.lawzoom.companyservice.model.teamModel.Team;
+
+import com.lawzoom.companyservice.model.companyModel.Company;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -49,17 +49,26 @@ public class TeamMember {
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;
 
-	private String password;
+//	private String password;
 
-	private String role;
+//	private String role;
 
 	private Long createdById;
 
-	private Long companyId;
+	private Long subscriptionId;
+
+	private Long superAdminId;
+
+//	private Long companyId;
 
 	@ManyToOne
 	@JoinColumn(name = "reporting_manager_id")
-	private TeamMember reportingManager;
+	private TeamMember teamMember;
+
+	@ManyToOne
+	@JoinColumn(name = "company_id") // Adjust the column name as needed
+	private Company company;
+
 
 	@Column(name = "reporting_manager_name")
 	private String reportingMangerName;
@@ -69,4 +78,3 @@ public class TeamMember {
 	}
 
 }
-//write code for get Spring boot REST API for get member name , company name , access type name

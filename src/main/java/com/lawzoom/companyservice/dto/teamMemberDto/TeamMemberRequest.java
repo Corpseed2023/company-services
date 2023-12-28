@@ -1,17 +1,12 @@
 package com.lawzoom.companyservice.dto.teamMemberDto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-//import javax.persistence.Temporal;
-//import javax.persistence.TemporalType;
-//import javax.validation.constraints.NotBlank;
 
-import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
+
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 import java.util.Date;
@@ -50,9 +45,17 @@ public class TeamMemberRequest {
 
 	private boolean isEnable;
 
-	private TeamMember reportingManager;
+    private Long reportingManagerId;
 
+	private String reportingManagerName;
 
+	private Long createdById;
+
+	private Long subscriptionId;
+
+	private Long superAdminId;
+
+	private Long companyId;
 
 
 }

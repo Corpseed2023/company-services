@@ -1,15 +1,8 @@
 package com.lawzoom.companyservice.dto.teamMemberDto;
 
-//import com.lawzoom.companyservice.dto.teamDto.TeamResponse;
-//import com.lawzoom.companyservice.dto.userDto.UserResponse;
-////
-////import javax.persistence.Temporal;
-////import javax.persistence.TemporalType;
-
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import java.util.Date;
@@ -53,6 +46,10 @@ public class TeamMemberResponse {
 	private TeamMember reportingManager;
 
 	private String reportingMangerName;
+
+	private Long createdById;
+
+	private Long subscriptionId;
 
 
 
