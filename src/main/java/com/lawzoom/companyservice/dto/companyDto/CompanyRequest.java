@@ -67,7 +67,7 @@ public class CompanyRequest {
 
     private boolean isEnable;
 
-    private String businessActivity;
+    private String businessActivityName;
 
     private int permanentEmployee;
 

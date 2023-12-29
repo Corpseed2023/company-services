@@ -34,8 +34,8 @@ public class BusinessUnit {
 	private Company company;
 	
 	@NotNull
-	@Column(name = "business_activity")
-	private String businessActivity;
+	@Column(name = "business_activity_name")
+	private String businessActivityName;
 	
 	@NotNull
 	private String city;

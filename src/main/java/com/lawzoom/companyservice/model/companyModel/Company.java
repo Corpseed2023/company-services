@@ -96,10 +96,7 @@ public class Company {
 	@Column(name = "located_at")
 	private String locatedAt;
 
-	@ManyToOne
-	@JoinColumn(name = "business_activity_id") // Adjust the column name as needed
-	private BusinessActivity businessActivity;
-
+	private String businessActivityName;
 
 	@Column(name = "permanent_employee")
 	private int permanentEmployee;

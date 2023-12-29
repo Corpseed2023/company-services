@@ -147,7 +147,7 @@ public class CompanyServiceImpl implements CompanyService {
         company.setOperationUnitAddress(companyRequest.getOperationUnitAddress());
         company.setTurnover(companyRequest.getCompanyTurnover());
         company.setUserId(userId);
-
+        company.setBusinessActivityName(companyRequest.getBusinessActivityName());
 
         company = companyRepository.save(company);
 
@@ -166,7 +166,7 @@ public class CompanyServiceImpl implements CompanyService {
         businessUnit.setDateRegistration(companyRequest.getCompanyRegistrationDate());
         businessUnit.setEnable(companyRequest.isEnable());
         businessUnit.setGstNumber(companyRequest.getGstNumber());
-        businessUnit.setBusinessActivity(companyRequest.getBusinessActivity());
+        businessUnit.setBusinessActivityName(companyRequest.getBusinessActivityName());
 
 // Save BusinessUnit information
         businessUnitRepository.save(businessUnit);
@@ -207,6 +207,7 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setCompanyType(companyResponse.getCompanyType());
         companyResponse.setUserId(userId);
         companyResponse.setCompanyId(company.getId());
+        companyResponse.setBusinessActivityName(company.getBusinessActivityName());
 
 //        updateIsAssociated(userId, true);
 
@@ -492,7 +493,7 @@ public class CompanyServiceImpl implements CompanyService {
             res.put("id",c.getId());
             res.put("name",c.getCompanyName());
             res.put("businessUnit",c.getBusinessUnits()!=null?c.getBusinessUnits().stream().map(i->i.getAddress()).collect(Collectors.toSet()) : "NA");
-            res.put("businessActivity",c.getBusinessActivity());
+            res.put("businessActivityName",c.getBusinessActivityName());
 //            res.put("team",c.getTeams());
             res.put("lastUpdatedDate",c.getUpdatedAt());
             res.put("complianceCount",compCount.get(c.getId()));
@@ -563,7 +564,7 @@ public class CompanyServiceImpl implements CompanyService {
                 dto.setCompanyId(company.getId());
                 dto.setCompanyName(company.getCompanyName());
                 dto.setBusinessUnitId(businessUnit.getId());
-                dto.setBusinessUnit(businessUnit.getBusinessActivity());
+                dto.setBusinessUnit(businessUnit.getBusinessActivityName());
                 dto.setAddress(businessUnit.getAddress());
 
                 dto.setLastUpdated(businessUnit.getUpdatedAt());

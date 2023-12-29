@@ -69,7 +69,7 @@ public class CompanyResponse {
 
     private boolean isEnable;
 
-    private String businessActivity;
+    private String businessActivityName;
 
     private int permanentEmployee;
 

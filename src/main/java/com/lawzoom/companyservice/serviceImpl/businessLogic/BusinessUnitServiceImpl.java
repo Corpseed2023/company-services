@@ -61,7 +61,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
 //
                 newBusinessUnit.setAddress(businessUnitRequest.getAddress());
                 newBusinessUnit.setCompany(companyData.get()); // Set the Company association
-                newBusinessUnit.setBusinessActivity(businessUnitRequest.getBusinessActivity());
+                newBusinessUnit.setBusinessActivityName(businessUnitRequest.getBusinessActivity());
                 newBusinessUnit.setCity(businessUnitRequest.getCity());
                 newBusinessUnit.setLocatedAt(businessUnitRequest.getLocatedAt());
                 newBusinessUnit.setPermanentEmployee(businessUnitRequest.getPermanentEmployee());
@@ -83,7 +83,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
                 // Create and return a response
                 BusinessUnitResponse response = new BusinessUnitResponse();
                 response.setId(savedBusinessUnit.getId());
-                response.setBusinessActivity(savedBusinessUnit.getBusinessActivity());
+                response.setBusinessActivity(savedBusinessUnit.getBusinessActivityName());
                 response.setCity(savedBusinessUnit.getCity());
                 response.setLocatedAt(savedBusinessUnit.getLocatedAt());
                 response.setPermanentEmployee(savedBusinessUnit.getPermanentEmployee());
@@ -126,7 +126,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
         BusinessUnit existingBusinessUnit = businessUnitOptional.get();
 
         // Update the business unit data
-        existingBusinessUnit.setBusinessActivity(businessUnitRequest.getBusinessActivity());
+        existingBusinessUnit.setBusinessActivityName(businessUnitRequest.getBusinessActivity());
         existingBusinessUnit.setCity(businessUnitRequest.getCity());
         existingBusinessUnit.setLocatedAt(businessUnitRequest.getLocatedAt());
         existingBusinessUnit.setPermanentEmployee(businessUnitRequest.getPermanentEmployee());
@@ -154,7 +154,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
         // Create a response manually
         BusinessUnitResponse response = new BusinessUnitResponse();
         response.setId(savedBusinessUnit.getId());
-        response.setBusinessActivity(savedBusinessUnit.getBusinessActivity());
+        response.setBusinessActivity(savedBusinessUnit.getBusinessActivityName());
         response.setCity(savedBusinessUnit.getCity());
         response.setLocatedAt(savedBusinessUnit.getLocatedAt());
         response.setPermanentEmployee(savedBusinessUnit.getPermanentEmployee());
@@ -213,7 +213,7 @@ public class BusinessUnitServiceImpl implements BusinessUnitService {
         for (BusinessUnit businessUnit : businessUnits) {
             BusinessUnitResponse response = new BusinessUnitResponse();
             response.setId(businessUnit.getId());
-            response.setBusinessActivity(businessUnit.getBusinessActivity());
+            response.setBusinessActivity(businessUnit.getBusinessActivityName());
             response.setCity(businessUnit.getCity());
             response.setLocatedAt(businessUnit.getLocatedAt());
             response.setPermanentEmployee(businessUnit.getPermanentEmployee());

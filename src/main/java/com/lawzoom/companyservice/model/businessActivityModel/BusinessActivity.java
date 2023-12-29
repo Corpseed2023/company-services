@@ -19,8 +19,8 @@ public class BusinessActivity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "businessActivity", cascade = CascadeType.ALL)
-    private List<Company> companies;
+//    @OneToMany(mappedBy = "businessActivity", cascade = CascadeType.ALL)
+//    private List<Company> companies;
 
     private String businessActivityName;
 
