@@ -7,23 +7,17 @@ import com.lawzoom.companyservice.dto.companyDto.TotalComplianceDto;
 import com.lawzoom.companyservice.feignClient.AuthenticationFeignClient;
 import com.lawzoom.companyservice.feignClient.ComplianceMap;
 import com.lawzoom.companyservice.model.companyModel.Company;
-import com.lawzoom.companyservice.model.companyModel.CompanyType;
-import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
-//import com.lawzoom.companyservice.model.teamModel.Team;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
 import com.lawzoom.companyservice.dto.userDto.UserRequest;
 import com.lawzoom.companyservice.repository.businessRepo.BusinessUnitRepository;
 import com.lawzoom.companyservice.repository.companyRepo.CompanyRepository;
 import com.lawzoom.companyservice.repository.companyRepo.CompanyTypeRepository;
 import com.lawzoom.companyservice.repository.team.TeamMemberRepository;
-//import com.lawzoom.companyservice.repository.team.TeamRepository;
 import com.lawzoom.companyservice.services.companyService.CompanyService;
 import jakarta.ws.rs.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -42,9 +36,6 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private AuthenticationFeignClient authenticationFeignClient;
-
-//    @Autowired
-//    private TeamRepository teamRepository;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -160,6 +151,27 @@ public class CompanyServiceImpl implements CompanyService {
 
         company = companyRepository.save(company);
 
+
+
+        BusinessUnit businessUnit = new BusinessUnit();
+        businessUnit.setCompany(company);
+        businessUnit.setStates(companyRequest.getCompanyState()); // Use companyRequest instead of company
+        businessUnit.setCity(companyRequest.getCompanyCity()); // Use companyRequest instead of company
+        businessUnit.setLocatedAt(companyRequest.getLocatedAt());
+        businessUnit.setPermanentEmployee(companyRequest.getPermanentEmployee());
+        businessUnit.setContractEmployee(companyRequest.getContractEmployee());
+        businessUnit.setAddress(companyRequest.getOperationUnitAddress());
+        businessUnit.setCreatedAt(new Date());
+        businessUnit.setUpdatedAt(new Date());
+        businessUnit.setDateRegistration(companyRequest.getCompanyRegistrationDate());
+        businessUnit.setEnable(companyRequest.isEnable());
+        businessUnit.setGstNumber(companyRequest.getGstNumber());
+        businessUnit.setBusinessActivity(companyRequest.getBusinessActivity());
+
+// Save BusinessUnit information
+        businessUnitRepository.save(businessUnit);
+
+
         CompanyResponse companyResponse = new CompanyResponse();
 //        companyResponse.setCompanyId(company.getId());
         companyResponse.setFirstName(company.getFirstName());
@@ -195,23 +207,6 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setCompanyType(companyResponse.getCompanyType());
         companyResponse.setUserId(userId);
         companyResponse.setCompanyId(company.getId());
-
-        BusinessUnit businessUnit = new BusinessUnit();
-        businessUnit.setCompany(company);
-        businessUnit.setStates(companyRequest.getCompanyState()); // Use companyRequest instead of company
-        businessUnit.setCity(companyRequest.getCompanyCity()); // Use companyRequest instead of company
-        businessUnit.setLocatedAt(companyRequest.getLocatedAt());
-        businessUnit.setPermanentEmployee(companyRequest.getPermanentEmployee());
-        businessUnit.setContractEmployee(companyRequest.getContractEmployee());
-        businessUnit.setAddress(companyRequest.getCompanyAddress());
-        businessUnit.setCreatedAt(new Date());
-        businessUnit.setUpdatedAt(new Date());
-        businessUnit.setDateRegistration(companyRequest.getCompanyRegistrationDate());
-        businessUnit.setEnable(companyRequest.isEnable());
-        businessUnit.setGstNumber(companyRequest.getGstNumber());
-
-// Save BusinessUnit information
-        businessUnitRepository.save(businessUnit);
 
 //        updateIsAssociated(userId, true);
 

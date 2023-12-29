@@ -1,4 +1,4 @@
-package com.lawzoom.companyservice.dto;
+package com.lawzoom.companyservice.dto.teamMemberDto;
 
 import lombok.Data;
 import lombok.Getter;
@@ -7,7 +7,6 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-
 public class TeamMemberDetailsResponse {
 
     private String memberName;

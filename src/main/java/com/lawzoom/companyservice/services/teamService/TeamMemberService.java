@@ -1,6 +1,6 @@
 package com.lawzoom.companyservice.services.teamService;
 
-import com.lawzoom.companyservice.dto.TeamMemberDetailsResponse;
+import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberDetailsResponse;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
 //import com.lawzoom.companyservice.model.teamModel.Team;
