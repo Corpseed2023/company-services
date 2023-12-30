@@ -53,25 +53,26 @@ public class TeamMember {
 
 //	private String role;
 
-	private Long createdById;
+//	private Long createdById;
 
 	private Long subscriptionId;
 
-	private Long superAdminId;
+//	private Long superAdminId;
 
 //	private Long companyId;
 
-	@ManyToOne
-	@JoinColumn(name = "reporting_manager_id")
-	private TeamMember teamMember;
+//	@ManyToOne
+//	@JoinColumn(name = "reporting_manager_id")
+//	private TeamMember teamMember;
 
 	@ManyToOne
 	@JoinColumn(name = "company_id") // Adjust the column name as needed
 	private Company company;
 
+	private Long reportingManagerId;
 
-	@Column(name = "reporting_manager_name")
-	private String reportingMangerName;
+//	@Column(name = "reporting_manager_name")
+//	private String reportingMangerName;
 
 	public TeamMember() {
 

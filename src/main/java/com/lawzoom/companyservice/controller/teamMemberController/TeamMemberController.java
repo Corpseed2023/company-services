@@ -111,6 +111,11 @@ public class TeamMemberController {
         }
     }
 
+    @GetMapping("/getAllTeamMembersWithIdAndTeamName")
+    public ResponseEntity<List<TeamMemberResponse>> getAllTeamMembersWithIdAndTeamName(@RequestParam Long companyId) {
+        List<TeamMemberResponse> teamMembers = teamMemberService.getTeamMembersWithIdAndTeamName(companyId);
+        return new ResponseEntity<>(teamMembers, HttpStatus.OK);
+    }
 
 
 

@@ -18,6 +18,8 @@ public interface TeamMemberService {
 
     TeamMemberDetailsResponse getTeamMemberDetailsByMail(String memberMail);
 
+    List<TeamMemberResponse> getTeamMembersWithIdAndTeamName(Long companyId);
+
 //    List<Team> getTeamWithAllTeamMember(Long companyId);
 //
 //    List<Team> getAllTeam();

@@ -18,6 +18,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class TeamMemberServiceImpl implements TeamMemberService {
@@ -49,7 +50,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
         Optional<Company> companySavedData = companyRepository.findById(companyId);
 
-        Optional<TeamMember> teamMemberData = teamMemberRepository.findById(teamMemberRequest.getReportingManagerId());
+//        Optional<TeamMember> teamMemberData = teamMemberRepository.findById(teamMemberRequest.getReportingManagerId());
 
 
 
@@ -69,7 +70,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 TeamMember teamMember = new TeamMember();
 
 //
-                teamMember.setCreatedById(companyData.getUserId());
+//                teamMember.setCreatedById(companyData.getUserId());
                 teamMember.setMemberName(teamMemberRequest.getMemberName());
                 teamMember.setMemberMail(teamMemberRequest.getMemberMail());
                 teamMember.setMemberMobile(teamMemberRequest.getMemberMobile());
@@ -78,10 +79,12 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMember.setUpdatedAt(new Date());
                 teamMember.setEnable(teamMemberRequest.isEnable());
                 teamMember.setAccessTypeName(teamMemberRequest.getAccessTypeName());
-                teamMember.setCreatedById(createdById);
-                teamMember.setSuperAdminId(companySavedData.get().getUserId());
+//                teamMember.setCreatedById(createdById);
+//                teamMember.setSuperAdminId(companySavedData.get().getUserId());
                 teamMember.setCompany(companyData);
-                teamMember.setTeamMember(teamMemberData.get());
+                teamMember.setReportingManagerId(companyData.getId());
+
+//                teamMember.setTeamMember(teamMemberData.get());
 
 
                 System.out.println("Got Hit");
@@ -97,13 +100,10 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMemberResponse.setEnable(teamMember.isEnable());
                 teamMemberResponse.setMemberMobile(teamMember.getMemberMobile());
                 teamMemberResponse.setTypeOfResource(teamMember.getTypeOfResource());
-//                teamMemberResponse.setAccessTypeId(teamMember.getAccessTypeId());
                 teamMemberResponse.setAccessTypeName(teamMember.getAccessTypeName());
-//                teamMemberResponse.setAccessType(teamMember.getAccessType());
-//                teamMemberResponse.setCompanyId(teamMember.getCompany());
-                teamMemberResponse.setSuperAdminId(teamMember.getCreatedById());
-//                teamMemberResponse.setCompanyId(teamMember.getCompanyId());
-                teamMemberResponse.setSuperAdminId(teamMember.getSuperAdminId());
+//                teamMemberResponse.setSuperAdminId(teamMember.getCreatedById());
+//                teamMemberResponse.setSuperAdminId(teamMember.getSuperAdminId());
+                teamMemberResponse.setReportingManagerId(teamMember.getId());
 
                 UserRequest userRequest = new UserRequest();
 //
@@ -318,69 +318,14 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         return null;
     }
 
+    @Override
+    public List<TeamMemberResponse> getTeamMembersWithIdAndTeamName(Long companyId) {
+        return null;
+    }
+
 
 
 }
-//
-//    @Override
-//    public List<Team> getTeamWithAllTeamMember(Long companyId) {
-//        List<Team> teamList = teamRepository.findAllByCompanyId(companyId);
-//
-//            return teamList;
-//        }
-
-
-//    @Override
-//    public List<Team> getAllTeam() {
-//        return null;
-//    }
-//}
-//        System.out.println(teams+"print Team");
-//        List<TeamMemberResponse> teamResponses = new ArrayList<>();
-//
-//        for (Team team : teams) {
-//            TeamMemberResponse teamWithMembersResponse = new TeamMemberResponse();
-////            teamWithMembersResponse.setTeamName(team.getTeamName());
-//
-//            List<TeamMember> teamMembers = teamMemberRepository.findAllByTeamId(team.getId());
-//            List<TeamMemberResponse> teamMemberResponses = new ArrayList<>();
-//
-//            for (TeamMember teamMember : teamMembers) {
-//                TeamMemberResponse teamMemberResponse = new TeamMemberResponse();
-//                teamMemberResponses.add(teamMemberResponse);
-//            }
-//
-////            teamWithMembersResponse.setTeamMembers(teamMemberResponses);
-//            teamResponses.add(teamWithMembersResponse);
-//        }
-//
-//        return teamResponses;
-
-//
-//    private String generateRandomPassword() {
-//
-//        String charKey = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-//        Random rand = new Random();
-//        StringBuilder password = new StringBuilder();
-//
-//        for (int i = 0; i < 6; i++) {
-//            password.append(charKey.charAt(rand.nextInt(charKey.length())));
-//        }
-//
-//        return password.toString();
-//    }
-//
-//    private void sendPasswordEmail(String toEmail, String password) {
-//
-//        SimpleMailMessage mailMessage = new SimpleMailMessage();
-//        mailMessage.setFrom(fromEmail);
-//        mailMessage.setTo(toEmail);
-//        mailMessage.setSubject("Your Temporary Password");
-//        mailMessage.setText("Your temporary password is: " + password);
-//
-//        javaMailSender.send(mailMessage);
-//    }
-
 
 
 

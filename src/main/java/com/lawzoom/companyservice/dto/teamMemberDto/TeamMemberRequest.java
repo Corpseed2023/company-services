@@ -45,9 +45,9 @@ public class TeamMemberRequest {
 
 	private boolean isEnable;
 
-    private Long reportingManagerId;
-
-	private String reportingManagerName;
+//    private Long reportingManagerId;
+//
+//	private String reportingManagerName;
 
 	private Long createdById;
 

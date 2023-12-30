@@ -41,13 +41,13 @@ public class TeamMemberResponse {
 
 	private Long companyId;
 
-	private Long superAdminId;
+//	private Long superAdminId;
 
-	private TeamMember reportingManager;
+	private Long reportingManagerId;
 
-	private String reportingMangerName;
+//	private String reportingMangerName;
 
-	private Long createdById;
+//	private Long createdById;
 
 	private Long subscriptionId;
 
