@@ -39,18 +39,13 @@ public class TeamMemberResponse {
 
 	private boolean isEnable;
 
-	private Long companyId;
-
-//	private Long superAdminId;
-
 	private Long reportingManagerId;
-
-//	private String reportingMangerName;
-
-//	private Long createdById;
 
 	private Long subscriptionId;
 
+	private Long createdBy;
+
+	private Long superAdminId;
 
 
 }

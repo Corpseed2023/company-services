@@ -10,8 +10,8 @@ public class CompanyBusinessUnitDto {
     private Long companyId;
     private String companyName;
     private Long businessUnitId;
-    private String businessUnit;
-    private String address;
+    private String businessUnitAddress;
+    private String businessActivityName;
     private List<TotalComplianceDto> totalCompliance;
     private Date lastUpdated;
 }

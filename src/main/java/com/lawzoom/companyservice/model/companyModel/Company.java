@@ -1,14 +1,8 @@
 package com.lawzoom.companyservice.model.companyModel;
 
-import com.lawzoom.companyservice.model.businessActivityModel.BusinessActivity;
 import com.lawzoom.companyservice.model.businessUnitModel.BusinessUnit;
-import com.lawzoom.companyservice.model.region.City;
-import com.lawzoom.companyservice.model.region.States;
-//import com.lawzoom.companyservice.model.teamModel.Team;
-
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
 import jakarta.persistence.*;
-
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.Comment;
@@ -38,9 +32,9 @@ public class Company {
 	@Column(name = "last_name")
 	private String lastName;
 
-	@Column(name = "business_act_email")
+	@Column(name = "business_email_id")
 	@NotNull
-	private String businessActivityEmail;
+	private String businessEmailId;
 
 	@Column(name = "designation")
 	@NotNull
@@ -49,21 +43,9 @@ public class Company {
 	@Column(name = "company_type")
 	private String companyType;
 
-//	@ManyToOne
-//	@JoinColumn(name = "companyType_id")
-//	private CompanyType companyType;
-
 
 	@Column(name = "companyName")
 	private String companyName;
-
-//	@ManyToOne
-//	@JoinColumn(name = "state_id")
-//	private States state;
-
-//	@ManyToOne
-//	@JoinColumn(name = "city_id")
-//	private City city;
 
 	@Column(name = "state")
 	private String state;

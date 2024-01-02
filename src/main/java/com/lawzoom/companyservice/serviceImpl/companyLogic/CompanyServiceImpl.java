@@ -100,63 +100,48 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public CompanyResponse createCompany(CompanyRequest companyRequest , Long userId)
-    {
-        // checking user ID is exist or not in authentication service
+    public CompanyResponse createCompany(CompanyRequest companyRequest, Long userId) {
+        // Check if the user ID exists in the authentication service
         UserRequest userRequest = authenticationFeignClient.getUserId(userId);
 
         if (userRequest == null) {
-
             throw new NotFoundException("User not found with userId: " + userId);
         }
 
+        // Create a new Company instance and populate its attributes
         Company company = new Company();
-
         company.setFirstName(companyRequest.getFirstName());
         company.setLastName(companyRequest.getLastName());
-
-//        Optional<CompanyType> companySavedData = companyTypeRepository.
-//                findById(companyRequest.getCompanyType());
-//
-//        company.setCompanyType(companySavedData.get());
-
         company.setCompanyType(companyRequest.getCompanyType());
-
-
         company.setCinNumber(companyRequest.getCompanyCINNumber());
-        company.setBusinessActivityEmail(companyRequest.getBusinessActivityEmail());
+        company.setBusinessEmailId(companyRequest.getBusinessEmailId());
         company.setCompanyName(companyRequest.getCompanyName());
-//        company.setCity(companyRequest.getCompanyCity());
         company.setAddress(companyRequest.getCompanyAddress());
         company.setDesignation(companyRequest.getDesignation());
         company.setContractEmployee(companyRequest.getContractEmployee());
-        company.setCreatedAt (new Date());
-        company.setUpdatedAt (new Date());
+        company.setCreatedAt(new Date());
+        company.setUpdatedAt(new Date());
         company.setTurnover(companyRequest.getCompanyTurnover());
         company.setGstNumber(companyRequest.getGstNumber());
-//        company.setBusinessActivity(companyRequest.getBusinessActivity());
         company.setEnable(companyRequest.isEnable());
         company.setLocatedAt(companyRequest.getLocatedAt());
-//        company.setState(companyRequest.getCompanyState());
+        company.setBusinessActivityName(companyRequest.getBusinessActivityName());
         company.setPinCode(companyRequest.getCompanyPinCode());
         company.setPermanentEmployee(companyRequest.getPermanentEmployee());
         company.setRegistrationNumber(companyRequest.getCompanyRegistrationNumber());
         company.setRegistrationDate(companyRequest.getCompanyRegistrationDate());
-        company.setCinNumber(companyRequest.getCompanyCINNumber());
         company.setRemarks(companyRequest.getCompanyRemarks());
         company.setOperationUnitAddress(companyRequest.getOperationUnitAddress());
-        company.setTurnover(companyRequest.getCompanyTurnover());
         company.setUserId(userId);
-        company.setBusinessActivityName(companyRequest.getBusinessActivityName());
 
+        // Save the company information in the database
         company = companyRepository.save(company);
 
-
-
+        // Create a new Business Unit concurrently with the company creation process
         BusinessUnit businessUnit = new BusinessUnit();
         businessUnit.setCompany(company);
-        businessUnit.setStates(companyRequest.getCompanyState()); // Use companyRequest instead of company
-        businessUnit.setCity(companyRequest.getCompanyCity()); // Use companyRequest instead of company
+        businessUnit.setStates(companyRequest.getCompanyState());
+        businessUnit.setCity(companyRequest.getCompanyCity());
         businessUnit.setLocatedAt(companyRequest.getLocatedAt());
         businessUnit.setPermanentEmployee(companyRequest.getPermanentEmployee());
         businessUnit.setContractEmployee(companyRequest.getContractEmployee());
@@ -168,12 +153,12 @@ public class CompanyServiceImpl implements CompanyService {
         businessUnit.setGstNumber(companyRequest.getGstNumber());
         businessUnit.setBusinessActivityName(companyRequest.getBusinessActivityName());
 
-// Save BusinessUnit information
+
+        // Save BusinessUnit information in the database
         businessUnitRepository.save(businessUnit);
 
-
+        // Prepare a CompanyResponse with information saved in the database
         CompanyResponse companyResponse = new CompanyResponse();
-//        companyResponse.setCompanyId(company.getId());
         companyResponse.setFirstName(company.getFirstName());
         companyResponse.setLastName(company.getLastName());
         companyResponse.setCompanyType(company.getCompanyType());
@@ -187,16 +172,12 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setCreatedAt(company.getCreatedAt());
         companyResponse.setUpdatedAt(company.getUpdatedAt());
         companyResponse.setEnable(company.isEnable());
-//        companyResponse.setBusinessActivity(company.getBusinessActivity());
         companyResponse.setPermanentEmployee(company.getPermanentEmployee());
         companyResponse.setContractEmployee(company.getContractEmployee());
         companyResponse.setGstNumber(company.getGstNumber());
         companyResponse.setCompanyName(company.getCompanyName());
-        companyResponse.setBusinessActivityEmail(company.getBusinessActivityEmail());
+        companyResponse.setBusinessEmailId(company.getBusinessEmailId());
         companyResponse.setDesignation(company.getDesignation());
-//        companyResponse.setCompanyState(company.getState());
-//        companyResponse.setCompanyCity(company.getCity());
-
         companyResponse.setCompanyType(company.getCompanyType());
         companyResponse.setCompanyRegistrationNumber(company.getRegistrationNumber());
         companyResponse.setCompanyRegistrationDate(company.getRegistrationDate());
@@ -204,21 +185,15 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setCompanyRemarks(company.getRemarks());
         companyResponse.setUpdatedAt(company.getUpdatedAt());
         companyResponse.setOperationUnitAddress(company.getOperationUnitAddress());
-        companyResponse.setCompanyType(companyResponse.getCompanyType());
-        companyResponse.setUserId(userId);
+        companyResponse.setCompanyState(company.getState());
+        companyResponse.setCompanyCity(company.getCity());
+        companyResponse.setCompanyTurnover(companyRequest.getCompanyTurnover());
         companyResponse.setCompanyId(company.getId());
+        companyResponse.setUserId(userId);
         companyResponse.setBusinessActivityName(company.getBusinessActivityName());
-
-//        updateIsAssociated(userId, true);
-
-
 
         return companyResponse;
     }
-
-//    public void updateIsAssociated(Long userId, boolean isAssociated) {
-//        authenticationFeignClient.updateIsAssociated(userId, isAssociated);
-//    }
 
 
     @Override
@@ -235,7 +210,7 @@ public class CompanyServiceImpl implements CompanyService {
             response.setCompanyName(company.getCompanyName());
             response.setFirstName(company.getFirstName());
             response.setLastName(company.getLastName());
-            response.setBusinessActivityEmail(company.getBusinessActivityEmail());
+            response.setBusinessEmailId(company.getBusinessEmailId());
             response.setDesignation(company.getDesignation());
 //            response.setCompanyState(company.getState());
 //            response.setCompanyCity(company.getCity());
@@ -283,7 +258,7 @@ public class CompanyServiceImpl implements CompanyService {
         companyResponse.setCompanyName(company.getCompanyName());
         companyResponse.setFirstName(company.getFirstName());
         companyResponse.setLastName(company.getLastName());
-        companyResponse.setBusinessActivityEmail(company.getBusinessActivityEmail());
+        companyResponse.setBusinessEmailId(company.getBusinessEmailId());
         companyResponse.setDesignation(company.getDesignation());
 //        companyResponse.setCompanyState(company.getState());
 //        companyResponse.setCompanyCity(company.getCity());
@@ -319,7 +294,7 @@ public class CompanyServiceImpl implements CompanyService {
             companyData.setCompanyName(companyRequest.getCompanyName());
             companyData.setAddress(companyRequest.getCompanyAddress());
 //            companyData.setCompanyType(companyRequest.getCompanyType());
-            companyData.setBusinessActivityEmail(companyRequest.getBusinessActivityEmail());
+            companyData.setBusinessEmailId(companyRequest.getBusinessEmailId());
             companyData.setFirstName(companyRequest.getFirstName());
             companyData.setLastName(companyRequest.getLastName());
 //            companyData.setState(companyRequest.getCompanyState());
@@ -348,7 +323,7 @@ public class CompanyServiceImpl implements CompanyService {
             companyResponse.setCompanyName(savedData.getCompanyName());
             companyResponse.setCompanyAddress(savedData.getAddress());
             companyResponse.setCompanyType(savedData.getCompanyType());
-            companyResponse.setBusinessActivityEmail(savedData.getBusinessActivityEmail());
+            companyResponse.setBusinessEmailId(savedData.getBusinessEmailId());
             companyResponse.setFirstName(savedData.getFirstName());
             companyResponse.setLastName(savedData.getLastName());
 //            companyResponse.setCompanyState(savedData.getState());
@@ -493,7 +468,7 @@ public class CompanyServiceImpl implements CompanyService {
             res.put("id",c.getId());
             res.put("name",c.getCompanyName());
             res.put("businessUnit",c.getBusinessUnits()!=null?c.getBusinessUnits().stream().map(i->i.getAddress()).collect(Collectors.toSet()) : "NA");
-            res.put("businessActivityName",c.getBusinessActivityName());
+//            res.put("businessActivityName",c.getBusinessActivityName());
 //            res.put("team",c.getTeams());
             res.put("lastUpdatedDate",c.getUpdatedAt());
             res.put("complianceCount",compCount.get(c.getId()));
@@ -564,9 +539,8 @@ public class CompanyServiceImpl implements CompanyService {
                 dto.setCompanyId(company.getId());
                 dto.setCompanyName(company.getCompanyName());
                 dto.setBusinessUnitId(businessUnit.getId());
-                dto.setBusinessUnit(businessUnit.getBusinessActivityName());
-                dto.setAddress(businessUnit.getAddress());
-
+                dto.setBusinessActivityName(businessUnit.getBusinessActivityName());
+                dto.setBusinessUnitAddress(businessUnit.getAddress());
                 dto.setLastUpdated(businessUnit.getUpdatedAt());
 
                 List<TotalComplianceDto> totalComplianceDtos = totalCompliance.stream()

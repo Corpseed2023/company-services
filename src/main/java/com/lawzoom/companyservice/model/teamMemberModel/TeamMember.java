@@ -49,30 +49,20 @@ public class TeamMember {
 	@Comment(value = "1 : Active, 0 : Inactive")
 	private boolean isEnable;
 
-//	private String password;
-
-//	private String role;
-
-//	private Long createdById;
-
-	private Long subscriptionId;
-
-//	private Long superAdminId;
-
-//	private Long companyId;
-
-//	@ManyToOne
-//	@JoinColumn(name = "reporting_manager_id")
-//	private TeamMember teamMember;
 
 	@ManyToOne
-	@JoinColumn(name = "company_id") // Adjust the column name as needed
+	@JoinColumn(name = "company_id")
 	private Company company;
 
 	private Long reportingManagerId;
 
-//	@Column(name = "reporting_manager_name")
-//	private String reportingMangerName;
+	private Long subscriptionId;
+
+	private Long createdBy;
+
+	//super admin is who created company so that user id will save in teamMember table as superAdmin
+	private Long superAdminId;
+
 
 	public TeamMember() {
 

@@ -19,9 +19,6 @@ import java.util.Date;
 @Builder
 public class CompanyRequest {
 
-//    private Long companyId;
-
-//    private Long userId;
 
     private String companyType;
 
@@ -29,7 +26,7 @@ public class CompanyRequest {
 
     private String lastName;
 
-    private String businessActivityEmail;
+    private String businessEmailId;
 
     private String designation;
 
@@ -57,6 +54,8 @@ public class CompanyRequest {
 
     private String locatedAt;
 
+    private String businessActivityName;
+
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private Date createdAt;
@@ -67,13 +66,9 @@ public class CompanyRequest {
 
     private boolean isEnable;
 
-    private String businessActivityName;
-
     private int permanentEmployee;
 
     private int contractEmployee;
-
-//    private Team team;
 
     private String gstNumber;
 

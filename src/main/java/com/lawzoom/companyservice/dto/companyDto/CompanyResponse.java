@@ -22,10 +22,6 @@ public class CompanyResponse {
     private Long companyId;
 
     private Long userId;
-//
-//    private Long userId;
-
-//    private CompanyType companyType;
 
     private String companyType;
 
@@ -35,7 +31,7 @@ public class CompanyResponse {
 
     private String lastName;
 
-    private String businessActivityEmail;
+    private String businessEmailId;
 
     private String designation;
 
@@ -61,6 +57,8 @@ public class CompanyResponse {
 
     private String locatedAt;
 
+    private String businessActivityName;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
@@ -69,22 +67,13 @@ public class CompanyResponse {
 
     private boolean isEnable;
 
-    private String businessActivityName;
-
     private int permanentEmployee;
 
     private int contractEmployee;
-
-//    private List<GstResponse> gstResponseList;
-
-//    private int businessUnits;
 
     private String gstNumber;
 
     private String operationUnitAddress;
 
-//    private List<Team> teamsList;
-
-//    private List<BusinessUnit> businessUnits;
 
 }

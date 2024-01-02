@@ -53,8 +53,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //        Optional<TeamMember> teamMemberData = teamMemberRepository.findById(teamMemberRequest.getReportingManagerId());
 
 
-
-
         if (companySavedData.isPresent()) {
             Company companyData = companySavedData.get();
 
@@ -69,8 +67,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
                 TeamMember teamMember = new TeamMember();
 
-//
-//                teamMember.setCreatedById(companyData.getUserId());
                 teamMember.setMemberName(teamMemberRequest.getMemberName());
                 teamMember.setMemberMail(teamMemberRequest.getMemberMail());
                 teamMember.setMemberMobile(teamMemberRequest.getMemberMobile());
@@ -79,12 +75,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMember.setUpdatedAt(new Date());
                 teamMember.setEnable(teamMemberRequest.isEnable());
                 teamMember.setAccessTypeName(teamMemberRequest.getAccessTypeName());
-//                teamMember.setCreatedById(createdById);
-//                teamMember.setSuperAdminId(companySavedData.get().getUserId());
                 teamMember.setCompany(companyData);
-                teamMember.setReportingManagerId(companyData.getId());
+                teamMember.setSuperAdminId(companyData.getUserId());
+                teamMember.setReportingManagerId(companyData.getUserId());
 
-//                teamMember.setTeamMember(teamMemberData.get());
+
 
 
                 System.out.println("Got Hit");
@@ -101,8 +96,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMemberResponse.setMemberMobile(teamMember.getMemberMobile());
                 teamMemberResponse.setTypeOfResource(teamMember.getTypeOfResource());
                 teamMemberResponse.setAccessTypeName(teamMember.getAccessTypeName());
-//                teamMemberResponse.setSuperAdminId(teamMember.getCreatedById());
-//                teamMemberResponse.setSuperAdminId(teamMember.getSuperAdminId());
+
                 teamMemberResponse.setReportingManagerId(teamMember.getId());
 
                 UserRequest userRequest = new UserRequest();
@@ -123,7 +117,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 //                userRequest.setResourceType(teamMemberResponse.getTypeOfResource());
 ////                userRequest.setRoles(teamMemberResponse.getAccessType());
 //                userRequest.setCompanyId(1L);
-                userRequest.setCompanyId(teamMemberResponse.getCompanyId());
 //                System.out.println(userRequest);
 //
                 authenticationFeignClient.createTeamMemberUsers(userRequest);
@@ -143,43 +136,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
             throw new IllegalArgumentException("Company not found with ID: " + companyId);
         }
     }
-//    private void sendInvitationEmail(TeamMemberRequest teamMemberRequest) {
-//
-//
-//        // Construct email content
-//        String subject = "Invitation to Join Law Zoom Team as ";
-//        String body = "Dear Team ,\n\n"  + teamMemberRequest.getMemberName() + "\n\n"
-//                + "You have been added to our team. Your username is your email address"
-//                + "Please click on the following link to set up your account and change your password:\n"
-//                + "hyperlink" + teamMemberRequest.getMemberMail();
-//
-//        // Send email
-//        emailService.sendEmail(teamMemberRequest.getMemberMail(), subject, body);
-//    }
-//    public void sendInvitationEmail(String toEmail, String otp, String name) {
-//        MimeMessage message = javaMailSender.createMimeMessage();
-//        MimeMessageHelper helper = new MimeMessageHelper(message);
-//
-//        try {
-//            helper.setFrom(fromEmail);
-//            helper.setTo(toEmail);
-//            helper.setSubject("Law Zoom - OTP Verification");
-//
-//            Context context = new Context();
-//            context.setVariable("otp", otp);
-//            context.setVariable("name", name);
-//
-//            String emailContent = templateEngine.process("otp-email-template", context);
-//
-//            helper.setText(emailContent, true);
-//
-//        } catch (MessagingException e) {
-//            e.printStackTrace();
-//        }
-//
-//        javaMailSender.send(message);
-//    }
-//write logic for fetch all team and member data should come team1 so there all team memeber for your reference i send repsonse accordingly this write code i provicde controller ,repo now write serviceipmpl
 
     @Override
     public TeamMemberResponse updateTeamMember(Long id, TeamMemberRequest teamMemberRequest) {
@@ -192,14 +148,12 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         }
 
         TeamMember teamMember = optionalTeamMember.get();
-//        teamMember.setMemberId(teamMemberRequest.getMemberId());
-//        teamMember.setMemberRole(teamMemberRequest.getRole());
+
         teamMember.setMemberName(teamMemberRequest.getMemberName());
         teamMember.setMemberMail(teamMemberRequest.getMemberMail());
         teamMember.setMemberMobile(teamMemberRequest.getMemberMobile());
         teamMember.setCreatedAt(new Date());
         teamMember.setUpdatedAt(new Date());
-//        teamMember.setAccessType(teamMemberRequest.getAccessType());
         teamMember.setEnable(teamMemberRequest.isEnable());
         teamMember.setTypeOfResource(teamMemberRequest.getTypeOfResource());
 
