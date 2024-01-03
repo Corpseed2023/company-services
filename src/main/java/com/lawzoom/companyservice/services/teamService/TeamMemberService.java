@@ -5,6 +5,7 @@ import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
 //import com.lawzoom.companyservice.model.teamModel.Team;
 
+import java.util.HashMap;
 import java.util.List;
 
 public interface TeamMemberService {
@@ -18,9 +19,6 @@ public interface TeamMemberService {
 
     TeamMemberDetailsResponse getTeamMemberDetailsByMail(String memberMail);
 
-    List<TeamMemberResponse> getTeamMembersWithIdAndTeamName(Long companyId);
+    List<HashMap<String, Object>> getTeamMembersWithIdAndName(Long companyId);
 
-//    List<Team> getTeamWithAllTeamMember(Long companyId);
-//
-//    List<Team> getAllTeam();
 }

@@ -272,12 +272,28 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         return null;
     }
 
-    @Override
-    public List<TeamMemberResponse> getTeamMembersWithIdAndTeamName(Long companyId) {
-        return null;
+    public List<HashMap<String, Object>> getTeamMembersWithIdAndName(Long companyId) {
+        Optional<Company> companyOptional = companyRepository.findById(companyId);
+
+        if (companyOptional.isPresent()) {
+            Company company = companyOptional.get();
+
+            // Use the repository method to get team members by companyId
+            List<TeamMember> teamMembers = teamMemberRepository.findAllByCompanyId(company.getId());
+
+            // Convert TeamMember objects to HashMaps with id and memberName
+            return teamMembers.stream()
+                    .map(teamMember -> {
+                        HashMap<String, Object> map = new HashMap<>();
+                        map.put("id", teamMember.getId());
+                        map.put("memberName", teamMember.getMemberName());
+                        return map;
+                    })
+                    .collect(Collectors.toList());
+        } else {
+            throw new EntityNotFoundException("Company with ID " + companyId + " not found");
+        }
     }
-
-
 
 }
 

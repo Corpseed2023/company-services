@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -112,9 +113,9 @@ public class TeamMemberController {
     }
 
     @GetMapping("/getAllTeamMembersWithIdAndTeamName")
-    public ResponseEntity<List<TeamMemberResponse>> getAllTeamMembersWithIdAndTeamName(@RequestParam Long companyId) {
-        List<TeamMemberResponse> teamMembers = teamMemberService.getTeamMembersWithIdAndTeamName(companyId);
-        return new ResponseEntity<>(teamMembers, HttpStatus.OK);
+    public ResponseEntity<List<HashMap<String, Object>>> getAllTeamMembersWithIdAndTeamMemberName(@RequestParam Long companyId) {
+        List<HashMap<String, Object>> teamMembers = teamMemberService.getTeamMembersWithIdAndName(companyId);
+        return ResponseEntity.ok(teamMembers);
     }
 
 

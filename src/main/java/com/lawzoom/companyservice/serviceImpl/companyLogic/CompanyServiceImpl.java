@@ -97,7 +97,7 @@ public class CompanyServiceImpl implements CompanyService {
         errorResult.put("error", message);
         return errorResult;
     }
-
+//write mail to
 
     @Override
     public CompanyResponse createCompany(CompanyRequest companyRequest, Long userId) {
