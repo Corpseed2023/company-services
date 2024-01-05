@@ -63,6 +63,9 @@ public class TeamMember {
 	//super admin is who created company so that user id will save in teamMember table as superAdmin
 	private Long superAdminId;
 
+	//User ID from User Table
+	private Long userId;
+
 
 	public TeamMember() {
 

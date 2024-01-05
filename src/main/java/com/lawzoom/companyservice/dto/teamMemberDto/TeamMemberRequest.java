@@ -49,5 +49,8 @@ public class TeamMemberRequest {
 
 	private Long subscriptionId;
 
+	//User ID from User Table
+	private Long userId;
+
 
 }

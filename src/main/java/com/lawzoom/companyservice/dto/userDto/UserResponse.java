@@ -25,7 +25,6 @@ public class UserResponse {
 
 	private String resourceType;
 
-
 	private Date createdAt;
 
 	private Date updatedAt;
@@ -33,6 +32,8 @@ public class UserResponse {
 	private boolean isEnable;
 
 	private boolean isAssociated;
+
+	private Long userId;
 
 
 }

@@ -5,6 +5,7 @@ import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberDetailsResponse;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberRequest;
 import com.lawzoom.companyservice.dto.teamMemberDto.TeamMemberResponse;
 import com.lawzoom.companyservice.dto.userDto.UserRequest;
+import com.lawzoom.companyservice.dto.userDto.UserResponse;
 import com.lawzoom.companyservice.feignClient.AuthenticationFeignClient;
 import com.lawzoom.companyservice.model.companyModel.Company;
 import com.lawzoom.companyservice.model.teamMemberModel.TeamMember;
@@ -41,12 +42,40 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     private AuthenticationFeignClient authenticationFeignClient;
 
     @Override
-    public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest, Long companyId, Long createdById) {
+    public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest,
+                                               Long companyId, Long createdById) {
 
 //        UserRequest userData = authenticationFeignClient.getUserId(createdById);
 //        if (userData == null) {
 //            throw new IllegalArgumentException("User not found with ID: " + createdById);
 //        }
+
+        String randomPassword = passwordController.generateRandomPassword();
+
+        UserRequest userRequest = new UserRequest();
+//
+        userRequest.setFirstName(teamMemberRequest.getMemberName());
+        userRequest.setEmail(teamMemberRequest.getMemberMail());
+        userRequest.setSubscribed(false);
+        userRequest.setPassword(randomPassword);
+
+
+
+////                AccessType r = new AccessType();
+////                r.setId(teamMemberResponse.getAccessTypeId());
+////                r.setAccessTypeName(teamMemberResponse.getAccessType());
+////                Set<AccessType> s = new HashSet<>();
+////                s.add(r);
+////                userRequest.setRoles(s);
+////                userRequest.setDesignation(teamMemberResponse.get);
+//                userRequest.setResourceType(teamMemberResponse.getTypeOfResource());
+////                userRequest.setRoles(teamMemberResponse.getAccessType());
+//                userRequest.setCompanyId(1L);
+//                System.out.println(userRequest);
+//
+        UserResponse userResponseSavedData= authenticationFeignClient.createTeamMemberUsers(userRequest);
+////                sendInvitationEmail(teamMemberRequest);
+
 
         Optional<Company> companySavedData = companyRepository.findById(companyId);
 
@@ -63,7 +92,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                     throw new NullPointerException("Please Enter Team Member Data");
                 }
 
-                String randomPassword = passwordController.generateRandomPassword();
 
                 TeamMember teamMember = new TeamMember();
 
@@ -78,6 +106,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMember.setCompany(companyData);
                 teamMember.setSuperAdminId(companyData.getUserId());
                 teamMember.setReportingManagerId(companyData.getUserId());
+                teamMember.setUserId(userResponseSavedData.getUserId());
 
 
 
@@ -98,29 +127,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                 teamMemberResponse.setAccessTypeName(teamMember.getAccessTypeName());
 
                 teamMemberResponse.setReportingManagerId(teamMember.getId());
+                teamMemberResponse.setUserId(teamMember.getUserId());
 
-                UserRequest userRequest = new UserRequest();
-//
-                userRequest.setFirstName(teamMemberResponse.getMemberName());
-                userRequest.setEmail(teamMemberResponse.getMemberMail());
-                userRequest.setSubscribed(false);
-
-
-////                AccessType r = new AccessType();
-////                r.setId(teamMemberResponse.getAccessTypeId());
-////                r.setAccessTypeName(teamMemberResponse.getAccessType());
-////                Set<AccessType> s = new HashSet<>();
-////                s.add(r);
-////                userRequest.setRoles(s);
-                userRequest.setPassword(randomPassword);
-////                userRequest.setDesignation(teamMemberResponse.get);
-//                userRequest.setResourceType(teamMemberResponse.getTypeOfResource());
-////                userRequest.setRoles(teamMemberResponse.getAccessType());
-//                userRequest.setCompanyId(1L);
-//                System.out.println(userRequest);
-//
-                authenticationFeignClient.createTeamMemberUsers(userRequest);
-////                sendInvitationEmail(teamMemberRequest);
 
 
                 System.out.println("Got Wokring Authentication Hit");

@@ -47,5 +47,8 @@ public class TeamMemberResponse {
 
 	private Long superAdminId;
 
+	//User ID from User Table
+	private Long userId;
+
 
 }

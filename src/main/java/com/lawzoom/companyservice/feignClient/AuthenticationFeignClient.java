@@ -1,6 +1,8 @@
 package com.lawzoom.companyservice.feignClient;
 
 import com.lawzoom.companyservice.dto.userDto.UserRequest;
+import com.lawzoom.companyservice.dto.userDto.UserResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface AuthenticationFeignClient {
 
     @PostMapping("/api/auth/user/createTeamMember")
-    void createTeamMemberUsers(@RequestBody UserRequest userRequest);
+    UserResponse createTeamMemberUsers(@RequestBody UserRequest userRequest);
 
 //    @PutMapping("/api/auth/user/updateIsAssociated")
 //    void updateIsAssociated(@RequestParam Long userId, @RequestParam boolean isAssociated);
