@@ -18,7 +18,7 @@ public class CompanyServiceApplication {
 
 //		try {
 //			InetAddress networkIP = findNetworkIP();
-//			System.out.println("Network IP Address: " + networkIP.getHostAddress());
+//			System.out.println("Network IP Address: " + networkIP.getHos tAddress());
 //		} catch (SocketException e) {
 //			e.printStackTrace();
 //		}

@@ -34,52 +34,30 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     private CompanyRepository companyRepository;
 
     @Autowired
-    private EmailService emailService;
-
-    private JavaMailSender javaMailSender;
-
-    @Autowired
     private AuthenticationFeignClient authenticationFeignClient;
 
     @Override
     public TeamMemberResponse createTeamMember(TeamMemberRequest teamMemberRequest,
                                                Long companyId, Long createdById) {
 
-//        UserRequest userData = authenticationFeignClient.getUserId(createdById);
-//        if (userData == null) {
-//            throw new IllegalArgumentException("User not found with ID: " + createdById);
-//        }
+        UserRequest userData = authenticationFeignClient.getUserId(createdById);
+        if (userData == null) {
+            throw new IllegalArgumentException("User not found with ID: " + createdById);
+        }
 
         String randomPassword = passwordController.generateRandomPassword();
 
         UserRequest userRequest = new UserRequest();
-//
+
         userRequest.setFirstName(teamMemberRequest.getMemberName());
         userRequest.setEmail(teamMemberRequest.getMemberMail());
         userRequest.setSubscribed(false);
         userRequest.setPassword(randomPassword);
 
-
-
-////                AccessType r = new AccessType();
-////                r.setId(teamMemberResponse.getAccessTypeId());
-////                r.setAccessTypeName(teamMemberResponse.getAccessType());
-////                Set<AccessType> s = new HashSet<>();
-////                s.add(r);
-////                userRequest.setRoles(s);
-////                userRequest.setDesignation(teamMemberResponse.get);
-//                userRequest.setResourceType(teamMemberResponse.getTypeOfResource());
-////                userRequest.setRoles(teamMemberResponse.getAccessType());
-//                userRequest.setCompanyId(1L);
-//                System.out.println(userRequest);
-//
         UserResponse userResponseSavedData= authenticationFeignClient.createTeamMemberUsers(userRequest);
-////                sendInvitationEmail(teamMemberRequest);
-
 
         Optional<Company> companySavedData = companyRepository.findById(companyId);
 
-//        Optional<TeamMember> teamMemberData = teamMemberRepository.findById(teamMemberRequest.getReportingManagerId());
 
 
         if (companySavedData.isPresent()) {
