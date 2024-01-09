@@ -9,14 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.lawzoom.companyservice.dto.companyDto.CompanyRequest;
-
 import java.util.List;
-import java.util.Map;
 
 
 @CrossOrigin
 @RestController
-//@RequestMapping("/companyServices/company")
 @RequestMapping("/companyServices/company")
 
 public class CompanyController {
@@ -149,6 +146,7 @@ public class CompanyController {
 //    public Map<String, Object> getCompanyByMemberMail(@RequestParam String memberMail) {
 //        return companyService.getCompanyByMemberMail(memberMail);
 //    }
+
 
 
 }

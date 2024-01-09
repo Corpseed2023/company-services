@@ -241,7 +241,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         List<TeamMember> teamMembers = teamMemberRepository.findByMemberMail(memberMail);
 
         if (!teamMembers.isEmpty()) {
-            // Handle non-unique results, for example, you can choose the first result
             TeamMember teamMember = teamMembers.get(0);
             Company company = companyRepository.findById(teamMember.getCompany().getId()).orElse(null);
 
@@ -250,8 +249,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                         teamMember.getMemberName(),
                         company.getCompanyName(),
                         teamMember.getAccessTypeName(),
-                        company.getId()
-                        // Initialize other fields as needed
+                        company.getId(),teamMember.getUserId()
                 );
             }
         }
@@ -273,6 +271,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
                         HashMap<String, Object> map = new HashMap<>();
                         map.put("id", teamMember.getId());
                         map.put("memberName", teamMember.getMemberName());
+                        //user id which store in  user table
+                        map.put("userId",teamMember.getUserId());
                         return map;
                     })
                     .collect(Collectors.toList());
